@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
+#    By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/02/14 00:51:13 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/02/16 00:27:45 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,23 +45,69 @@ INDI	=	\033[38;5;99m
 LIME 	=	\033[38;5;47m
 RESET	=	\033[00m
 ANIMATED=	\033[93;1;5m
+PINK1	=	\033[0;38;5;176m
+PINK2   =   \033[0;38;5;177m
+PINK3   =   \033[0;38;5;178m
+PINK4   =   \033[0;38;5;179m
+PINK5   =   \033[0;38;5;180m
+PINK6   =   \033[0;38;5;181m
+PINK7   =   \033[0;38;5;182m
+PINK8   =   \033[0;38;5;183m
+PINK9   =   \033[0;38;5;184m
+PINK10  =   \033[0;38;5;185m
+GRAY	=	\033[0;38;5;188m
 
 # **************************************************************************** #
 #                                   PRINTS                                     #
 # **************************************************************************** #
-PRINT_1  =   @printf "\n\n			$(RED)mishell is ready to run !$(RESET)  \n\n"
-PRINT_2  =	 @printf "\n\n		   	  (PURPLE)bonus are ready to run !$(RESET)  \n\n"
-PRINT_3	 =   @printf "\n\n			   $(INDI)minishell is cleaned !$(RESET)  \n\n"
-PRINT_4  =   @printf "$(LBLUE)[$(RESET)$(PROJ_CMP_MINISHELL)$(LBLUE)] $(RESET)Compilation in progress... $(GREEN)$<$(BLUE) [$(RESET)$(PROJ_CMP_MINISHELL)$(BLUE)/$(RESET)$(FILE_MINISHELL)$(BLUE)]$(RESET)                        \r"
+
+PRINT_1  =   @printf "\n\n $(PINK1)⠀   ⠀⠀⠄⠠⠤⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠠⢀⣢⣈⣉⠁⡆⠀⠀⠀⠀⠀⠀\n\
+⠀   ⠀⠀⡏⢠⣾⢷⢶⣄⣕⠢⢄⠀⠀⣀⣠⠤⠔⠒⠒⠒⠒⠒⠒⠢⠤⠄⣀⠤⢊⣤⣶⣿⡿⣿⢹⢀⡇⠀⠀⠀⠀⠀⠀\n\
+⠀   ⠀⠀⢻⠈⣿⢫⡞⠛⡟⣷⣦⡝⠋⠉$(LBLUE)⣤⣤⣶⣶⣶⣿⣿⣿⡗⢲⣴$(PINK1)⠀⠈⠑⣿⡟⡏⠀⢱⣮⡏⢨⠃⠀⠀⠀⠀⠀⠀\n\
+⠀⠀   ⠀⠸⡅⣹⣿⠀⠀⢩⡽⠋$(LBLUE)⣠⣤⣿⣿⣏⣛⡻⠿⣿⢟⣹⣴⢿⣹⣿⡟⢦⣀$(PINK1)⠙⢷⣤⣼⣾⢁⡾⠀⠀⠀⠀⠀⠀⠀\n\
+⠀⠀   ⠀⠀⢻⡀⢳⣟⣶⠯$(LBLUE)⢀⡾⢍⠻⣿⣿⣽⣿⣽⡻⣧⣟⢾⣹⡯⢷⡿⠁⠀⢻⣦$(PINK1)⡈⢿⡟⠁⡼⠁⠀⠀⠀⠀⠀⠀⠀\n\
+⠀   ⠀⠀⠀⠀⢷⠠⢻⠏$(LBLUE)⢰⣯⡞⡌⣵⠣⠘⡉⢈⠓⡿⠳⣯⠋⠁⠀⠀⢳⡀⣰⣿⣿⣷$(PINK1)⡈⢣⡾⠁⠀⠀⠀⠀⠀⠀⠀⠀\n\
+⠀⠀   ⠀⠀⠀⠀⠙⣎⠀$(LBLUE)⣿⣿⣷⣾⣷⣼⣵⣆⠂⡐⢀⣴⣌⠀⣀⣤⣾⣿⣿⣿⣿⣿⣿⣷⣀$(PINK1)⠣⠀⠀ ⠀⠀⠀⠀⠀⠀\n\
+⠀   ⠀⠀⠀⠀⠀⠄⠑$(LBLUE)⢺⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣳⣿⢽⣧$(PINK1)⡤⢤⠀⠀ ⠀⠀⠀⠀⠀⠀\n\
+⠀   ⠀⠀⠀⠀⠀⢸⣈$(LBLUE)⢹⣟⣿⣿⣿⣿⣿⣻⢹⣿⣻⢿⣿⢿⣽⣳⣯⣿⢷⣿⡷⣟⣯⣻⣽$(PINK1)⠧⠾⢤⠀ ⠀⠀⠀⠀⠀⠀\n\
+⠀⠀⠀   ⠀⠀⠀⢇⠤$(LBLUE)⢾⣟⡾⣽⣿⣽⣻⡗⢹⡿⢿⣻⠸⢿⢯⡟⡿⡽⣻⣯⣿⣎⢷⣣⡿$(PINK1)⢾⢕⣎⠀ ⠀⠀⠀⠀⠀⠀\n\
+⠀⠀   ⠀⠀⡠⡞⡟$(LBLUE)⣻⣮⣍⡛⢿⣽⣻⡀⠁⣟⣣⠿⡠⣿⢏⡞⠧⠽⢵⣳⣿⣺⣿⢿⡋$(PINK1)⠙⡀⠇⠱⡓   ⠀⠀⠀\n\
+⠀⠀⠀   ⠀⢰⠠⠁⠀⢻$(LBLUE)⡿⣛⣽⣿⢟$(RESET)⡁⣭⣥⣅$(PINK1)⠀⠀⠀⠀⠀⠀$(RESET)⣶⣟⣧$(LBLUE)⠿⢿⣿⣯⣿⣿⣿$(PINK1)⡇⠀⢀⡇⠀⠀⠀⠀⠀⠀\n\
+⠀⠀   ⠀⠀⢸⠀⠀⡇⢹$(LBLUE)⣾⣿⣿⣷⡿$(RESET)⢿$(RED)⢷$(RESET)⡏⡈⠀⠀⠀⠀⠀⠀$(RESET)⠈⡹$(RED)⡷$(RESET)⡎$(LBLUE)⢸⣿⣿⣿⣿⣿$(PINK1)⡇⠀⠸⡇⠀⠀⠀⠀⠀⠀\n\
+⠀   ⠀⠀⠀⢸⡄⠂⠖⢸$(LBLUE)⣿⣿⣿⡏⢃$(RESET)⠘⡊⠩⠁⠀$(PINK1)⠀⠀⠀⠀⠀$(RESET)⠀⠁⠀⠁$(LBLUE)⢹⣿⣿⣿⣿$(PINK1)⢰⢁⡌⢀⠇⠀⠀⠀⠀⠀⠀\n\
+⠀   ⠀⠀⠀⠀⢷⡘⠜$(LBLUE)⣤⣿⣿⣿⣷⡅⠐⠀⠀⠀⠀ ⠀   ⠀⠀⠀⠀⠀⢸⣿⣿⣧⣕⣼⣠⡵⠋⠀⠀⠀⠀⠀⠀⠀\n\
+⠀⠀   ⠀⠀⠀⣸⣻⣿⣾⣿⣿⣿⣿⣾⡄⠀⠀⠀⠀⠀$(PINK1)⢀⣀⠀⠀⠀⠀⠀$(LBLUE)⣠⣿⣿⣿⣿⣿⣿⣿⢀⠀⠀⠀⠀⠀⠀⠀⠀\n\
+⠀⠀   ⠀⠀⠀⡇⣿⣻⣿⣿⣿⣿⣿⣿⣿⣦⣤⣀⠀⠀⠀⠀⠀⠀⣠⣴⣾⣿⣿⣿⣿⣿⣿⣳⣿⡸⡀⠀⠀⠀⠀⠀⠀⠀\n\
+⠀⠀   ⠀⠀⣸⢡⣿⢿⣿⣿⣿⣿⣿⣿⣿⢿⣿$(RESET)⡟⣽⠉⠀⠒⠂⠉⣯⢹$(LBLUE)⣿⡿⣿⣿⣿⣿⣿⣯⣿⡇⠇⠀⠀⠀⠀⠀⠀⠀\n\
+⠀⠀   ⠀⢰⡏⣼⡿⣿⣻⣿⣿⣿⣿⣿⢿⣻$(RESET)⡿⠁⠘⡆⠀⠀⠀⢠⠇⠘⣿$(LBLUE)⣿⣽⣿⣿⣿⣿⣯⣿⣷⣸⠀⠀⠀⠀⠀⠀⠀\n\
+⠀   ⠀⢀⡟⢰⣾⢿⣿⣟⣿⣿⣿⣿⣿⡟$(RESET)⣿⣧⠀⠀⠈⠣⡄⡰⠋⠀⢀⢾⣿$(LBLUE)⡛⣿⣿⣿⣿⣿⣿⣿⣷⡆⠀⠀⠀⠀⠀⠀\n\
+⠀   ⠀⢸⢁⢦⣿⣻⣿⢿⣻⡽⣾⢿⡿$(RESET)⢷⣽⣻⠃⠂⠴⣎⠘⠦⡸⠠⠄⢻⣟⣿$(LBLUE)⠻⣿⣻⢷⣯⢿⣿⣽⣷⡀⠀⠀⠀⠀⠀\n\
+⠀   ⠀⡇⠎⣼⡷⣿⣟⣿⣯⢿⣽⣞⡇$(RESET)⣸⣷⡇⠰⠗⠐⣺⣀⣼⠒⠒⠦⠰⣿⣯⠇$(LBLUE)⢳⣯⣿⣞⣿⢾⣿⢿⢳⡄⠀⠀⠀⠀\n\
+⠀ ⠀⠀⢸⡿⢠⣿⣻⣿⢿⣼⣿⣿⣿⣼$(RESET)⣄⡻⢼⣧⠀⣀⣼⠟⣻⡟⢧⣤⣄⢠⣿⡃$(LBLUE)⢼⣿⢧⣿⣿⡿⣟⣿⣿⡄⢻⡀⠀⠀⠀\n\
+⠀ ⠀⠀⣼⠀⣾⡷⣿⣿⣿⢾⣿⣿⢾⠗$(RESET)⣛⡥⣾⠟⣞⠉⢀⣠⠙⢰⣀⡈⢙⡟⣿⣽⣲⢭$(LBLUE)⢛⣿⣿⣻⣽⣾⣷⣷⡀⠱⡀⠀⠀\n\
+⠀ ⠀⢠⢛⣰⣿⣟⣿⣿⣿⣿⣿⢯⣿⣧$(RESET)⢹⣽⣻⢾⣮⣷⣠⠗⢪⠐⢧⣼⣷⣶⣾⢷⣯⠏$(LBLUE)⣼⣿⣻⣯⣿⣿⣿⣯⣷⡄⢣⠀⠀\n\
+⠀ ⠀⡌⡆⣿⣿⣿⣿⣽⣿⣿⣿⣿⣿⣿⣦$(RESET)⡹⣿⣟⣾⣳⣿⣧⣼⣴⣝⣛⢾⣷⣯⣿⢊$(LBLUE)⣼⣿⣿⣿⣿⣿⣿⣿⣿⡿⣷⠈⡇⠀\n\
+⠀ ⠀⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣍$(RESET)⡻⣿⣿⣿⣿⡄⣷⣯⣟⣿⡿⠏$(LBLUE)⣡⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠐⠀\n\n\n\n\n\
+		$(PINK10)███    ███ ██ ███████ ██   ██ ███████ ██      ██        \n\
+		$(PINK9)████  ████ ██ ██      ██   ██ ██      ██      ██        \n\
+		$(PINK8)██ ████ ██ ██ ███████ ███████ █████   ██      ██        \n\
+		$(PINK7)██  ██  ██ ██      ██ ██   ██ ██      ██      ██        \n\
+		$(PINK6)██      ██ ██ ███████ ██   ██ ███████ ███████ ███████   \n\n\
+		$(PINK5)██ ███████     ██████  ███████  █████  ██████  ██    ██ \n\
+		$(PINK4)██ ██          ██   ██ ██      ██   ██ ██   ██  ██  ██  \n\
+		$(PINK3)██ ███████     ██████  █████   ███████ ██   ██   ████   \n\
+		$(PINK2)██      ██     ██   ██ ██      ██   ██ ██   ██    ██    \n\
+		$(PINK1)██ ███████     ██   ██ ███████ ██   ██ ██████     ██    \n$(RESET)  \n\n"
+PRINT_2	 =   @printf "\n\n			   $(INDI)mishell is cleaned !$(RESET)  \n\n"
+PRINT_3  =   @printf "$(LBLUE)[$(RESET)$(PROJ_CMP_MINISHELL)$(LBLUE)] $(RESET)Compilation in progress... $(GREEN)$<$(BLUE) [$(RESET)$(PROJ_CMP_MINISHELL)$(BLUE)/$(RESET)$(FILE_MINISHELL)$(BLUE)]$(RESET)                        \r"
 
 # **************************************************************************** #
 # 								   SOURCES									   #
 # **************************************************************************** #
 
 #SOURCES
-SRCS	= 	main.c \
-				maincopy.c
-
+SRCS	= 	srcs/main.c \
+				srcs/get_input.c \
 # OBJECTS
 
 OBJS_DIR	:=	.objs
@@ -72,11 +118,12 @@ all: $(NAME)
 $(OBJS_DIR)/%.o: %.c
 	$(MK) $(@D)
 	$(CC) $(CFLAGS) -c $< -o  $@
-	$(PRINT_4)
+	$(PRINT_3)
 	@$(eval PROJ_CMP_MINISHELL=$(shell echo $$(($(PROJ_CMP_MINISHELL)+1))))
 
 $(NAME): $(LIBFT_NAME) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_NAME) -o $(NAME) 
+	@clear
 	$(PRINT_1)
 
 $(LIBFT_NAME):
@@ -85,7 +132,7 @@ $(LIBFT_NAME):
 clean:
 		@make clean -C $(LIBFT_PATH)
 		$(RM) $(OBJS_DIR)
-		$(PRINT_3)
+		$(PRINT_2)
 
 fclean: clean
 		@make fclean -C $(LIBFT_PATH)
