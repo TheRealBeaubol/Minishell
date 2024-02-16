@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/16 00:21:36 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/16 17:49:16 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 /* ********************* */
 /*	     get_input.c	 */
 /* ********************* */
+int		is_skip(t_ms *ms);
+void	check_input(t_ms *ms);
 void	get_input(t_ms *ms);
+
+/* ********************* */
+/*		  error.c		 */
+/* ********************* */
+void	free_and_exit(t_ms *ms);
 
 #endif

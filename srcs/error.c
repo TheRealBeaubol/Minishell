@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   define.h                                           :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/15 23:13:45 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/16 23:15:53 by lboiteux         ###   ########.fr       */
+/*   Created: 2024/02/16 16:56:26 by lboiteux          #+#    #+#             */
+/*   Updated: 2024/02/16 17:06:44 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINE_H
-# define DEFINE_H
+#include "../includes/header.h"
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "../libft/src/libft.h"
-# include <math.h>
-# include <fcntl.h>
-
-#endif
+void	free_and_exit(t_ms *ms)
+{
+	free(ms->input);
+	exit(EXIT_FAILURE);
+}

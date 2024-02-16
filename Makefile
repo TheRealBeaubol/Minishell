@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/02/16 00:27:45 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/02/16 23:13:26 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,6 +108,8 @@ PRINT_3  =   @printf "$(LBLUE)[$(RESET)$(PROJ_CMP_MINISHELL)$(LBLUE)] $(RESET)Co
 #SOURCES
 SRCS	= 	srcs/main.c \
 				srcs/get_input.c \
+				srcs/error.c \
+				srcs/parse_utils.c \
 # OBJECTS
 
 OBJS_DIR	:=	.objs
@@ -122,7 +124,7 @@ $(OBJS_DIR)/%.o: %.c
 	@$(eval PROJ_CMP_MINISHELL=$(shell echo $$(($(PROJ_CMP_MINISHELL)+1))))
 
 $(NAME): $(LIBFT_NAME) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_NAME) -o $(NAME) 
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_NAME) -lreadline -o $(NAME) 
 	@clear
 	$(PRINT_1)
 
