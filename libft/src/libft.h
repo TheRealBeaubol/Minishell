@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:46:19 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/01 18:11:46 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/17 02:12:48 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 typedef struct s_list
 {
-	void			*content;
+	char			*content;
 	struct s_list	*next;
 }	t_list;
 

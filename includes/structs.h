@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:15:46 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/16 16:24:17 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/17 02:13:12 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_ms
 	char	**av;
 	char	**env;
 	char	*input;
+	t_list	*lst;
 }	t_ms;
 
 #endif

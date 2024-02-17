@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/02/16 23:13:26 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/02/17 01:16:57 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -110,6 +110,7 @@ SRCS	= 	srcs/main.c \
 				srcs/get_input.c \
 				srcs/error.c \
 				srcs/parse_utils.c \
+				srcs/parse.c \
 # OBJECTS
 
 OBJS_DIR	:=	.objs

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/16 23:03:50 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/17 02:21:07 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	get_input(t_ms *ms)
 	{
 		ms->input = readline("Coucou c'est mishell >");
 		check_input(ms);
+		parse(ms);
 		free(ms->input);
 	}
 }
