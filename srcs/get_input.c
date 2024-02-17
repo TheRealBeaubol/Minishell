@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/17 02:21:07 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:13:38 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	check_input(t_ms *ms)
 
 void	get_input(t_ms *ms)
 {
+	ms->lst = ft_lstnew(NULL);
 	while (1)
 	{
 		ms->input = readline("Coucou c'est mishell >");
