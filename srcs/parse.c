@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:10:05 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/17 02:20:16 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:15:37 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,26 @@ void	parse_quote(t_ms *ms, size_t *i)
 	size_t	j;
 
 	j = *i + 1;
-	while (ms->input[*++i] != '"')
+	while (ms->input[++(*i)] != '"')
 		;
-	ft_printf("%d %c\n", *i, ms->input[*i]);
 	if (*i == ft_strlen(ms->input))
 		free_and_exit(ms);
-	ms->lst->content = str_split_strdup(ms->input, j, *i);
+	ft_printf("%s\n", str_split_strdup(ms->input, j, *i));
+	ft_lstadd_back(&ms->lst, ft_lstnew(str_split_strdup(ms->input, j, *i)));
 }
+void	print_list(t_list *lst)
+{
+	t_list	*current;
+	t_list	*next;
 
+	current = lst;
+	while (current)
+	{
+		next = current->next;
+		ft_printf("%s\n", lst->content);
+		current = next;
+	}
+}
 void	parse(t_ms *ms)
 {
 	size_t	i;
@@ -54,7 +66,10 @@ void	parse(t_ms *ms)
 	while (ms->input[++i] != '\0')
 	{
 		if (ms->input[i] == '"')
+		{
 			parse_quote(ms, &i);
-		ft_printf("%s\n", ms->lst->content);
+			print_list(ms->lst);
+		}
 	}
+	
 }
