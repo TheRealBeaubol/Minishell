@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/17 16:03:24 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/02/17 17:15:31 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void	free_and_exit(t_ms *ms);
 /* ********************* */
 /*		  parse.c		 */
 /* ********************* */
-void		parse(t_ms *ms);
+void	parse(t_ms *ms);
+void	print_list(t_list *lst);
+void	parse_char(t_ms *ms, size_t *i, char c);
 
 /* ******************** */
 /*     parse_utils.c    */

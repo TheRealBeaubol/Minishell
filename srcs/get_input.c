@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/17 16:25:35 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/17 17:26:33 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ void	check_input(t_ms *ms)
 
 void	get_input(t_ms *ms)
 {
-	ms->lst = ft_lstnew(NULL);
 	while (1)
 	{
+		ms->lst = ft_lstnew(NULL);
 		ms->input = readline("Coucou c'est mishell >");
 		check_input(ms);
 		parse(ms);
+		print_list(ms->lst);
 		free(ms->input);
+		ft_free_list(&ms->lst);
 	}
 }
