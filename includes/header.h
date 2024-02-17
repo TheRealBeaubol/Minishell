@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/17 02:18:08 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:03:24 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,10 @@ void	free_and_exit(t_ms *ms);
 /*		  parse.c		 */
 /* ********************* */
 void		parse(t_ms *ms);
+
+/* ******************** */
+/*     parse_utils.c    */
+/* ******************** */ 
+char	**grep(char **env);
+
 #endif

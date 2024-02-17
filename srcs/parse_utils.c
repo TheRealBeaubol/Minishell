@@ -6,11 +6,27 @@
 /*   By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 23:12:05 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/16 23:12:49 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:16:26 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
+
+char	*get_path(char *input, char **env)
+{
+	char	**all_path;
+	char	*path;
+	int		i;
+	char	*commande;
+
+	all_path = grep(env);
+	commande = ft_strjoin("/", input);
+	i = 0;
+	while (all_path[i] && access(ft_strjoin(all_path[i], commande), X_OK) == -1)
+		i++;
+	path = ft_strjoin(all_path[i], commande);
+	return (path);
+}
 
 char	**grep(char **env)
 {
