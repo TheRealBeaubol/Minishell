@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/17 17:15:31 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/18 19:02:21 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void	free_and_exit(t_ms *ms);
 /* ********************* */
 void	parse(t_ms *ms);
 void	print_list(t_list *lst);
-void	parse_char(t_ms *ms, size_t *i, char c);
+int 	parse_char(t_ms *ms, int i, char c);
 
 /* ******************** */
 /*     parse_utils.c    */
-/* ******************** */ 
+/* ******************** */
 char	**grep(char **env);
 
 #endif
