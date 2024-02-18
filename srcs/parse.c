@@ -5,14 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 01:10:05 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/18 19:07:45 by lboiteux         ###   ########.fr       */
+/*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
+/*   Updated: 2024/02/19 00:43:24 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
-
-// "" '' > >> < << | $		 && ||
 
 static char	*str_split_strdup(char *src, int start, int end)
 {
@@ -35,35 +33,6 @@ static char	*str_split_strdup(char *src, int start, int end)
 	return (dest);
 }
 
-int	parse_char(t_ms *ms, int i, char c)
-{
-	size_t	j;
-
-	i += 1;
-	j = i;
-	if (c == ' ')
-	{
-		while (ms->input[i] != ' ' && ms->input[i] != '\0')
-		{
-			ft_printf("Test 2 : [%c]\n", ms->input[i]);
-			i++;
-		}
-		ft_printf("Test 3 : [%c]\n", ms->input[i]);
-		ft_lstadd_back(&ms->lst, ft_lstnew(str_split_strdup(ms->input, j, i)));
-	}
-	if (c == '"' || c == '\'')
-	{
-		while (ms->input[i] != c && ms->input[i] != '\0')
-		{
-			i++;
-			ft_printf("Test 4 : [%c]\n", ms->input[i]);
-		}
-		ft_lstadd_back(&ms->lst, ft_lstnew(str_split_strdup(ms->input, j, i)));
-		ft_printf("Test 5 : [%c]\n", ms->input[i]);
-	}
-	ft_printf("Test 6 : [%c]\n", ms->input[i]);
-	return (i);
-}
 
 void	print_list(t_list *lst)
 {
@@ -80,21 +49,45 @@ void	print_list(t_list *lst)
 	}
 }
 
+int	parse_quote(t_ms *ms, int i, char c)
+{
+	i += 1;
+	if (ms->input[i] == '\0')
+		free_and_exit(ms);
+	while (ms->input[i] != c)
+	{
+		if (ms->input[i] == '\0')
+		{
+			ft_putstr_fd("Parsing error\n", 2);
+			free_and_exit(ms);
+		}
+		i++;
+	}
+	i += 1;
+	return (i);
+}
+
 void	parse(t_ms *ms)
 {
-	size_t	i;
+	int		i;
+	int		old_i;
 
 	i = 0;
-	while (ms->input[i] != ' ' && ms->input[i] != '\0')
-		i++;
-	ms->lst = ft_lstnew(str_split_strdup(ms->input, 0, i));
-	ft_printf("%s\n", ms->lst->content);
 	while (ms->input[i] != '\0')
 	{
-		ft_printf("Test 1 : [%c]\n", ms->input[i]);
-		if (ms->input[i] == ' ' && (ms->input[i + 1] != '"' && ms->input[i + 1] != '\''))
-			i = parse_char(ms, i , ms->input[i]);
-		else if (ms->input[i] == ' ' && (ms->input[i + 1] == '"' || ms->input[i + 1] == '\''))
-			i = parse_char(ms, i, ms->input[i]);
+		while ((9 <= ms->input[i] && ms->input[i] <= 13) || ms->input[i] == 32)
+			i++;
+		old_i = i;
+		while (ms->input[i] != ' ' && ms->input[i] != '\0')
+		{
+			if (ms->input[i] == '"' || ms->input[i] == '\'')
+				i = parse_quote(ms, i, ms->input[i]);
+			else
+				i++;
+		}
+		if (ms->lst == NULL)
+			ms->lst = ft_lstnew(str_split_strdup(ms->input, old_i, i));
+		else
+			ft_lstadd_back(&ms->lst, ft_lstnew(str_split_strdup(ms->input, old_i, i)));
 	}
 }
