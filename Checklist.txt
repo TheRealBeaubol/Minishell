@@ -36,3 +36,31 @@ Bonus part :
 
 ❌ Valgrind
 ❌ Norminette
+
+==============================================================
+Pattern :
+-----------
+Last Work login dd/mm/yyyy ..h..:
+Norm OK/KO
+	PATCH :
+
+	ADD :
+
+	REMOVE :
+		\
+==============================================================
+
+-> Insert history here
+
+==============================================================
+Last Work lboiteux 19/02/2024 21h30:
+
+Norm OK
+	PATCH :
+		Unclose quote exit -> Unclose quote return and display a new prompt line
+	ADD :
+		Deleting quote in parsing
+		'!' ':' and white space now return and display a new prompt line
+	REMOVE :
+		\
+==============================================================

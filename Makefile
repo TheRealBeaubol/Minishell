@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/02/19 00:22:00 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/02/19 21:19:58 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,8 +109,10 @@ PRINT_3  =   @printf "$(LBLUE)[$(RESET)$(PROJ_CMP_MINISHELL)$(LBLUE)] $(RESET)Co
 SRCS	= 	srcs/main.c \
 				srcs/get_input.c \
 				srcs/error.c \
-				srcs/parse_utils.c \
-				srcs/parse.c \
+				srcs/path.c \
+				srcs/parsing/parse.c \
+				srcs/parsing/quote.c \
+				srcs/parsing/parse_utils.c \
 # OBJECTS
 
 OBJS_DIR	:=	.objs

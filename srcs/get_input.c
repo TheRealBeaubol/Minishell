@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/19 18:36:44 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/19 21:11:06 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@ int	is_skip(t_ms *ms)
 
 	i = -1;
 	if ((ms->input[0] == '!' || ms->input[0] == ':') \
-		&& ms->input[1] == '\n' && ms->input[1] == '\0')
+		&& ms->input[1] == '\0')
 		return (1);
 	while ((9 <= ms->input[++i] && ms->input[i] <= 13) || ms->input[i] == 32)
-	{
-		if (ms->input[i + 1] == '\n' && ms->input[i + 2] == '\0')
+		if (ms->input[i + 1] == '\0')
 			return (1);
-	}
 	return (0);
 }
 
@@ -44,12 +42,12 @@ void	get_input(t_ms *ms)
 	{
 		ms->lst = NULL;
 		ms->input = readline("Coucou c'est mishell >");
-		// if (check_input(ms) == 1)
-		// {
-		parse(ms);
-		print_list(ms->lst);
-		free(ms->input);
-		ft_free_list(&ms->lst);
-		// }
+		if (check_input(ms) == 0)
+		{
+			parse(ms);
+			print_list(ms->lst);
+			free(ms->input);
+			ft_free_list(&ms->lst);
+		}
 	}
 }
