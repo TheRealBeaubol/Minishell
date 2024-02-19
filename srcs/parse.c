@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/19 00:43:24 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:31:47 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static char	*str_split_strdup(char *src, int start, int end)
 	dest[j] = 0;
 	return (dest);
 }
-
 
 void	print_list(t_list *lst)
 {
@@ -88,6 +87,7 @@ void	parse(t_ms *ms)
 		if (ms->lst == NULL)
 			ms->lst = ft_lstnew(str_split_strdup(ms->input, old_i, i));
 		else
-			ft_lstadd_back(&ms->lst, ft_lstnew(str_split_strdup(ms->input, old_i, i)));
+			ft_lstadd_back(&ms->lst, ft_lstnew(str_split_strdup(ms->input, \
+		old_i, i)));
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/19 00:39:21 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:30:53 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 /*	     get_input.c	 */
 /* ********************* */
 int		is_skip(t_ms *ms);
-void	check_input(t_ms *ms);
+int		check_input(t_ms *ms);
 void	get_input(t_ms *ms);
 
 /* ********************* */
@@ -33,7 +33,7 @@ void	free_and_exit(t_ms *ms);
 /* ********************* */
 void	parse(t_ms *ms);
 void	print_list(t_list *lst);
-int 	parse_char(t_ms *ms, int i, char c);
+int		parse_char(t_ms *ms, int i, char c);
 
 /* ******************** */
 /*     parse_utils.c    */
