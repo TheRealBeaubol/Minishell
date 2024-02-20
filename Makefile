@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
+#    By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/02/20 21:59:39 by mhervoch         ###   ########.fr        #
+#    Updated: 2024/02/21 00:49:15 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,6 +116,7 @@ SRCS	= 	srcs/main.c \
 				srcs/parsing/parse.c \
 				srcs/parsing/quote.c \
 				srcs/parsing/parse_utils.c \
+				srcs/parsing/getenv.c \
 # OBJECTS
 
 OBJS_DIR	:=	.objs
