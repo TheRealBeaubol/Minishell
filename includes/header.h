@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/20 21:58:52 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/02/20 23:52:58 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	rm_quote(t_ms *ms);
 void	exec(t_ms *ms);
 char	*grep(char **env);
 char	*get_path(char *av, char **env);
+int		choose_cmd(t_ms *ms);
 
 /* ******************** */
 /*         cd.c         */
@@ -65,6 +66,8 @@ int		change_directory(t_ms *ms);
 /* ******************** */
 /*         pwd.c        */
 /* ******************** */
-int		get_pwd(t_ms *ms);
+char	*get_pwd(t_ms *ms);
+int		pwd(t_ms *ms);
+char	*get_prompt(t_ms *ms);
 
 #endif

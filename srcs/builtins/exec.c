@@ -6,7 +6,7 @@
 /*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/02/20 21:51:08 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/02/20 22:24:41 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,13 @@ void	exec(t_ms *ms)
 	pid = fork();
 	if (pid == 0)
 		execve(path, data.cmd, ms->env);
+}
+
+int	choose_cmd(t_ms *ms)
+{
+	if (!ft_strncmp(ms->lst->content, "cd", ft_strlen(ms->lst->content)))
+		change_directory(ms);
+	if (!ft_strncmp(ms->lst->content, "pwd", ft_strlen(ms->lst->content)))
+		pwd(ms);
+	return (0);
 }

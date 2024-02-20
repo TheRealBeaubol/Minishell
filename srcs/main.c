@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 22:35:59 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/20 22:08:00 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/02/20 23:52:45 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, char **av, char **env)
 	ms.ac = ac;
 	ms.av = av;
 	ms.env = env;
-	get_pwd(&ms);
+	ms.prompt = ft_strjoin(get_prompt(&ms), ">");
 	// int	i = 0;
 	// while (env[i])
 	// {
