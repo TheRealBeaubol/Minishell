@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 23:12:05 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/19 21:15:39 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/20 22:08:21 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
 
-char	*get_path(char *input, char **env)
+/*char	*get_path(char *input, char **env)
 {
 	char	**all_path;
 	char	*path;
@@ -45,4 +45,4 @@ char	**grep(char **env)
 	splited_path = ft_char_split(cut_split, ':');
 	free(cut_split);
 	return (splited_path);
-}
+}*/

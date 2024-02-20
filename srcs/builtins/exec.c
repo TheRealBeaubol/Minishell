@@ -6,11 +6,11 @@
 /*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/02/20 20:57:05 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/02/20 21:51:08 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "../../includes/header.h"
 
 char	*grep(char **env)
 {
@@ -49,14 +49,35 @@ char	*get_path(char *av, char **env)
 	return (new_path);
 }
 
-int	exec(int fd_in, int fd_out, char **cmd, char **env)
+void	initialyse_data(t_ms *ms, t_data *data)
+{
+	int		len;
+	int		i;
+	t_list	*next;
+
+	i = 0;
+	len = ft_lstsize(ms->lst);
+	data->cmd = malloc (sizeof(char *) * (len + 1));
+	while (ms->lst)
+	{
+		next = ms->lst->next;
+		data->cmd[i] = ft_strdup(ms->lst->content);
+		ms->lst = next;
+		i++;
+	}
+//	data->fd_in =
+//	data->fd_out =
+}
+
+void	exec(t_ms *ms)
 {
 	char	*path;
+	t_data	data;
+	int		pid;
 
-	path = get_path(cmd[0], env);
-	dup2(fd_in, STDIN_FILENO);
-	dup2(fd_out, STDOUT_FILENO);
-	close(fd_in);
-	close(fd_out);
-	execve(path, cmd, env);
+	initialyse_data(ms, &data);
+	path = get_path(data.cmd[0], ms->env);
+	pid = fork();
+	if (pid == 0)
+		execve(path, data.cmd, ms->env);
 }

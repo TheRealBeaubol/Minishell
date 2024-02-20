@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 21:17:05 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/20 21:22:18 by mhervoch         ###   ########.fr       */
+/*   Created: 2024/02/20 21:55:30 by mhervoch          #+#    #+#             */
+/*   Updated: 2024/02/20 22:10:31 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/header.h"
 
-void	print_list(t_list *lst)
+int	get_pwd(t_ms *ms)
 {
-	t_list	*next;
-	int		i;
+	int	i;
 
 	i = 0;
-	while (lst)
-	{
-		next = lst->next;
-		ft_printf("lst->content : [%s]\n	   i : [%d]\n", lst->content, i);
+	while (ms->env[i] && strncmp(ms->env[i], "PWD=", 4))
 		i++;
-		lst = next;
-	}
+	ms->prompt = ft_strjoin(ms->env[i] + 24, ">");
+	return (0);
 }
