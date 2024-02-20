@@ -6,7 +6,7 @@
 /*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/02/20 22:24:41 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/02/21 00:17:21 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	initialyse_data(t_ms *ms, t_data *data)
 //	data->fd_in =
 //	data->fd_out =
 }
+
+//a finir pour executer les commande
 
 void	exec(t_ms *ms)
 {
