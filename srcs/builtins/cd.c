@@ -6,13 +6,13 @@
 /*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/02/21 00:11:15 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/02/21 00:53:13 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/header.h"
 
-void	edit_env(t_ms *ms)
+/*void	edit_env(t_ms *ms)
 {
 	int	i;
 
@@ -20,7 +20,7 @@ void	edit_env(t_ms *ms)
 	while (ms->env[i] && strncmp(ms->env[i], "PWD=", 4))
 		i++;
 	ms->env[i] = ft_strjoin(ft_strjoin(ms->env[i], "/"), ms->lst->content);
-}
+}*/
 
 int	change_directory(t_ms *ms)
 {

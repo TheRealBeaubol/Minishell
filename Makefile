@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/02/20 21:59:39 by mhervoch         ###   ########.fr        #
+#    Updated: 2024/02/21 00:51:02 by mhervoch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,6 +114,7 @@ SRCS	= 	srcs/main.c \
 				srcs/builtins/pwd.c \
 				srcs/path.c \
 				srcs/parsing/parse.c \
+				srcs/parsing/getenv.c \
 				srcs/parsing/quote.c \
 				srcs/parsing/parse_utils.c \
 # OBJECTS

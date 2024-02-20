@@ -6,7 +6,7 @@
 /*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/02/21 00:17:21 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/02/21 00:52:53 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char	*grep(char **env)
 		i++;
 	path = malloc(sizeof(char) * ft_strlen(env[i]) - 5);
 	path = env[i] + 5;
-	printf("%s", path);
 	return (path);
 }
 
@@ -61,7 +60,8 @@ void	initialyse_data(t_ms *ms, t_data *data)
 	while (ms->lst)
 	{
 		next = ms->lst->next;
-		data->cmd[i] = ft_strdup(ms->lst->content);
+		if (ms->lst->content[0] == '-')
+			data->cmd[i] = ft_strdup(ms->lst->content);
 		ms->lst = next;
 		i++;
 	}
@@ -88,7 +88,7 @@ int	choose_cmd(t_ms *ms)
 {
 	if (!ft_strncmp(ms->lst->content, "cd", ft_strlen(ms->lst->content)))
 		change_directory(ms);
-	if (!ft_strncmp(ms->lst->content, "pwd", ft_strlen(ms->lst->content)))
+	else if (!ft_strncmp(ms->lst->content, "pwd", ft_strlen(ms->lst->content)))
 		pwd(ms);
 	return (0);
 }

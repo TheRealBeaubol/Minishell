@@ -6,7 +6,7 @@
 /*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:55:30 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/02/21 00:10:00 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/02/21 00:52:36 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	pwd(t_ms *ms)
 	(void) ms;
 	//pwd = get_pwd(ms);
 	pwd = getcwd(NULL, 0);
-	printf("%s\n", pwd);
 	return (0);
 }
 
