@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 22:35:59 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/19 17:58:20 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/20 20:56:14 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ int	main(int ac, char **av, char **env)
 	ms.ac = ac;
 	ms.av = av;
 	ms.env = env;
+	
+	// int	i = 0;
+	// while (env[i])
+	// {
+	// 	ft_printf("%s\n", env[i]);
+	// 	i++;
+	// }
 	get_input(&ms);
 	return (0);
 }
