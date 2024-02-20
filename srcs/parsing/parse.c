@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/19 21:27:37 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/21 00:11:22 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	parse(t_ms *ms)
 	int		old_i;
 
 	i = 0;
+	parse_env(ms);
 	while (ms->input[i] != '\0')
 	{
 		while ((9 <= ms->input[i] && ms->input[i] <= 13) || ms->input[i] == 32)

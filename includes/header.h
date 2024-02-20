@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/20 23:52:58 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/02/21 00:46:30 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,15 @@ int		change_directory(t_ms *ms);
 char	*get_pwd(t_ms *ms);
 int		pwd(t_ms *ms);
 char	*get_prompt(t_ms *ms);
+
+
+/* ******************** */
+/*       getenv.c       */
+/* ******************** */
+void	parse_env(t_ms *ms);
+char	*get_new_input(t_ms *ms, int i, char *end_str, char *var_name);
+char	*get_end_str(t_ms *ms, char *var_name, int i);
+char	*get_var_name(t_ms *ms, int i);
+char	*get_env(char **env, char *var_name);
 
 #endif

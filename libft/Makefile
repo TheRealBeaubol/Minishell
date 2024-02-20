@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 09:36:52 by lboiteux          #+#    #+#              #
-#    Updated: 2024/02/01 18:05:06 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/02/21 00:02:46 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME	=	libft.a
 # 								  COMMANDS									   #
 # **************************************************************************** #
 CC		=	@cc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g
 MK		=	@mkdir -p
 RM		=	@rm -rf
 FILE	=	$(shell ls -lR src/ | grep -F .c | wc -l)

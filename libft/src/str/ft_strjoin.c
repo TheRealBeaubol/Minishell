@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 02:14:31 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/01/30 21:51:48 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/21 00:07:52 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s2)
 		return ((char *)s1);
 	len1 = ft_strlen(s1);
+	printf("[%s] : len \n", s1);
 	len2 = ft_strlen(s2);
 	str = ft_calloc((len1 + len2 + 1), sizeof(char));
-	if (str == NULL)
+	if (!str)
 		return (str);
 	ft_strlcat (str, s1, len1 + 1);
 	if (!len1)

@@ -12,7 +12,7 @@
 	❌ ◦ << should be given a delimiter, then read the input until a line containing the delimiter is seen. However, it doesn’t have to update the history!
 	❌ ◦ >> should redirect output in append mode.
 ❌ Implement pipes (| character). The output of each command in the pipeline is connected to the input of the next command via a pipe.
-❌ Handle environment variables ($ followed by a sequence of characters) which should expand to their values.
+✅ Handle environment variables ($ followed by a sequence of characters) which should expand to their values.
 ❌ Handle $? which should expand to the exit status of the most recently executed foreground pipeline.
 ❌ Handle ctrl-C, ctrl-D and ctrl-\ which should behave like in bash.
 ❌ In interactive mode:
@@ -22,7 +22,7 @@
 ❌ Your shell must implement the following builtins:
 	❌ ◦ echo with option -n
 	❌ ◦ cd with only a relative or absolute path
-	❌ ◦ pwd with no options
+	✅ ◦ pwd with no options
 	❌ ◦ export with no options
 	❌ ◦ unset with no options
 	❌ ◦ env with no options or arguments
@@ -36,31 +36,3 @@ Bonus part :
 
 ❌ Valgrind
 ❌ Norminette
-
-==============================================================
-Pattern :
------------
-Last Work login dd/mm/yyyy ..h..:
-Norm OK/KO
-	PATCH :
-
-	ADD :
-
-	REMOVE :
-		\
-==============================================================
-
--> Insert history here
-
-==============================================================
-Last Work lboiteux 19/02/2024 21h30:
-
-Norm OK
-	PATCH :
-		Unclose quote exit -> Unclose quote return and display a new prompt line
-	ADD :
-		Deleting quote in parsing
-		'!' ':' and white space now return and display a new prompt line
-	REMOVE :
-		\
-==============================================================
