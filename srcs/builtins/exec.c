@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/02/21 00:52:53 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/02/21 19:55:40 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	choose_cmd(t_ms *ms)
 	if (!ft_strncmp(ms->lst->content, "cd", ft_strlen(ms->lst->content)))
 		change_directory(ms);
 	else if (!ft_strncmp(ms->lst->content, "pwd", ft_strlen(ms->lst->content)))
-		pwd(ms);
+		printf("%s\n", getcwd(NULL, 0));
+		// pwd(ms);
 	return (0);
 }
