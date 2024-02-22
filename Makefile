@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/02/21 01:05:48 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/02/22 23:18:07 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -117,6 +117,7 @@ SRCS	= 	srcs/main.c \
 				srcs/parsing/quote.c \
 				srcs/parsing/parse_utils.c \
 				srcs/parsing/getenv.c \
+				srcs/parsing/getenv_utils.c \
 # OBJECTS
 
 OBJS_DIR	:=	.objs

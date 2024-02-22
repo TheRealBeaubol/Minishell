@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/02/22 20:34:28 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/02/22 21:39:57 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	choose_cmd(t_ms *ms)
 	else if (!ft_strncmp(ms->lst->content, "pwd", ft_strlen(ms->lst->content)))
 		printf("%s\n", getcwd(NULL, 0));
 		// pwd(ms);
-	else
-		exec(ms);
+	// else
+	// 	exec(ms);
 	return (0);
 }
