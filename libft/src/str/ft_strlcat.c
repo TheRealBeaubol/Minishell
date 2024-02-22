@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 01:30:21 by lboiteux          #+#    #+#             */
-/*   Updated: 2023/11/23 22:43:21 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:51:50 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	size_t	len;
 
 	i = 0;
+	if (!src)
+		return (0);
 	if (size == 0)
 		return (ft_strlen(src));
 	len = ft_strlen(dst);

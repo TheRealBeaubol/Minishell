@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 02:14:31 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/21 00:48:24 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:54:06 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	len1;
 	size_t	len2;
 
-	if (!s1)
+	if (!s1 || s1[0] == '\0')
 		return ((char *)s2);
 	if (!s2)
 		return ((char *)s1);

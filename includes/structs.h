@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboiteux <lboiteux@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:15:46 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/20 21:55:22 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:43:29 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
+typedef enum e_type
+{
+	COMMAND,
+	PARAMETERS,
+}	t_type;
 
 typedef struct s_ms
 {

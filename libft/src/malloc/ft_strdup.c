@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:49:13 by lboiteux          #+#    #+#             */
-/*   Updated: 2023/11/23 22:43:40 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:50:05 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(const char *s)
 	int		i;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	cpy = malloc((ft_strlen(s) + 1) * (sizeof(char)));
 	if (cpy == 0)
 		return (cpy);
