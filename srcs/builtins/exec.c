@@ -6,11 +6,12 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/02/21 19:55:40 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/22 20:34:28 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/header.h"
+#include <unistd.h>
 
 char	*grep(char **env)
 {
@@ -65,8 +66,8 @@ void	initialyse_data(t_ms *ms, t_data *data)
 		ms->lst = next;
 		i++;
 	}
-//	data->fd_in =
-//	data->fd_out =
+	data->fd_in = open(ms->lst->next->content, O_RDONLY, 0777);
+	//data->fd_out =
 }
 
 //a finir pour executer les commande
@@ -79,6 +80,8 @@ void	exec(t_ms *ms)
 
 	initialyse_data(ms, &data);
 	path = get_path(data.cmd[0], ms->env);
+	dup2(data.fd_in, STDIN_FILENO);
+	//dup2(data.fd_out, STDOUT_FILENO);
 	pid = fork();
 	if (pid == 0)
 		execve(path, data.cmd, ms->env);
@@ -91,5 +94,7 @@ int	choose_cmd(t_ms *ms)
 	else if (!ft_strncmp(ms->lst->content, "pwd", ft_strlen(ms->lst->content)))
 		printf("%s\n", getcwd(NULL, 0));
 		// pwd(ms);
+	else
+		exec(ms);
 	return (0);
 }
