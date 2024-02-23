@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 23:16:07 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/22 23:17:23 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/23 17:34:38 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ char	*get_end_str(t_ms *ms, char *var_name, int i)
 
 	j = 0;
 	end_str = malloc((ft_strlen(ms->input) - i) * sizeof(char));
-	if (var_name[ft_strlen(var_name) - 1] == '=')
+	if (var_name && var_name[ft_strlen(var_name) - 1] == '=')
 		i += ft_strlen(var_name);
-	else
+	else if (var_name)
 		i += ft_strlen(var_name) + 2;
+	else
+		i++;
 	if (ms->input[i] == '\0')
 	{
 		free(end_str);
@@ -93,7 +95,7 @@ char	*get_env(char **env, char *var_name)
 	char	*cut_str;
 
 	i = 0;
-	if (!env || !*env)
+	if (!env || !*env || !var_name)
 		return (NULL);
 	while (env[i] && ft_strncmp(env[i], var_name, ft_strlen(var_name)))
 		i++;
@@ -107,20 +109,18 @@ char	*wrong_var(t_ms *ms, int i)
 {
 	char	*str;
 	int		stock_i;
-	int		malloc_count;
 	int		j;
 
-	j = 0;
-	malloc_count = 0;
 	stock_i = i;
 	while (ms->input[stock_i] && (ft_isalnum(ms->input[stock_i]) || \
 ms->input[stock_i] == '_'))
-	{
 		stock_i++;
-		malloc_count++;
-	}
-	str = malloc((malloc_count + 2) * sizeof(char));
-	while (ft_isalnum(ms->input[i]) || ms->input[i] == '_')
+	j = -1;
+	str = malloc((stock_i + 2) * sizeof(char));
+	while (++j != i - 2)
+		str[j] = ms->input[j];
+	while (ft_isalnum(ms->input[i]) || ms->input[i] == '_' || \
+ms->input[i] == ' ')
 		str[j++] = ms->input[i++];
 	str[j] = '\0';
 	return (str);
