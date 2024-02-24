@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/02/21 20:12:27 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/24 19:35:17 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ ft_strlen("/Desktop") + 1), sizeof(char));
 		free(error);
 		return (0);
 	}
-	ms->prompt = ft_strjoin(getcwd(NULL, 0) + 20, ">");
+	ms->prompt = ft_strjoin(getcwd(NULL, 0), ">");
 	return (1);
 }
