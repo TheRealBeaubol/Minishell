@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/02/22 23:18:07 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/02/28 18:37:03 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ NAME	=	minishell
 # 								  COMMANDS									   #
 # **************************************************************************** #
 
-CC					=	@clang
+CC					=	@cc
 CFLAGS				=	-Wall -Wextra -Werror -g
 MK					=	@mkdir -p
 CPT_MINISHELL		=	$(shell ls -l | grep -F .c | wc -l)

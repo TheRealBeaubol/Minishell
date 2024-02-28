@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/23 17:24:30 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/28 19:00:27 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,21 @@ int	check_input(t_ms *ms)
 	return (0);
 }
 
+void	handle_sigint(int sig)
+{
+	(void) sig;
+	printf("\n");
+	rl_on_new_line(); // Display readline on a new line
+	rl_replace_line("", 0); // Display a clear line after the prompt
+	rl_redisplay(); // Display Prompt on the new line
+}
+
 void	get_input(t_ms *ms)
 {
 	while (1)
 	{
+		signal(SIGINT, handle_sigint); // Handle Ctrl + C
+		signal(SIGQUIT, SIG_IGN); // Handle Ctrl + '\'
 		ms->lst = NULL;
 		ms->input = readline(ms->prompt);
 		if (check_input(ms) == 0)

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:13:45 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/23 16:58:38 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/02/28 18:07:05 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "../libft/src/libft.h"
 # include <math.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <signal.h>
+# include "../libft/src/libft.h"
 
 #endif
