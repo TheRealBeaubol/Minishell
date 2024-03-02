@@ -20,12 +20,12 @@
 	✅ ◦ ctrl-D exits the shell.
 	✅ ◦ ctrl-\ does nothing.
 ❌ Your shell must implement the following builtins:
-	❌ ◦ echo with option -n
+	❌ ◦ echo with option -n (parsing quote in diquote : test != echo 'fi'"le'.'"txt)
 	✅ ◦ cd with only a relative or absolute path		(+"cd -")
 	✅ ◦ pwd with no options
 	❌ ◦ export with no options
 	❌ ◦ unset with no options
-	❌ ◦ env with no options or arguments
+	✅ ◦ env with no options or arguments
 	❌ ◦ exit with no options
 ✅ The readline() function can cause memory leaks. You don’t have to fix them. But that doesn’t mean your own code, yes the code you wrote, can have memory leaks.
 

@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/02/28 18:37:03 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/02 01:43:25 by mhervoch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,6 +112,9 @@ SRCS	= 	srcs/main.c \
 				srcs/builtins/exec.c \
 				srcs/builtins/cd.c \
 				srcs/builtins/pwd.c \
+				srcs/builtins/unset.c \
+				srcs/builtins/echo.c \
+				srcs/builtins/env.c \
 				srcs/path.c \
 				srcs/parsing/parse.c \
 				srcs/parsing/quote.c \

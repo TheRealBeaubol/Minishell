@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:46:19 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/17 15:46:47 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/01 19:45:03 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,4 +132,5 @@ int		position_in_base(char *base, char c);
 int		convert_base_strlen(char *str);
 char	*convert_base_strcat(char *dest, char src);
 int		ft_is_prime(int nb);
+char	*ft_strdup_range(const char *src, int start, int end);
 #endif

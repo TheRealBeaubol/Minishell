@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/02/23 16:59:45 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/02 01:43:00 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,11 @@ void	initialyse_data(t_ms *ms, t_data *data)
 		i++;
 	}
 	data->fd_in = open(ms->lst->next->content, O_RDONLY, 0777);
-	//data->fd_out =
+	printf("%s", ms->lst->next->content);
+	printf("%s", ms->lst->next->next->content);
+	data->fd_out = open(ms->lst->next->next->content, O_RDONLY | O_CREAT | O_TRUNC, 0777);
+	if (!data->fd_out)
+		data->fd_out = 1;
 }
 
 //a finir pour executer les commande
@@ -81,7 +85,7 @@ void	exec(t_ms *ms)
 	initialyse_data(ms, &data);
 	path = get_path(data.cmd[0], ms->env);
 	dup2(data.fd_in, STDIN_FILENO);
-	// dup2(data.fd_out, STDOUT_FILENO);
+	dup2(data.fd_out, STDOUT_FILENO);
 	pid = fork();
 	if (pid == 0)
 		execve(path, data.cmd, ms->env);
@@ -94,7 +98,13 @@ int	choose_cmd(t_ms *ms)
 	else if (!ft_strncmp(ms->lst->content, "pwd", ft_strlen(ms->lst->content)))
 		printf("%s\n", getcwd(NULL, 0));
 		// pwd(ms);
-	// else
-	// 	exec(ms);
+	else if (!ft_strncmp(ms->lst->content, "unset", ft_strlen(ms->lst->content)))
+		unset(ms, ms->lst->next->content + 1);
+	else if (!ft_strncmp(ms->lst->content, "env", ft_strlen(ms->lst->content)))
+		env(ms);
+	else if (!ft_strncmp(ms->lst->content, "echo", ft_strlen(ms->lst->content)))
+		echo(ms);
+	else
+		exec(ms);
 	return (0);
 }
