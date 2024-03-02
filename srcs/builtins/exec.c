@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/02 01:43:00 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/02 01:55:46 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ int	choose_cmd(t_ms *ms)
 		env(ms);
 	else if (!ft_strncmp(ms->lst->content, "echo", ft_strlen(ms->lst->content)))
 		echo(ms);
+	else if (!ft_strncmp(ms->lst->content, "exit", 4))
+		return (42);
 	else
 		exec(ms);
 	return (0);

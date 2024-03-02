@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/28 19:00:27 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/02 01:54:47 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	get_input(t_ms *ms)
 			if (ms->input[0] != '\0')
 			{
 				print_list(ms->lst);
-				choose_cmd(ms);
+				if (choose_cmd(ms) == 42)
+					return ;
 				free(ms->input);
 			}
 			ft_free_list(&ms->lst);
