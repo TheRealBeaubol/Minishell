@@ -6,11 +6,19 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/02/24 19:35:17 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/02 14:38:11 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/header.h"
+
+void	edit_env(t_ms *ms)
+{
+	int	i;
+
+	i = get_env_indice(ms, "PWD");
+	ms->env[i] = ft_strjoin("PWD=", getcwd(NULL, 0));
+}
 
 int	change_directory(t_ms *ms)
 {
@@ -37,6 +45,7 @@ ft_strlen("/Desktop") + 1), sizeof(char));
 		free(error);
 		return (0);
 	}
-	ms->prompt = ft_strjoin(getcwd(NULL, 0), ">");
+	ms->prompt = ft_strjoin(get_prompt(), ">");
+	edit_env(ms);
 	return (1);
 }

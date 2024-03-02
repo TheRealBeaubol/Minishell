@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/02 01:55:46 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/02 14:28:58 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	choose_cmd(t_ms *ms)
 		printf("%s\n", getcwd(NULL, 0));
 		// pwd(ms);
 	else if (!ft_strncmp(ms->lst->content, "unset", ft_strlen(ms->lst->content)))
-		unset(ms, ms->lst->next->content + 1);
+		unset(ms, ms->lst->next->content);
 	else if (!ft_strncmp(ms->lst->content, "env", ft_strlen(ms->lst->content)))
 		env(ms);
 	else if (!ft_strncmp(ms->lst->content, "echo", ft_strlen(ms->lst->content)))
