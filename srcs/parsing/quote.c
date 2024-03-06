@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 21:16:06 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/20 20:50:41 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:54:24 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	parse_quote(t_ms *ms, int i, char c)
 {
+	int	j;
+
+	j = i;
 	i += 1;
 	if (ms->input[i] == '\0')
 		free_and_exit(ms);
@@ -26,46 +29,25 @@ int	parse_quote(t_ms *ms, int i, char c)
 		}
 		i++;
 	}
+	ms->input = clear_quotes(ms->input, i, j);
 	i += 1;
 	return (i);
 }
 
-char	*clear_quotes(char *content, int i, char c)
+char	*clear_quotes(char *content, int i, int j)
 {
-	i++;
-	while (content[i] != c)
+	j++;
+	while (j != i)
 	{
-		content[i - 1] = content[i];
-		i++;
+		content[j - 1] = content[j];
+		j++;
 	}
-	i++;
-	while (content[i] != '\0')
+	j++;
+	while (content[j] != '\0')
 	{
-		content[i - 2] = content[i];
-		i++;
+		content[j - 2] = content[j];
+		j++;
 	}
-	content[i - 2] = '\0';
+	content[j - 2] = '\0';
 	return (content);
-}
-
-void	rm_quote(t_ms *ms)
-{
-	t_list	*next;
-	t_list	*tmp;
-	int		i;
-
-	tmp = ms->lst;
-	while (tmp)
-	{
-		i = 0;
-		next = tmp->next;
-		while (tmp->content[i] != '\0')
-		{
-			if (tmp->content[i] == '"' || tmp->content[i] == '\'')
-				tmp->content = clear_quotes(tmp->content, i, tmp->content[i]);
-			else
-				i++;
-		}
-		tmp = next;
-	}
 }

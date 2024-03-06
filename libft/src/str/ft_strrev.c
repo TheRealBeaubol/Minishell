@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 02:03:40 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/06 19:35:24 by lboiteux         ###   ########.fr       */
+/*   Created: 2024/03/06 19:54:46 by lboiteux          #+#    #+#             */
+/*   Updated: 2024/03/06 20:26:48 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+char	*ft_strrev(char *str)
 {
-	unsigned int	i;
+	char	*rev_str;
+	int		i;
+	int		j;
 
-	i = 0;
-	while (s1[i] && s1[i] == s2[i] && i < n)
-		i++;
-	if (i == n)
-		return (0);
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	j = 0;
+	i = ft_strlen(str) - 1;
+	rev_str = ft_calloc(ft_strlen(str) + 1, sizeof(char));
+	if (!rev_str)
+	{
+		free(str);
+		return (NULL);
+	}
+	while (i != -1)
+	{
+		rev_str[j] = str[i];
+		i--;
+		j++;
+	}
+	free(str);
+	return (rev_str);
 }

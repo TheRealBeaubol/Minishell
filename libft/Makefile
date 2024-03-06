@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 09:36:52 by lboiteux          #+#    #+#              #
-#    Updated: 2024/02/28 18:36:57 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/06 20:20:09 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,8 @@ SRCS		:=	char/ft_isalnum.c\
 							str/ft_strjoin.c\
 							str/ft_strnstr.c\
 							str/ft_strncmp.c\
+							str/ft_strrev.c\
+							str/ft_str_start_del.c\
 							str/ft_strchr.c\
 							str/ft_strrchr.c\
 							str/ft_strlen.c\

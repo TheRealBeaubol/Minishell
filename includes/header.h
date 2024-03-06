@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/02 14:35:47 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:54:39 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	print_list(t_list *lst);
 /*        quote.c       */
 /* ******************** */
 int		parse_quote(t_ms *ms, int i, char c);
-char	*clear_quotes(char *content, int i, char c);
-void	rm_quote(t_ms *ms);
+char	*clear_quotes(char *content, int i, int j);
 
 /* ******************** */
 /*         exec.c       */

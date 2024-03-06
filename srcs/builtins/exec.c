@@ -6,7 +6,8 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/06 20:35:35 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/06 20:37:41 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:55:25 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +60,7 @@ void	initialyse_data(t_ms *ms, t_data *data)
 	tmp = ms->lst;
 	i = 0;
 	len = ft_lstsize(ms->lst);
-	data->cmd = malloc (sizeof(char *) * (len + 1));
+	data->cmd = malloc(sizeof(char *) * (len + 1));
 	data->cmd[0] = ft_strdup(tmp->content);
 	tmp = tmp->next;
 	i++;
