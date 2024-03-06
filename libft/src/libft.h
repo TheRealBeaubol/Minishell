@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:46:19 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/01 19:45:03 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/06 20:19:57 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+char	*ft_strrev(char *str);
 int		**ft_dup_int_tab(int **src, int size1, int size2);
 int		ft_ishexa(char c);
 void	ft_bzero(void *s, size_t n);
@@ -44,6 +45,7 @@ int		ft_isdigit(int c);
 void	ft_free_int_tab(int **tab, int size);
 int		ft_isprint(int c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+char	*ft_str_start_del(char *str, char *del);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 int		ft_toupper(int c);
 int		ft_tolower(int c);

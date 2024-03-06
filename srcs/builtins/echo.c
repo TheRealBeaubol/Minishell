@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 20:48:18 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/02 01:37:45 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/06 20:29:38 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,33 @@
 
 void	echo(t_ms *ms)
 {
-	char	*content;
+	t_list	*tmp;
+	int		cpt;
+	int		n;
 
-	content = ms->lst->next->content;
-	if (!strncmp(content, "-n", 2))
+	cpt = 0;
+	n = 1;
+	tmp = ms->lst->next;
+	if (!ft_strncmp(tmp->content, "-n", 2))
 	{
-		content = ms->lst->next->next->content;
-		write(1, content, ft_strlen(content));
+		n = 0;
+		if (tmp->next)
+			tmp = tmp->next;
 	}
-	else
-		write(1, ft_strjoin(content, "\n"), ft_strlen(content) + 1);
+	while (tmp->next)
+	{
+		if (cpt++ == 0)
+			write(1, tmp->content, ft_strlen(tmp->content) + 1);
+		else
+		{
+			write(1, " ", 1);
+			write(1, tmp->content, ft_strlen(tmp->content) + 1);
+		}
+		tmp = tmp->next;
+	}
+	if (cpt != 0)
+		write(1, " ", 1);
+	write(1, tmp->content, ft_strlen(tmp->content) + 1);
+	if (n == 1)
+		write(1, "\n", 1);
 }
