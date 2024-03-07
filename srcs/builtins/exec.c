@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/07 23:11:46 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/07 23:28:51 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,16 +116,15 @@ void	exec(t_ms *ms)
 
 int	choose_cmd(t_ms *ms)
 {
-	if (!ft_strncmp(ms->lst->content, "cd", ft_strlen(ms->lst->content)))
+	if (!ft_strncmp(ms->lst->content, "cd", 2))
 		change_directory(ms);
-	else if (!ft_strncmp(ms->lst->content, "pwd", ft_strlen(ms->lst->content)))
+	else if (!ft_strncmp(ms->lst->content, "pwd", 3))
 		printf("%s\n", getcwd(NULL, 0));
-	else if (!ft_strncmp(ms->lst->content, "unset", \
-ft_strlen(ms->lst->content)))
+	else if (!ft_strncmp(ms->lst->content, "unset", 5))
 		unset(ms, ms->lst->next->content);
-	else if (!ft_strncmp(ms->lst->content, "env", ft_strlen(ms->lst->content)))
+	else if (!ft_strncmp(ms->lst->content, "env", 3))
 		env(ms);
-	else if (!ft_strncmp(ms->lst->content, "echo", ft_strlen(ms->lst->content)))
+	else if (!ft_strncmp(ms->lst->content, "echo", 4))
 		echo(ms);
 	//else if (!ft_strncmp(ms->lst->content, "exit", 4))
 		//return (42);
