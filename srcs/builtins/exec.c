@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/07 15:31:33 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/07 22:37:01 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ ft_strlen(ms->lst->content)))
 		echo(ms);
 	else if (!ft_strncmp(ms->lst->content, "exit", 4))
 		return (42);
-	else
-		exec(ms);
+	// else
+	// 	exec(ms);
 	return (0);
 }
