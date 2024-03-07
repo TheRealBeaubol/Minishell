@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 09:36:52 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/06 20:20:09 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/07 14:17:23 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,6 +112,8 @@ SRCS		:=	char/ft_isalnum.c\
 							write/ft_putnbr_fd.c\
 							write/ft_putstr_len.c\
 							write/ft_putchar_len.c\
+							write/ft_putchar_len_fd.c\
+							write/ft_putstr_len_fd.c\
 							write/ft_putstr_non_printable.c\
 							write/ft_print_memory.c\
 							write/ft_putstr.c\

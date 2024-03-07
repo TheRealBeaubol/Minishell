@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:46:19 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/06 20:19:57 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:30:54 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+int		ft_putchar_len_fd(char c, int fd);
+int		ft_putstr_len_fd(char *s, int fd);
+int		ft_ul_nb_base_utils(unsigned long nb, int *size, int fd);
 char	*ft_strrev(char *str);
 int		**ft_dup_int_tab(int **src, int size1, int size2);
 int		ft_ishexa(char c);
@@ -79,11 +82,12 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_printf(const char *s, ...);
+int		ft_dprintf(int fd, const char *s, ...);
 int		printf_flag_verif(char c);
-int		printf_flag_mana(char c, va_list arg);
-void	ft_ul_nb_base(unsigned long nb, char *base, int *size, int i);
-void	ft_ui_putnbr_base(unsigned int nb, char *base, int *size);
-void	ft_printf_putnbr(int nb, int *size);
+int		printf_flag_mana(char c, va_list arg, int fd);
+void	ft_ul_nb_b(unsigned long nb, char *base, int *size, int i);
+void	ft_ui_nb_b(unsigned int nb, char *base, int *size, int fd);
+void	ft_printf_putnbr(int nb, int *size, int fd);
 int		ft_putstr_len(char *s);
 int		ft_putchar_len(char c);
 void	ft_putstr(char *s);

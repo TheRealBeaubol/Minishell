@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putchar_len_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/13 22:35:59 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/07 14:37:16 by lboiteux         ###   ########.fr       */
+/*   Created: 2023/11/23 23:21:06 by lboiteux          #+#    #+#             */
+/*   Updated: 2024/03/07 13:21:24 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "../libft.h"
 
-int	main(int ac, char **av, char **env)
+int	ft_putchar_len_fd(char c, int fd)
 {
-	t_ms	ms;
+	int	len;
 
-	if (ac != 1)
-		return (1);
-	ms.ac = ac;
-	ms.av = av;
-	ms.env = env;
-	ms.prompt = ft_strjoin(getcwd(NULL, 0), ">");
-	get_input(&ms);
-	return (0);
+	len = 0;
+	len = write(fd, &c, 1);
+	return (len);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 01:40:35 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/02 01:42:21 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:36:32 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 void	env(t_ms *ms)
 {
-	int	i;
+	int		i;
+	char	*str;
 
 	i = 0;
 	while (ms->env[i])
 	{
-		write(1, ft_strjoin(ms->env[i], "\n"), ft_strlen(ms->env[i]) + 1);
+		str = ft_strjoin(ms->env[i], "\n");
+		ft_dprintf(1, str);
+		free(str);
 		i++;
 	}
 }

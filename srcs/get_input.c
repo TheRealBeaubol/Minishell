@@ -6,10 +6,10 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/06 20:37:31 by mhervoch         ###   ########.fr       */
-/*   Updated: 2024/03/06 18:30:26 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:35:04 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/header.h"
 
@@ -30,7 +30,10 @@ int	is_skip(t_ms *ms)
 int	check_input(t_ms *ms)
 {
 	if (!ms->input)
+	{
+		ft_dprintf (2, "exit\n");
 		free_and_exit(ms);
+	}
 	add_history(ms->input);
 	if (is_skip(ms) == 1)
 		return (1);
@@ -40,7 +43,7 @@ int	check_input(t_ms *ms)
 void	handle_sigint(int sig)
 {
 	(void) sig;
-	printf("\n");
+	ft_dprintf (1, "\n");
 	rl_on_new_line(); // Display readline on a new line
 	rl_replace_line("", 0); // Display a clear line after the prompt
 	rl_redisplay(); // Display Prompt on the new line

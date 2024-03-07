@@ -6,34 +6,39 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 23:06:15 by lboiteux          #+#    #+#             */
-/*   Updated: 2023/11/23 23:39:37 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:24:29 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	printf_flag_mana(char c, va_list arg)
+int	printf_flag_mana(char c, va_list arg, int fd)
 {
-	int	size;
+	int		s;
+	int		condition;
 
-	size = 0;
+	s = 0;
 	if (c == 'c')
-		size += ft_putchar_len(va_arg(arg, int));
+		s += ft_putchar_len_fd(va_arg(arg, int), fd);
 	else if (c == 's')
-		size += ft_putstr_len(va_arg(arg, char *));
+		s += ft_putstr_len_fd(va_arg(arg, char *), fd);
 	else if (c == 'p')
-		ft_ul_nb_base(va_arg(arg, unsigned long), "0123456789abcdef", &size, 1);
+	{
+		condition = ft_ul_nb_base_utils(va_arg(arg, unsigned long), &s, fd);
+		if (condition == 0)
+			ft_ul_nb_b(va_arg(arg, unsigned long), "0123456789abcdef", &s, fd);
+	}
 	else if (c == 'd' || c == 'i')
-		ft_printf_putnbr(va_arg(arg, int), &size);
+		ft_printf_putnbr(va_arg(arg, int), &s, fd);
 	else if (c == 'u')
-		ft_ui_putnbr_base(va_arg(arg, unsigned int), "0123456789", &size);
+		ft_ui_nb_b(va_arg(arg, unsigned int), "0123456789", &s, fd);
 	else if (c == 'x')
-		ft_ui_putnbr_base(va_arg(arg, unsigned int), "0123456789abcdef", &size);
+		ft_ui_nb_b(va_arg(arg, unsigned int), "0123456789abcdef", &s, fd);
 	else if (c == 'X')
-		ft_ui_putnbr_base(va_arg(arg, unsigned int), "0123456789ABCDEF", &size);
+		ft_ui_nb_b(va_arg(arg, unsigned int), "0123456789ABCDEF", &s, fd);
 	else if (c == '%')
-		size += ft_putchar_len('%');
-	return (size);
+		s += ft_putchar_len_fd('%', fd);
+	return (s);
 }
 
 int	printf_flag_verif(char c)
