@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/06 18:54:39 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:48:41 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		change_directory(t_ms *ms);
 /* ******************** */
 char	*get_pwd(t_ms *ms);
 int		pwd(t_ms *ms);
-char	*get_prompt(void);
+char	*get_prompt(t_ms *ms);
 
 /* ******************** */
 /*       getenv.c       */

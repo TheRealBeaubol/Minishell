@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/07 15:31:53 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:48:04 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	change_directory(t_ms *ms)
 		free(error);
 		return (0);
 	}
-	ms->prompt = get_prompt();
+	ms->prompt = get_prompt(ms);
 	edit_env(ms);
 	return (1);
 }
