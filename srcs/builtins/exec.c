@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/07 22:37:01 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/07 23:49:18 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	initialyse_data(t_ms *ms, t_data *data)
 	t_list	*next;
 	t_list	*tmp;
 
+	data->fd_in = 0;
+	data->fd_out = 0;
 	tmp = ms->lst;
 	i = 0;
 	len = ft_lstsize(ms->lst);
@@ -67,10 +69,19 @@ void	initialyse_data(t_ms *ms, t_data *data)
 		next = tmp->next;
 		if (tmp->content[0] == '-')
 			data->cmd[i] = ft_strdup(tmp->content);
+		else
+		{
+			i++;
+			break ;
+		}
 		tmp = next;
 		i++;
 	}
-	data->fd_in = open(ms->lst->next->content, O_RDONLY);
+		if (i++ < len)
+		data->fd_in = open(tmp->content, O_RDONLY);
+		//data->fd_in = open(ms->lst->next->content, O_RDONLY);
+	if (i < len)
+		data->fd_out = open(tmp->next->content, O_RDONLY | O_CREAT | O_TRUNC, 0777);
 	//data->fd_out = open(ms->lst->next->next->content, O_RDONLY | O_CREAT | O_TRUNC, 0777);
 	//if (data->fd_out)
 		//data->fd_out = 1;
@@ -86,13 +97,18 @@ void	exec(t_ms *ms)
 
 	initialyse_data(ms, &data);
 	path = get_path(data.cmd[0], ms->env);
-	dup2(data.fd_in, STDIN_FILENO);
-	//dup2(data.fd_out, STDOUT_FILENO);
 	pid = fork();
 	if (pid == 0)
 	{
-		if (!execve(path, data.cmd, ms->env))
-			printf("ERROR\n");
+		if (data.fd_in)
+			dup2(data.fd_in, STDIN_FILENO);
+		if (data.fd_out)
+			dup2(data.fd_out, STDIN_FILENO);
+		close(data.fd_in);
+		close(data.fd_out);
+		if (execve(path, data.cmd, ms->env) == -1)
+			printf("Command not found\n");
+			//perror("Command not found\n");
 	}
 	else
 		waitpid(pid, NULL, 0);
@@ -100,17 +116,15 @@ void	exec(t_ms *ms)
 
 int	choose_cmd(t_ms *ms)
 {
-	if (!ft_strncmp(ms->lst->content, "cd", ft_strlen(ms->lst->content)))
+	if (!ft_strncmp(ms->lst->content, "cd", 2))
 		change_directory(ms);
-	else if (!ft_strncmp(ms->lst->content, "pwd", ft_strlen(ms->lst->content)))
+	else if (!ft_strncmp(ms->lst->content, "pwd", 3))
 		printf("%s\n", getcwd(NULL, 0));
-		// pwd(ms);
-	else if (!ft_strncmp(ms->lst->content, "unset", \
-ft_strlen(ms->lst->content)))
+	else if (!ft_strncmp(ms->lst->content, "unset", 5))
 		unset(ms, ms->lst->next->content);
-	else if (!ft_strncmp(ms->lst->content, "env", ft_strlen(ms->lst->content)))
+	else if (!ft_strncmp(ms->lst->content, "env", 3))
 		env(ms);
-	else if (!ft_strncmp(ms->lst->content, "echo", ft_strlen(ms->lst->content)))
+	else if (!ft_strncmp(ms->lst->content, "echo", 4))
 		echo(ms);
 	else if (!ft_strncmp(ms->lst->content, "exit", 4))
 		return (42);
