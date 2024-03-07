@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 21:17:05 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/07 14:37:25 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:27:56 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	print_list(t_list *lst)
 	while (lst)
 	{
 		next = lst->next;
-		ft_dprintf(1, "lst->content : [%s]\n	   i : [%d]\n", lst->content, i);
+		ft_dprintf(1, "lst->content : [%s]\n	   i : [%d]\n", \
+		lst->content, i);
 		i++;
 		lst = next;
 	}

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/02 14:38:11 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:31:53 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int	change_directory(t_ms *ms)
 	{
 		free(ms->lst->content);
 		tmp = get_env(ms->env, "HOME=");
-		ms->lst->content = ft_calloc((ft_strlen(tmp) + \
-ft_strlen("/Desktop") + 1), sizeof(char));
+		ms->lst->content = ft_calloc((ft_strlen(tmp) + 9), sizeof(char));
 		ms->lst->content = ft_strdup(tmp);
 		ms->lst->content = ft_strjoin(ms->lst->content, "/Desktop");
 		free(tmp);
@@ -45,7 +44,7 @@ ft_strlen("/Desktop") + 1), sizeof(char));
 		free(error);
 		return (0);
 	}
-	ms->prompt = ft_strjoin(get_prompt(), ">");
+	ms->prompt = get_prompt();
 	edit_env(ms);
 	return (1);
 }

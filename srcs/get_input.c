@@ -6,10 +6,9 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/07 14:35:04 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:27:38 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/header.h"
 
@@ -44,17 +43,17 @@ void	handle_sigint(int sig)
 {
 	(void) sig;
 	ft_dprintf (1, "\n");
-	rl_on_new_line(); // Display readline on a new line
-	rl_replace_line("", 0); // Display a clear line after the prompt
-	rl_redisplay(); // Display Prompt on the new line
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 void	get_input(t_ms *ms)
 {
 	while (1)
 	{
-		signal(SIGINT, handle_sigint); // Handle Ctrl + C
-		signal(SIGQUIT, SIG_IGN); // Handle Ctrl + '\'
+		signal(SIGINT, handle_sigint);
+		signal(SIGQUIT, SIG_IGN);
 		ms->lst = NULL;
 		ms->input = readline(ms->prompt);
 		if (check_input(ms) == 0)

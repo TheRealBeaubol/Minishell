@@ -6,13 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/06 20:37:41 by mhervoch         ###   ########.fr       */
-/*   Updated: 2024/03/06 18:55:25 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:31:33 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/header.h"
-#include <unistd.h>
 
 char	*grep(char **env)
 {
@@ -107,7 +105,8 @@ int	choose_cmd(t_ms *ms)
 	else if (!ft_strncmp(ms->lst->content, "pwd", ft_strlen(ms->lst->content)))
 		printf("%s\n", getcwd(NULL, 0));
 		// pwd(ms);
-	else if (!ft_strncmp(ms->lst->content, "unset", ft_strlen(ms->lst->content)))
+	else if (!ft_strncmp(ms->lst->content, "unset", \
+ft_strlen(ms->lst->content)))
 		unset(ms, ms->lst->next->content);
 	else if (!ft_strncmp(ms->lst->content, "env", ft_strlen(ms->lst->content)))
 		env(ms);

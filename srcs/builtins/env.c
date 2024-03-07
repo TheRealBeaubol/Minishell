@@ -6,11 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 01:40:35 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/07 14:36:32 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:29:53 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../includes/header.h"
+#include "../../includes/header.h"
 
 void	env(t_ms *ms)
 {
