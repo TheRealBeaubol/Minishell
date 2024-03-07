@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/07 17:27:47 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/07 22:57:23 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ int	parse_env(t_ms *ms)
 		if (ms->input[i] == '\'')
 		{
 			while (ms->input[i++] != '\'')
+			{
 				if (ms->input[i] == '\0')
 					return (1);
+			}
 			i++;
 		}
 		else if (ms->input[i] == '$')
