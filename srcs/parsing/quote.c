@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 21:16:06 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/07 23:34:28 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:38:49 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,32 @@
 
 int	parse_quote(t_ms *ms, int i, char c)
 {
-	int	j;
+	char	*tmp;
+	char	*unquote_str;
+	int		j;
 
-	j = i;
-	i += 1;
-	if (ms->input[i] == '\0')
-		free_and_exit(ms);
+	tmp = ft_calloc(ft_strlen(ms->input) - i + 1, sizeof(char));
+	if (!tmp)
+		return (-1);
+	unquote_str = tmp;
+	j = 0;
+	while (j != i - 1)
+		*(tmp++) = ms->input[j++];
 	while (ms->input[i] != c)
 	{
 		if (ms->input[i] == '\0')
 		{
-			ft_putstr_fd("Parsing error\n", 2);
-			return (-1);
+			ft_dprintf(2, "Parsing Error !\n");
+			free_and_exit(ms);
 		}
-		i++;
+		*(tmp++) = ms->input[i++];
 	}
-	ms->input = clear_quotes(ms->input, i, j, ms);
-	ms->quote = 1;
-	if (ms->input[i] != '\0')
-		i++;
-	return (i);
+	j = i++;
+	while (ms->input[i] != '\0')
+		*(tmp++) = ms->input[i++];
+	*tmp = '\0';
+	free(ms->input);
+	ms->input = unquote_str;
+	return (j - 1);
 }
 
-char	*clear_quotes(char *content, int i, int j, t_ms *ms)
-{
-	if (ms->quote == 0)
-		j++;
-	while (j != i)
-	{
-		content[j - 1] = content[j];
-		j++;
-	}
-	j++;
-	if (content[j + 1] == '\0')
-		content[j - 1] = '\0';
-	else
-	{
-		while (content[j] != '\0')
-		{
-			content[j - 2] = content[j];
-			j++;
-		}
-		content[j - 2] = '\0';
-	}
-	return (content);
-}
