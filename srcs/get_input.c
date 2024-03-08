@@ -6,10 +6,9 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/07 23:48:12 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:12:09 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/header.h"
 
@@ -59,6 +58,7 @@ void	get_input(t_ms *ms)
 		ms->input = readline(ms->prompt);
 		if (check_input(ms) == 0)
 		{
+			ms->quote = 0;
 			parse(ms);
 			print_list(ms->lst);
 			if (ms->input[0] != '\0')

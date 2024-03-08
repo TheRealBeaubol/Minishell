@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/08 14:30:53 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:16:46 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	parse(t_ms *ms)
 	int		old_i;
 
 	i = 0;
-	ms->quote = 0;
 	if (parse_env(ms) == 1)
 		return ;
 	while (ms->input[i] != '\0')
@@ -63,7 +62,10 @@ void	parse(t_ms *ms)
 				i++;
 				i = parse_quote(ms, i, ms->input[i - 1]);
 				if (i == -1)
+				{
+					ft_dprintf(2, "Parsing Error\n");
 					return ;
+				}
 			}
 			else
 				i++;

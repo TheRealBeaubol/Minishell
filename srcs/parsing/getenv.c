@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/07 22:57:23 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:07:59 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ void	replace_var(t_ms *ms, int *i)
 	char	*var_name;
 	char	*end_str;
 
+	if (ft_iswhitespace(ms->input[*i + 1]))
+	{
+		(*i)++;
+		return ;
+	}
 	var_name = get_var_name(ms, *i + 1);
 	end_str = get_end_str(ms, var_name, *i);
 	if (var_name && var_name[ft_strlen(var_name) - 1] != '=')

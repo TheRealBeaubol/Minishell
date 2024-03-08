@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 09:36:52 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/07 14:17:23 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/08 15:07:01 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS		:=	char/ft_isalnum.c\
 							char/ft_isdigit.c\
 							char/ft_ishexa.c\
 							char/ft_isprint.c\
+							char/ft_iswhitespace.c\
 							malloc/ft_memcpy.c\
 							malloc/ft_memmove.c\
 							malloc/ft_memset.c\

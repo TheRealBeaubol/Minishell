@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/07 23:49:18 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:17:14 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	initialyse_data(t_ms *ms, t_data *data)
 		tmp = next;
 		i++;
 	}
-		if (i++ < len)
+	if (i++ < len)
 		data->fd_in = open(tmp->content, O_RDONLY);
 		//data->fd_in = open(ms->lst->next->content, O_RDONLY);
 	if (i < len)
@@ -128,7 +128,7 @@ int	choose_cmd(t_ms *ms)
 		echo(ms);
 	else if (!ft_strncmp(ms->lst->content, "exit", 4))
 		return (42);
-	// else
-	// 	exec(ms);
+	else
+		exec(ms);
 	return (0);
 }

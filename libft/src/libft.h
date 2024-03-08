@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:46:19 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/07 14:30:54 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:06:43 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+int		ft_iswhitespace(char c);
 int		ft_putchar_len_fd(char c, int fd);
 int		ft_putstr_len_fd(char *s, int fd);
 int		ft_ul_nb_base_utils(unsigned long nb, int *size, int fd);
