@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:15:46 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/07 23:14:54 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/08 22:06:29 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_data
 	char	**cmd;
 	int		fd_in;
 	int		fd_out;
+	char	**av;
 }	t_data;
 
 #endif

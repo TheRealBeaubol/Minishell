@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/08 15:24:54 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/08 22:43:50 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	initialyse_data(t_ms *ms, t_data *data)
 {
 	int		len;
 	int		i;
-	t_list	*next;
 	t_list	*tmp;
 
 	data->fd_in = 0;
@@ -60,36 +59,23 @@ void	initialyse_data(t_ms *ms, t_data *data)
 	tmp = ms->lst;
 	i = 0;
 	len = ft_lstsize(ms->lst);
-	data->cmd = malloc(sizeof(char *) * (len + 1));
+	data->cmd = ft_calloc(sizeof(char *), (len + 1));
 	data->cmd[0] = ft_strdup(tmp->content);
 	tmp = tmp->next;
 	i++;
-	while (i < len)
+	while (tmp)
 	{
-		next = tmp->next;
-		if (tmp->content[0] == '-')
-			data->cmd[i] = ft_strdup(tmp->content);
-		else
-		{
-			i++;
-			break ;
-		}
-		tmp = next;
-		i++;
+		data->cmd[i++] = ft_strdup(tmp->content);
+		tmp = tmp->next;
 	}
-	if (i++ < len)
+	/*if (i++ < len)
 		data->fd_in = open(tmp->content, O_RDONLY);
 		//data->fd_in = open(ms->lst->next->content, O_RDONLY);
 	if (i < len)
-		data->fd_out = open(tmp->next->content, O_RDONLY | O_CREAT | O_TRUNC, 0777);
-	//data->fd_out = open(ms->lst->next->next->content, O_RDONLY | O_CREAT | O_TRUNC, 0777);
-	//if (data->fd_out)
-		//data->fd_out = 1;
+		data->fd_out = open(tmp->next->content, O_RDONLY | O_CREAT | O_TRUNC, 0777);*/
 }
 
-//a finir pour executer les commande
-
-void	exec(t_ms *ms)
+int	exec(t_ms *ms)
 {
 	char	*path;
 	t_data	data;
@@ -100,22 +86,26 @@ void	exec(t_ms *ms)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (data.fd_in)
+		/*if (data.fd_in)
 			dup2(data.fd_in, STDIN_FILENO);
 		if (data.fd_out)
-			dup2(data.fd_out, STDIN_FILENO);
-		close(data.fd_in);
-		close(data.fd_out);
-		if (execve(path, data.cmd, ms->env) == -1)
-			printf("Command not found\n");
-			//perror("Command not found\n");
+			dup2(data.fd_out, STDOUT_FILENO);
+		if (data.fd_in > 2)
+			close(data.fd_in);
+		close(data.fd_out);*/
+		if (!path)
+			exit(127);
+		execve(path, data.cmd, ms->env);
+		printf("Command not found\n");
+		//perror("Command not found\n");
 	}
-	else
-		waitpid(pid, NULL, 0);
+	return (pid);
 }
 
 int	choose_cmd(t_ms *ms)
 {
+	int	pid;
+
 	if (!ft_strncmp(ms->lst->content, "cd", 3))
 		change_directory(ms);
 	else if (!ft_strncmp(ms->lst->content, "pwd", 4))
@@ -129,6 +119,9 @@ int	choose_cmd(t_ms *ms)
 	else if (!ft_strncmp(ms->lst->content, "exit", 5))
 		return (42);
 	else
-		exec(ms);
+	{
+		pid = exec(ms);
+		waitpid(pid, NULL, 0);
+	}
 	return (0);
 }

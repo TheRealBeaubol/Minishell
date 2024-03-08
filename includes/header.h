@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/08 14:31:15 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/08 22:24:46 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		parse_quote(t_ms *ms, int i, char c);
 /* ******************** */
 /*         exec.c       */
 /* ******************** */
-void	exec(t_ms *ms);
+int		exec(t_ms *ms);
 char	*grep(char **env);
 char	*get_path(char *av, char **env);
 int		choose_cmd(t_ms *ms);
