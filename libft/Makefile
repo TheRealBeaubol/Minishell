@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 09:36:52 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/08 15:07:01 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/08 19:09:01 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -165,9 +165,9 @@ all: $(NAME)
 $(OBJS_DIR)/%.o: %.c
 	$(MK) $(@D)
 	@if [ "$(LIB_CMP)" -ne "$(FILE)" ]; then \
-		printf "\033[K$(LBLUE)[$(RESET)$(LIB_CMP)$(LBLUE)] $(RESET)Compilation in progress... $(GREEN)$<$(BLUE) [$(RESET)$(LIB_CMP)$(BLUE)/$(RESET)$(FILE)$(BLUE)]$(RESET)\r"; \
+		printf " \033[1;38;5;28m [\033[0m$(LIB_CMP)\033[1;38;5;28m/\033[0m$(FILE)\033[1;38;5;28m]	\033[0m$<                        \r"; \
 	else \
-		printf "$(LBLUE)[$(RESET)$(LIB_CMP)$(LBLUE)] $(RESET)Compilation in progress... $(GREEN)$<$(BLUE) [$(RESET)$(LIB_CMP)$(BLUE)/$(RESET)$(FILE)$(BLUE)]$(RESET)\n"; \
+		printf " \033[1;38;5;28m [\033[0m$(LIB_CMP)\033[1;38;5;28m/\033[0m$(FILE)\033[1;38;5;28m]	\033[0m$<\n\n"; \
 	fi
 	$(CC) $(CFLAGS) -c $< -o  $@
 	$(eval LIB_CMP=$(shell echo $$(($(LIB_CMP)+1))))
