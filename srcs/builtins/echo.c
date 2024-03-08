@@ -6,12 +6,30 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 20:48:18 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/07 15:30:15 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/08 15:31:04 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/header.h"
 #include <string.h>
+
+static int	is_valid_flag(char *str)
+{
+	if (*str == '-')
+	{
+		str++;
+		while (*str != '\0')
+		{
+			if (*str == 'n')
+				str++;
+			else
+				return (1);
+		}
+		return (0);
+	}
+	else
+		return (1);
+}
 
 void	echo(t_ms *ms)
 {
@@ -27,7 +45,7 @@ void	echo(t_ms *ms)
 	cpt = 0;
 	n = 1;
 	tmp = ms->lst->next;
-	if (!ft_strncmp(tmp->content, "-n", 2))
+	if (!is_valid_flag(tmp->content))
 	{
 		n = 0;
 		if (tmp->next)
