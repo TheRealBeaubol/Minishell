@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 23:16:07 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/06 18:15:26 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/09 20:50:01 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ char	*get_var_name(t_ms *ms, int i)
 	malloc_count = 0;
 	stock_i = i;
 	if (ft_isdigit(ms->input[i]))
-	{
-		str = wrong_var(ms, ++i);
-		return (str);
-	}
+		return (NULL);
 	if (!ft_isalpha(ms->input[i]) && ms->input[i] != '_')
 		return (NULL);
 	while (ms->input[stock_i++] && (ft_isalnum(ms->input[stock_i]) || \

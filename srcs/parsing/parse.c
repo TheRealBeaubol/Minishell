@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/08 15:16:46 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/09 21:04:14 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ static char	*str_split_strdup(char *src, int start, int end)
 
 void	fill_list(t_ms *ms, int i, int old_i)
 {
+	// ft_printf("%s\n", str_split_strdup(ms->input, old_i, i));
 	if (ms->lst == NULL)
 		ms->lst = ft_lstnew(str_split_strdup(ms->input, old_i, i));
 	else
 		ft_lstadd_back(&ms->lst, ft_lstnew(str_split_strdup(ms->input, \
 	old_i, i)));
 }
+
 
 void	parse(t_ms *ms)
 {
@@ -52,10 +54,10 @@ void	parse(t_ms *ms)
 		return ;
 	while (ms->input[i] != '\0')
 	{
-		while ((9 <= ms->input[i] && ms->input[i] <= 13) || ms->input[i] == 32)
+		while (ft_iswhitespace(ms->input[i]))
 			i++;
 		old_i = i;
-		while (ms->input[i] != ' ' && ms->input[i] != '\0')
+		while ((ms->input[i] != ' ') && ms->input[i] != '\0')
 		{
 			if (ms->input[i] == '"' || ms->input[i] == '\'')
 			{

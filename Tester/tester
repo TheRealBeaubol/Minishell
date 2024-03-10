@@ -1,0 +1,110 @@
+#!/bin/bash
+REMOVE_COLORS="sed s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g"
+COLOR_1="\e[3;1;94m"
+COLOR_2="\e[96m"
+COLOR_3="\e[3;1;91m"
+RESET="\e[0m"
+
+# Détermination de la largeur de colonne maximale
+COLUMN_WIDTH=100
+TEST_WIDTH=20
+
+# Détection du chemin de l'exécutable minishell
+if [ -x "./minishell" ]; then
+	MINISHELL="./minishell"
+elif [ -x "../minishell" ]; then
+	MINISHELL="../minishell"
+else
+	echo -e "\n${COLOR_3}Impossible de trouver l'exécutable 'minishell' \nL'exécutable doit se situer dans le répertoire actuel ou dans le répertoire parent."
+	exit 1
+fi
+
+# Détection du chemin du fichier commands.txt
+if [ -f "./commands.txt" ]; then
+	COMMANDS_FILE="./commands.txt"
+elif [ -f "Tester/commands.txt" ]; then
+	COMMANDS_FILE="Tester/commands.txt"
+else
+	echo -e "\n${COLOR_3}Impossible de trouver le fichier 'commands.txt' \nLe fichier doit se situer dans le répertoire actuel ou dans le répertoire parent."
+	exit 1
+fi
+
+# Fonction pour afficher une ligne stylisée
+function display_command {
+	local command="$1"
+	local length=${#command}
+	local remaining=$((COLUMN_WIDTH - length - TEST_WIDTH)) # Soustraction pour les bordures et les marges
+	local diff_remaining=$((TEST_WIDTH - 2))
+	printf "┃ ${COLOR_1}Commande:	${RESET}${COLOR_2}[%s]${RESET}%${remaining}s┃%${diff_remaining}s┃ \n" "$command"
+}
+
+function display_minishell {
+	local minishell="$1"
+	local diff_status="$2"
+	local length=${#minishell}
+	local remaining=$((COLUMN_WIDTH - length - TEST_WIDTH)) # Soustraction pour les bordures et les marges
+	local diff_remaining=$((TEST_WIDTH / 4))
+	if [ "$diff_status" == "1" ]; then
+		local emote="✅"
+		EMOTE_COLOR="\e[0m"
+	else
+		local emote="❌"
+		EMOTE_COLOR="\e[5m"
+	fi
+	printf "┃ ${COLOR_1}Minishell:	${RESET}${COLOR_2}[%s]${RESET}%${remaining}s┃%${diff_remaining}sDiff: ${EMOTE_COLOR}%s${RESET}%${diff_remaining}s┃ \n" "$minishell" "" "" "$emote"
+}
+
+function display_bash {
+	local bash="$1"
+	local length=${#bash}
+	local remaining=$((COLUMN_WIDTH - length - TEST_WIDTH)) # Soustraction pour les bordures et les marges
+	local diff_remaining=$((TEST_WIDTH - 2))
+	printf "┃ ${COLOR_1}Bash:		${RESET}${COLOR_2}[%s]${RESET}%${remaining}s┃%${diff_remaining}s┃ \n" "$bash" 
+}
+
+# Affichage de la ligne de séparation stylisée
+function display_separator {
+	printf "┏%s┳%s┓\n" "$(printf '━%.0s' $(seq 1 $((COLUMN_WIDTH - 3))))" "$(printf '━%.0s' $(seq 1 $((TEST_WIDTH - 2))))"
+}
+
+# Affichage de la ligne de fin stylisée
+function display_end {
+	printf "┗%s┻%s┛\n" "$(printf '━%.0s' $(seq 1 $((COLUMN_WIDTH - 3))))" "$(printf '━%.0s' $(seq 1 $((TEST_WIDTH - 2))))"
+}
+
+# Initialisation du séparateur
+separator=""
+
+# Compter le nombre de lignes dans commands.txt
+num_lines=$(wc -l < "$COMMANDS_FILE")
+
+# Si un seul test
+if [ "$num_lines" -eq 1 ]; then
+	display_separator
+	display_line ""
+	display_end
+else
+	# Boucle sur les commandes dans le fichier commands.txt
+	while IFS= read -r command; do
+		# Exécution de la commande dans Minishell
+		minishell_result=$(echo -e "$command" | "$MINISHELL" 2> /dev/null)
+		minishell_result=$(echo "$minishell_result" | sed '1d' | sed '2d')
+		bash_result=$(bash -c "$command" 2>&1)
+		if [ "$minishell_result" = "$bash_result" ]; then
+			status="1"
+		else
+			status="2"
+		fi
+		# Affichage des résultats stylisés
+		if [ "$separator" == "" ]; then
+			display_separator
+		else
+			printf "┣%s╋%s┫\n" "$(printf '━%.0s' $(seq 1 $((COLUMN_WIDTH - 3))))" "$(printf '━%.0s' $(seq 1 $((TEST_WIDTH - 2))))"
+		fi
+		display_command "$command"
+		display_minishell "$minishell_result" "$status"
+		display_bash "$bash_result"
+		separator="┣"
+	done < "$COMMANDS_FILE"
+	display_end
+fi
