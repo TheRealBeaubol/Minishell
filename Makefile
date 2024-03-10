@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/08 20:26:16 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/10 22:02:07 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ $(NAME) : $(LIBFT_NAME) $(OBJS)
 
 $(LIBFT_NAME):
 		@printf "  📖 \033[1;38;5;240mCompiling libft\033[0m 📖\n"
-		@make -C $(LIBFT_PATH)
+		@make -C $(LIBFT_PATH) -j
 		@printf "  ✅ \033[1;38;5;120mLibft successfully compiled\033[0m\n\n"
 		@printf "  🖥️  \033[1;38;5;240mCompiling minishell\033[0m 🖥️\n"
 
