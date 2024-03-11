@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:13:45 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/08 20:27:27 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:25:44 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include "../libft/src/libft.h"
+
+# define PROMPT "\e[4;0m\e[1;37m >"
 
 #endif

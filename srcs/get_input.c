@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/09 21:04:25 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 18:34:00 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	check_input(t_ms *ms)
 		ft_dprintf (2, "exit\n");
 		free_and_exit(ms);
 	}
-	add_history(ms->input);
+	if (ms->input[0] != '\0')
+		add_history(ms->input);
 	if (is_skip(ms) == 1)
 		return (1);
 	return (0);
@@ -63,11 +64,9 @@ void	get_input(t_ms *ms)
 			// print_list(ms->lst);
 			if (ms->input[0] != '\0')
 			{
-				if (choose_cmd(ms) == 42)
-					return ;
-				free(ms->input);
+				choose_cmd(ms);
 			}
-			ft_free_list(&ms->lst);
 		}
+		free(ms->input);
 	}
 }

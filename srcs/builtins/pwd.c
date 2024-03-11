@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:55:30 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/10 20:39:24 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:29:11 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,21 @@ static char	*join_custom_prompt(char *str, t_ms *ms)
 {
 	char	*prompt;
 	char	*user;
+	char	*tmp;
 
 	user = get_env(ms->env, "USER=");
-	user = ft_strjoin("[", user);
-	user = ft_strjoin(user, "]▸ ");
-	str = ft_strjoin("\e[4;1m\e[3;1m", str);
-	str = ft_strjoin(user, str);
-	prompt = ft_strjoin("\e[4;0m\e[1;37m", " > ");
-	prompt = ft_strjoin(str, prompt);
-	prompt = ft_strjoin("\e[1;91m", prompt);
-	prompt = ft_strjoin(prompt, "\e[0m");
-	return (prompt);
+	tmp = ft_strjoin("\e[1;91m[", user);
+	free(user);
+	user = ft_strjoin(tmp, "]▸ \e[4;1m\e[3;1m");
+	free(tmp);
+	tmp = ft_strjoin(user, str);
+	free(user);
+	free(str);
+	prompt = ft_strjoin(tmp, PROMPT);
+	free(tmp);
+	str = ft_strjoin(prompt, "\e[0m");
+	free(prompt);
+	return (str);
 }
 
 char	*get_prompt(t_ms *ms)
