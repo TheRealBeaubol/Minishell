@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:18:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/07 15:30:03 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:22:07 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ void	unset(t_ms *ms, char *var)
 
 	indice = get_env_indice(ms, var);
 	printf("%s\n", ms->env[indice]);
-	ms->env[indice] = ft_strjoin(get_var(ms, indice), "=");
+	ms->env[indice] = ft_strjoin(get_var(ms, indice), "=", NULL, 0b000);
 	printf("%s\n", ms->env[indice]);
 }

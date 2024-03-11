@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:04:26 by lboiteux          #+#    #+#             */
-/*   Updated: 2023/11/23 22:44:00 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:32:10 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_atoi(const char *nptr)
+int	ft_atoi(char *nptr)
 {
 	int	i;
 	int	stock;

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/11 18:33:30 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 23:26:47 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,19 @@ void	get_path(t_ms *ms)
 
 	ms->path->path_str = grep(ms);
 	ms->path->dec_path = ft_char_split(ms->data->cmd[0], ' ');
-	ms->path->commande = ft_strjoin("/", ms->path->dec_path[0]);
+	ms->path->commande = ft_strjoin("/", ms->path->dec_path[0], NULL, 0b000);
 	i = 0;
 	ft_free_tab(ms->path->dec_path);
 	ms->path->dec_path = ft_char_split(ms->path->path_str, ':');
-	ms->path->str = ft_strjoin(ms->path->dec_path[i], ms->path->commande);
+	ms->path->str = ft_strjoin(ms->path->dec_path[i], ms->path->commande, \
+	NULL, 0b000);
 	while (ms->path->dec_path[i++] && access(ms->path->str, X_OK) == -1)
 	{
 		free(ms->path->str);
-		ms->path->str = ft_strjoin(ms->path->dec_path[i], ms->path->commande);
+		ms->path->str = ft_strjoin(ms->path->dec_path[i], ms->path->commande, NULL, 0b000);
 	}
 	ft_free_tab(ms->path->dec_path);
+	free(ms->path->commande);
 	free(ms->path->path_str);
 }
 
@@ -73,12 +75,9 @@ void	initialyse_data(t_ms *ms)
 	}
 	if (i++ < len)
 		ms->data->fd_in = open(tmp->content, O_RDONLY);
-		//data->fd_in = open(ms->lst->next->content, O_RDONLY);
 	if (i < len)
-		ms->data->fd_out = open(tmp->next->content, O_RDONLY | O_CREAT | O_TRUNC, 0777);
-	//data->fd_out = open(ms->lst->next->next->content, O_RDONLY | O_CREAT | O_TRUNC, 0777);
-	//if (data->fd_out)
-		//data->fd_out = 1;
+		ms->data->fd_out = open(tmp->next->content, O_RDONLY | \
+	O_CREAT | O_TRUNC, 0777);
 }
 
 //a finir pour executer les commande
@@ -92,14 +91,9 @@ void	exec(t_ms *ms)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (ms->data->fd_in)
-			dup2(ms->data->fd_in, STDIN_FILENO);
-		if (ms->data->fd_out)
-			dup2(ms->data->fd_out, STDIN_FILENO);
-		close(ms->data->fd_in);
-		close(ms->data->fd_out);
-		if (execve(ms->path->str, ms->data->cmd, ms->env) == -1)
-			printf("Command not found\n");
+		// if (access(ms->path->str))
+		execve(ms->path->str, ms->data->cmd, ms->env);
+		printf("Command not found\n");
 		ft_free_tab(ms->data->cmd);
 		free(ms->path->str);
 		free(ms->prompt);
@@ -107,15 +101,25 @@ void	exec(t_ms *ms)
 		exit(127);
 	}
 	waitpid(pid, NULL, 0);
+	ft_free_tab(ms->data->cmd);
+	ms->data->cmd = NULL;
+	free(ms->path->str);
+	free(ms->prompt);
 	ms->prompt = get_prompt(ms);
 }
 
 int	choose_cmd(t_ms *ms)
 {
+	char	*str;
+
 	if (!ft_strncmp(ms->lst->content, "cd", 3))
 		change_directory(ms);
 	else if (!ft_strncmp(ms->lst->content, "pwd", 4))
-		printf("%s\n", getcwd(NULL, 0));
+	{
+		str = ft_strdup(getcwd(NULL, 0));
+		printf("%s\n", str);
+		free(str);
+	}
 	else if (!ft_strncmp(ms->lst->content, "unset", 6))
 		unset(ms, ms->lst->next->content);
 	else if (!ft_strncmp(ms->lst->content, "env", 4))
@@ -126,5 +130,6 @@ int	choose_cmd(t_ms *ms)
 		return (42);
 	else
 		exec(ms);
+	ft_free_list(&ms->lst);	
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/09 21:01:12 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 23:41:11 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	replace_var(t_ms *ms, int *i)
 	}
 	end_str = get_end_str(ms, var_name, *i);
 	if (var_name && var_name[ft_strlen(var_name) - 1] != '=')
-		ms->input = ft_strjoin(var_name, end_str);
+		ms->input = ft_strjoin(var_name, end_str, NULL, 0b000);
 	else
 	{
 		ms->input = get_new_input(ms, *i, end_str, var_name);
@@ -59,8 +59,7 @@ int	handle_dquote_envvar(t_ms *ms, int i)
 		else
 			j++;
 	}
-	i = j;
-	return (i  + 1);
+	return (j + 1);
 }
 
 int	parse_env(t_ms *ms)

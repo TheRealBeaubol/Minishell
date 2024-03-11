@@ -30,3 +30,5 @@ echo '$a'
 echo '$1a'
 e'ch'""'o' '"'""'"''sa'l""u"t"''
 echo "BAIZE TA MERE LA PUTE"
+echo $   
+echo $                          

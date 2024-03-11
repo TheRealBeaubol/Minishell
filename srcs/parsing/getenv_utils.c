@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 23:16:07 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/09 20:50:01 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 23:45:11 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*get_var_name(t_ms *ms, int i)
 	while (ms->input[stock_i++] && (ft_isalnum(ms->input[stock_i]) || \
 ms->input[stock_i] == '_'))
 		malloc_count++;
-	str = malloc((malloc_count + 2) * sizeof(char));
+	str = ft_calloc((malloc_count + 3), sizeof(char));
 	while (ft_isalnum(ms->input[i]) || ms->input[i] == '_')
 		str[j++] = ms->input[i++];
 	str[j] = '=';
@@ -77,11 +77,11 @@ char	*get_new_input(t_ms *ms, int i, char *end_str, char *var_name)
 sizeof(char));
 	while (++j != i)
 		input[j] = ms->input[j];
-	input = ft_strjoin(input, var_env);
+	input = ft_strjoin(input, var_env, NULL, 0b001);
 	if (var_env)
 		free(var_env);
 	if (end_str)
-		input = ft_strjoin(input, end_str);
+		input = ft_strjoin(input, end_str, NULL, 0b001);
 	free(ms->input);
 	return (input);
 }

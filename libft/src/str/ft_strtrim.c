@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:45:44 by lboiteux          #+#    #+#             */
-/*   Updated: 2023/11/23 22:43:03 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:32:17 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-static int	char_finder(const char character, const char *charset)
+static int	char_finder(char character, char *charset)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ static int	char_finder(const char character, const char *charset)
 	return (0);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char *s1, char *set)
 {
 	int		i;
 	int		j;

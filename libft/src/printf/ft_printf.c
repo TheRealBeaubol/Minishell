@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 20:48:10 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/07 14:30:37 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:32:10 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_printf(const char *s, ...)
+int	ft_printf(char *s, ...)
 {
 	va_list	arg;
 	int		i;
@@ -41,7 +41,7 @@ int	ft_printf(const char *s, ...)
 	return (size);
 }
 
-int	ft_dprintf(int fd, const char *s, ...)
+int	ft_dprintf(int fd, char *s, ...)
 {
 	va_list	arg;
 	int		i;

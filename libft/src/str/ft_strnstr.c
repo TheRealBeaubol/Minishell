@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 17:50:50 by lboiteux          #+#    #+#             */
-/*   Updated: 2023/11/23 22:43:09 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:32:10 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-static int	ft_strfind(const char *s1, const char *s2, size_t len)
+static int	ft_strfind(char *s1, char *s2, size_t len)
 {
 	size_t	i;
 
@@ -22,7 +22,7 @@ static int	ft_strfind(const char *s1, const char *s2, size_t len)
 	return (s2[i] == '\0');
 }
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+char	*ft_strnstr(char *big, char *little, size_t len)
 {
 	size_t	i;
 

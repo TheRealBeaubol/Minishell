@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 17:45:49 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/01/07 17:14:16 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 23:19:26 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_free_list(t_list **stack)
 	while (current)
 	{
 		next = current->next;
+		free(current->content);
 		free(current);
 		current = next;
 	}

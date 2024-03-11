@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/11 17:51:56 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 20:54:54 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*str_split_strdup(char *src, int start, int end)
 	int		j;
 	char	*dest;
 
-	dest = malloc(end - start + 2 * sizeof(*dest));
+	dest = malloc(end - start + 1 * sizeof(*dest));
 	if (dest == NULL)
 		return (dest);
 	i = start;
@@ -33,17 +33,18 @@ static char	*str_split_strdup(char *src, int start, int end)
 	return (dest);
 }
 
-void	fill_list(t_ms *ms, int i, int old_i)
+void	fill_list(char *input, t_list **lst, int i, int old_i)
 {
 	char	*str;
 
-	str = str_split_strdup(ms->input, old_i, i);
-	if (ms->lst == NULL)
-		ms->lst = ft_lstnew(str);
-	else
-		ft_lstadd_back(&ms->lst, ft_lstnew(str));
+	str = str_split_strdup(input, old_i, i);
+	if (*lst == NULL)
+	{
+		*lst = ft_lstnew(str);
+		return ;
+	}
+	ft_lstadd_back(lst, ft_lstnew(str));
 }
-
 
 void	parse(t_ms *ms)
 {
@@ -72,6 +73,6 @@ void	parse(t_ms *ms)
 			else
 				i++;
 		}
-		fill_list(ms, i, old_i);
+		fill_list(ms->input, &(ms->lst), i, old_i);
 	}
 }

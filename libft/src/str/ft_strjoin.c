@@ -6,31 +6,40 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 02:14:31 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/02/22 22:40:44 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 22:56:51 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+static void	ft_manage_join(char *s1, char *s2, char *c, int tofree)
+{
+	if (tofree & 0b001)
+		free(s1);
+	if (tofree & 0b010)
+		free(s2);
+	if (tofree & 0b100)
+		free(c);
+}
+
+char	*ft_strjoin(char *s1, char *s2, char *c, int tofree)
 {
 	char	*str;
-	size_t	len1;
-	size_t	len2;
+	int		mask;
 
+	mask = !s1 + (!s2 << 1) | tofree;
 	if (!s1)
-		return ((char *)s2);
+		s1 = ft_strdup("");
 	if (!s2)
-		return ((char *)s1);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	str = ft_calloc((len1 + len2 + 1), sizeof(char));
+		s2 = ft_strdup("");
+	str = malloc((ft_strlen(s1) + ft_strlen(s2) + ft_strlen(c) + 1) * sizeof(char));
+	*str = 0;
 	if (!str)
 		return (str);
-	ft_strlcat (str, s1, len1 + 1);
-	if (!len1)
-		ft_strlcat ((str + len1), s2, (len1 + len2 + 1));
-	else
-		ft_strlcat ((str + len1 - 1), s2, (len1 + len2 + 1));
+	ft_strcat(str, s1);
+	if (c)
+		ft_strcat(str, c);
+	ft_strcat (str, s2);
+	ft_manage_join(s1, s2, c, mask);
 	return (str);
 }
