@@ -3,10 +3,16 @@ REMOVE_COLORS="sed s/\x1B\[[0-9;]\{1,\}[A-Za-z]//g"
 COLOR_1="\e[3;1;94m"
 COLOR_2="\e[96m"
 COLOR_3="\e[3;1;91m"
+COLOR_4="\e[3;1;93m"
+COLOR_5="\e[3;1;92m"
+COLOR_6="\e[3;1;95m"
 RESET="\e[0m"
 
-# Détermination de la largeur de colonne maximale
-COLUMN_WIDTH=100
+# Détection de la largeur du terminal
+COLUMN=$(tput cols)
+COLUMN_WIDTH=80
+
+# Détermination de la largeur de la partie test
 TEST_WIDTH=20
 
 # Détection du chemin de l'exécutable minishell
@@ -32,10 +38,11 @@ fi
 # Fonction pour afficher une ligne stylisée
 function display_command {
 	local command="$1"
+	local test_nb="$2"
 	local length=${#command}
-	local remaining=$((COLUMN_WIDTH - length - TEST_WIDTH)) # Soustraction pour les bordures et les marges
+	local remaining=$((COLUMN_WIDTH - length - TEST_WIDTH - ${#test_nb})) # Soustraction pour les bordures et les marges
 	local diff_remaining=$((TEST_WIDTH - 2))
-	printf "┃ ${COLOR_1}Commande:	${RESET}${COLOR_2}[%s]${RESET}%${remaining}s┃%${diff_remaining}s┃ \n" "$command"
+	printf "┃ ${COLOR_1}Commande:	${RESET}${COLOR_2}[%s]${RESET}%${remaining}s${test_nb}┃%${diff_remaining}s┃ \n" "$command"
 }
 
 function display_minishell {
@@ -73,7 +80,7 @@ function display_end {
 }
 
 # Initialisation du séparateur
-separator=""
+separator=0
 
 # Compter le nombre de lignes dans commands.txt
 num_lines=$(wc -l < "$COMMANDS_FILE")
@@ -84,27 +91,50 @@ if [ "$num_lines" -eq 1 ]; then
 	display_line ""
 	display_end
 else
+	i=0
+	j=0
+	emojis=()
 	# Boucle sur les commandes dans le fichier commands.txt
 	while IFS= read -r command; do
+		((j++))
 		# Exécution de la commande dans Minishell
 		minishell_result=$(echo -e "$command" | "$MINISHELL" 2> /dev/null)
 		minishell_result=$(echo "$minishell_result" | sed '1d' | sed '2d')
 		bash_result=$(bash -c "$command" 2>&1)
 		if [ "$minishell_result" = "$bash_result" ]; then
 			status="1"
+			((i++))
+			emojis+=("${COLOR_4}✅") # Ajout d'un seul emoji pour chaque test réussi
 		else
 			status="2"
+			emojis+=("${COLOR_5}❌")  # Ajout d'un seul emoji pour chaque test échoué
 		fi
 		# Affichage des résultats stylisés
-		if [ "$separator" == "" ]; then
+		if [ "$separator" == 0 ]; then
 			display_separator
+			separator=1
 		else
 			printf "┣%s╋%s┫\n" "$(printf '━%.0s' $(seq 1 $((COLUMN_WIDTH - 3))))" "$(printf '━%.0s' $(seq 1 $((TEST_WIDTH - 2))))"
 		fi
-		display_command "$command"
+		display_command "$command" "$j"
 		display_minishell "$minishell_result" "$status"
 		display_bash "$bash_result"
 		separator="┣"
 	done < "$COMMANDS_FILE"
 	display_end
+	COLS="$(tput cols)"
+	ind=0
+	end=0
+	while [ "$ind" -ne "$j" ]; do
+		em="${emojis[ind]}" # Accès à la valeur actuelle de emojis à l'indice ind
+		echo -ne " ${COLOR_2}$(($ind + 1)):$em " # Utilisation de la variable em sans guillemets
+		ind=$((ind + 1))
+	done
+
+
+	if [ "$i" -eq "$j" ]; then
+		printf "${COLOR_4}\nFélicitations vous avez réussi tous les tests : ${COLOR_5}%d ${COLOR_4}/ ${COLOR_5}%d ${COLOR_4}!\n" ${i} ${j} 
+	else
+		printf "\n${COLOR_5}%d ${COLOR_6}tests réussis sur ${COLOR_5}%d ${COLOR_6}!\n" ${i} ${j}
+	fi
 fi

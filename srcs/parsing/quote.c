@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 21:16:06 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/09 18:18:32 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 02:33:40 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,26 @@ int	parse_quote(t_ms *ms, int i, char c)
 	char	*tmp;
 	char	*unquote_str;
 	int		j;
+	int		k;
 
-	tmp = ft_calloc(ft_strlen(ms->input) - i + 1, sizeof(char));
+	tmp = ft_calloc(ft_strlen(ms->input) - 1, sizeof(char));
 	if (!tmp)
 		return (-1);
 	unquote_str = tmp;
 	j = 0;
+	k = 0;
 	while (j != i - 1)
-		*(tmp++) = ms->input[j++];
-	while (ms->input[i] != c)
+		tmp[k++] = ms->input[j++];
+	while (ms->input[i] != '\0' && ms->input[i] != c)
 	{
 		if (ms->input[i] == '\0')
 			return (-1);
-		*(tmp++) = ms->input[i++];
+		tmp[k++] = ms->input[i];
+		i++;
 	}
 	j = i++;
 	while (ms->input[i] != '\0')
-		*(tmp++) = ms->input[i++];
-	*tmp = '\0';
+		tmp[k++] = ms->input[i++];
 	free(ms->input);
 	ms->input = unquote_str;
 	return (j - 1);

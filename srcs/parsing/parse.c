@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/09 21:04:14 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/11 02:29:45 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*str_split_strdup(char *src, int start, int end)
 	int		j;
 	char	*dest;
 
-	dest = malloc(end - start + 1 * sizeof(*dest));
+	dest = malloc(end - start + 2 * sizeof(*dest));
 	if (dest == NULL)
 		return (dest);
 	i = start;
@@ -35,12 +35,13 @@ static char	*str_split_strdup(char *src, int start, int end)
 
 void	fill_list(t_ms *ms, int i, int old_i)
 {
-	// ft_printf("%s\n", str_split_strdup(ms->input, old_i, i));
+	char	*str;
+
+	str = str_split_strdup(ms->input, old_i, i);
 	if (ms->lst == NULL)
-		ms->lst = ft_lstnew(str_split_strdup(ms->input, old_i, i));
+		ms->lst = ft_lstnew(str);
 	else
-		ft_lstadd_back(&ms->lst, ft_lstnew(str_split_strdup(ms->input, \
-	old_i, i)));
+		ft_lstadd_back(&ms->lst, ft_lstnew(str));
 }
 
 
@@ -61,8 +62,7 @@ void	parse(t_ms *ms)
 		{
 			if (ms->input[i] == '"' || ms->input[i] == '\'')
 			{
-				i++;
-				i = parse_quote(ms, i, ms->input[i - 1]);
+				i = parse_quote(ms, i + 1, ms->input[i]);
 				if (i == -1)
 				{
 					ft_dprintf(2, "Parsing Error\n");
