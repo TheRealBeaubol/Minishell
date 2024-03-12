@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/12 20:17:29 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/12 23:42:04 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	choose_cmd(t_ms *ms)
 		change_directory(ms);
 	else if (!ft_strncmp(ms->lst->content, "pwd", 4))
 	{
-		str = ft_strdup(getcwd(NULL, 0));
+		str = cwdget();
 		printf("%s\n", str);
 		free(str);
 	}

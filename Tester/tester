@@ -35,6 +35,15 @@ else
 	exit 1
 fi
 
+# Détection du chemin du fichier bash.supp
+if [ -f "./.supp/bash.supp" ]; then
+	SUPP="./.supp/bash.supp"
+elif [ -f "../.supp/bash.supp" ]; then
+	SUPP="../.supp/bash.supp"
+else
+	echo -e "\n${COLOR_3}Impossible de trouver le fichier 'commands.txt' \nLe fichier doit se situer dans le répertoire actuel ou dans le répertoire parent."
+	exit 1
+fi
 # Fonction pour afficher une ligne stylisée
 function display_command {
 	local command="$1"
@@ -84,6 +93,21 @@ separator=0
 
 # Compter le nombre de lignes dans commands.txt
 num_lines=$(wc -l < "$COMMANDS_FILE")
+
+rm -f valgrind.txt
+while IFS= read -r command; do
+    # Exécution de la commande valgrind pour chaque test
+    valgrind_result=$(echo -ne "$command" | valgrind --leak-check=full --show-reachable=yes --suppressions="$SUPP" --trace-children=yes --track-fds=yes --show-leak-kinds=all "$MINISHELL" 2>&1)
+     
+    # Écrire le résultat dans le fichier valgrind.txt
+    echo -ne "${COLOR_5}[$command]" >> valgrind.txt
+    echo -ne "${COLOR_2}" >> valgrind.txt
+	echo -ne "$valgrind_result" | cut -d' ' -f2- | head -n -3 | tail -n +9 >> valgrind.txt
+    echo -ne "${RESET}" >> valgrind.txt
+    echo >> valgrind.txt # Ajouter une ligne vide après chaque résultat
+
+done < "$COMMANDS_FILE"
+# Supprimer le fichier texte existant s'il existe
 
 # Si un seul test
 if [ "$num_lines" -eq 1 ]; then

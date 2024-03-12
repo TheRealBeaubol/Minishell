@@ -2,35 +2,3 @@ echo $1a
 echo "$1a"
 echo $ 
 echo  $ 
-echo $
-echo "$"
-echo '$'
-echo "$ "
-echo '$ '
-echo  $
-echo " $"
-echo ' $'
-echo " $ "
-echo ' $ '
-echo "$USER a"
-echo "$USER"
-echo "$USERa" 
-echo "a$USER"
-echo "a $USER"
-echo "$USER "
-echo '$USER'
-echo '$USER a'
-echo '$USERa'
-echo 'a$USER'
-echo 'a $USER'
-echo '$USER '
-echo $a
-echo "$a"
-echo '$a'
-echo '$1a'
-e'ch'""'o' '"'""'"''sa'l""u"t"''
-echo "BAIZE TA MERE LA PUTE"
-echo $   
-echo $                          
-echo $                          $HOME
-echo $                          fdp

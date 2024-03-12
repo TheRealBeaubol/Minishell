@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/11 20:55:27 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/12 23:41:30 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ char	*get_end_str(t_ms *ms, char *var_name, int i);
 char	*get_var_name(t_ms *ms, int i);
 char	*get_env(char **env, char *var_name);
 char	*wrong_var(t_ms *ms, int i);
+
+char	*cwdget(void);
 
 void	unset(t_ms *ms, char *var);
 void	echo(t_ms *ms);

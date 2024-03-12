@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 23:16:07 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/11 23:45:11 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/12 23:46:48 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,7 @@ char	*get_new_input(t_ms *ms, int i, char *end_str, char *var_name)
 sizeof(char));
 	while (++j != i)
 		input[j] = ms->input[j];
-	input = ft_strjoin(input, var_env, NULL, 0b001);
-	if (var_env)
-		free(var_env);
+	input = ft_strjoin(input, var_env, NULL, 0b011);
 	if (end_str)
 		input = ft_strjoin(input, end_str, NULL, 0b001);
 	free(ms->input);
