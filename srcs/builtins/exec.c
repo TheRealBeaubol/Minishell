@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/12 19:50:00 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:17:29 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,18 @@ void	initialyse_data(t_ms *ms)
 	t_list	*tmp;
 
 	i = 0;
+	tmp = ms->lst;
 	len = ft_lstsize(ms->lst);
 	ms->data->cmd = ft_calloc((len + 1), sizeof(char *));
 	ms->data->cmd[0] = ft_strdup(ms->lst->content);
-	tmp = ms->lst->next;
-	while (++i < len)
+	tmp = tmp->next;
+	i++;
+	while (tmp)
 	{
-		if (tmp->content[0] == '-')
-			ms->data->cmd[i] = ft_strdup(tmp->content);
-		else
-		{
-			i++;
-			break ;
-		}
+		ms->data->cmd[i] = ft_strdup(tmp->content);
 		tmp = tmp->next;
+		i++;
 	}
-	if (i++ < len)
-		ms->data->fd_in = open(tmp->content, O_RDONLY);
-	if (i < len)
-		ms->data->fd_out = open(tmp->next->content, O_RDONLY | \
-	O_CREAT | O_TRUNC, 0777);
 }
 
 void	exec(t_ms *ms)
