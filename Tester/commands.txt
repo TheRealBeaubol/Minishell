@@ -32,3 +32,5 @@ e'ch'""'o' '"'""'"''sa'l""u"t"''
 echo "BAIZE TA MERE LA PUTE"
 echo $   
 echo $                          
+echo $                          $HOME
+echo $                          fdp

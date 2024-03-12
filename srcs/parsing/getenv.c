@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/11 23:41:11 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:38:56 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,10 @@ void	replace_var(t_ms *ms, int *i)
 			return ;
 	}
 	*i = ft_strlen(ms->input) - ft_strlen(end_str);
-	if (end_str)
-		free(end_str);
+	free(end_str);
 }
 
-int	handle_dquote_envvar(t_ms *ms, int i)
+static int	handle_dquote_envvar(t_ms *ms, int i)
 {
 	int	j;
 
@@ -62,6 +61,16 @@ int	handle_dquote_envvar(t_ms *ms, int i)
 	return (j + 1);
 }
 
+static int	handle_squote_envvar(t_ms *ms, int i)
+{
+	while (ms->input[++i] != '\'')
+	{
+		if (ms->input[i] == '\0')
+			return (-1);
+	}
+	return (i + 1);
+}
+
 int	parse_env(t_ms *ms)
 {
 	int		i;
@@ -70,20 +79,9 @@ int	parse_env(t_ms *ms)
 	while (ms->input[i] != '\0')
 	{
 		if (ms->input[i] == '"' && ms->input[i + 1] != '\0')
-		{
 			i = handle_dquote_envvar(ms, i);
-			if (i == -1)
-				return (1);
-		}
 		else if (ms->input[i] == '\'')
-		{
-			while (ms->input[++i] != '\'')
-			{
-				if (ms->input[i] == '\0')
-					return (1);
-			}
-			i++;
-		}
+			i = handle_squote_envvar(ms, i);
 		else if (ms->input[i] == '$')
 		{
 			replace_var(ms, &i);
@@ -92,6 +90,8 @@ int	parse_env(t_ms *ms)
 		}
 		else
 			i++;
+		if (i == -1)
+			return (1);
 	}
 	return (0);
 }

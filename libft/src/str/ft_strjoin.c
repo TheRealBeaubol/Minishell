@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 02:14:31 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/11 22:56:51 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:34:51 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ char	*ft_strjoin(char *s1, char *s2, char *c, int tofree)
 		s1 = ft_strdup("");
 	if (!s2)
 		s2 = ft_strdup("");
-	str = malloc((ft_strlen(s1) + ft_strlen(s2) + ft_strlen(c) + 1) * sizeof(char));
+	str = malloc((ft_strlen(s1) + ft_strlen(s2) + ft_strlen(c) + 1) \
+	* sizeof(char));
 	*str = 0;
 	if (!str)
 		return (str);

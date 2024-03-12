@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/11 23:26:47 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:50:00 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	get_path(t_ms *ms)
 	while (ms->path->dec_path[i++] && access(ms->path->str, X_OK) == -1)
 	{
 		free(ms->path->str);
-		ms->path->str = ft_strjoin(ms->path->dec_path[i], ms->path->commande, NULL, 0b000);
+		ms->path->str = ft_strjoin(ms->path->dec_path[i], \
+		ms->path->commande, NULL, 0b000);
 	}
 	ft_free_tab(ms->path->dec_path);
 	free(ms->path->commande);
@@ -50,19 +51,15 @@ void	initialyse_data(t_ms *ms)
 {
 	int		len;
 	int		i;
-	t_list	*next;
 	t_list	*tmp;
 
-	tmp = ms->lst;
 	i = 0;
 	len = ft_lstsize(ms->lst);
 	ms->data->cmd = ft_calloc((len + 1), sizeof(char *));
-	ms->data->cmd[0] = ft_strdup(tmp->content);
-	tmp = tmp->next;
-	i++;
-	while (i < len)
+	ms->data->cmd[0] = ft_strdup(ms->lst->content);
+	tmp = ms->lst->next;
+	while (++i < len)
 	{
-		next = tmp->next;
 		if (tmp->content[0] == '-')
 			ms->data->cmd[i] = ft_strdup(tmp->content);
 		else
@@ -70,8 +67,7 @@ void	initialyse_data(t_ms *ms)
 			i++;
 			break ;
 		}
-		tmp = next;
-		i++;
+		tmp = tmp->next;
 	}
 	if (i++ < len)
 		ms->data->fd_in = open(tmp->content, O_RDONLY);
@@ -79,8 +75,6 @@ void	initialyse_data(t_ms *ms)
 		ms->data->fd_out = open(tmp->next->content, O_RDONLY | \
 	O_CREAT | O_TRUNC, 0777);
 }
-
-//a finir pour executer les commande
 
 void	exec(t_ms *ms)
 {
@@ -91,7 +85,6 @@ void	exec(t_ms *ms)
 	pid = fork();
 	if (pid == 0)
 	{
-		// if (access(ms->path->str))
 		execve(ms->path->str, ms->data->cmd, ms->env);
 		printf("Command not found\n");
 		ft_free_tab(ms->data->cmd);
@@ -130,6 +123,6 @@ int	choose_cmd(t_ms *ms)
 		return (42);
 	else
 		exec(ms);
-	ft_free_list(&ms->lst);	
+	ft_free_list(&ms->lst);
 	return (0);
 }

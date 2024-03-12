@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 20:48:18 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/08 15:31:04 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:12:09 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,11 @@ static int	is_valid_flag(char *str)
 		return (1);
 }
 
-void	echo(t_ms *ms)
+static void	echo_printing(t_list *tmp, int n)
 {
-	t_list	*tmp;
-	int		cpt;
-	int		n;
+	int	cpt;
 
-	if (!ms->lst->next)
-	{
-		ft_dprintf(1, "\n");
-		return ;
-	}
 	cpt = 0;
-	n = 1;
-	tmp = ms->lst->next;
-	if (!is_valid_flag(tmp->content))
-	{
-		n = 0;
-		if (tmp->next)
-			tmp = tmp->next;
-		else
-			return ;
-	}
 	while (tmp->next)
 	{
 		if (cpt++ == 0)
@@ -69,4 +52,27 @@ void	echo(t_ms *ms)
 	ft_dprintf(1, tmp->content);
 	if (n == 1)
 		ft_dprintf(1, "\n");
+}
+
+void	echo(t_ms *ms)
+{
+	t_list	*tmp;
+	int		n;
+
+	if (!ms->lst->next)
+	{
+		ft_dprintf(1, "\n");
+		return ;
+	}
+	n = 1;
+	tmp = ms->lst->next;
+	while (!is_valid_flag(tmp->content))
+	{
+		n = 0;
+		if (tmp->next)
+			tmp = tmp->next;
+		else
+			return ;
+	}
+	echo_printing(tmp, n);
 }
