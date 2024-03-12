@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/12 19:48:04 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:29:40 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	check_input(t_ms *ms)
 {
 	if (!ms->input)
 	{
+		rl_clear_history();
 		ft_dprintf (2, "exit\n");
 		free_and_exit(ms);
 	}

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 21:16:06 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/12 20:10:27 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/12 20:42:25 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	parse_quote(t_ms *ms, int i, char c)
 	k = 0;
 	while (j != i - 1)
 		tmp[k++] = ms->input[j++];
-	while (ms->input[i] != '\0' && ms->input[i] != c)
+	while (ms->input[i] != c)
 	{
 		if (ms->input[i] == '\0')
 			return (-1);
