@@ -6,35 +6,48 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/12 20:27:24 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/12 22:56:03 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/header.h"
+
+char	*cwd_get(void)
+{
+	char	cwd[65536];
+
+	if (getcwd(cwd, 0))
+		return (ft_strdup(cwd));
+	return (NULL);
+}
 
 static void	edit_env(t_ms *ms)
 {
 	int	i;
 
 	i = get_env_indice(ms, "PWD");
-	ms->env[i] = ft_strjoin("PWD=", getcwd(NULL, 0), NULL, 0b010);
+	ms->env[i] = ft_strjoin("PWD=", cwd_get(), NULL, 0b010);
 }
 
 static void	old_pwd(t_ms *ms)
 {
-	int	i;
+	int		i;
 
 	i = get_env_indice(ms, "OLDPWD");
-	ms->env[i] = ft_strjoin("OLDPWD=", getcwd(NULL, 0), NULL, 0b000);
+	ms->env[i] = \
+		ft_strjoin("OLDPWD=", cwd_get(), NULL, 0b010);
 }
 
 static void	handle_flag(t_ms *ms)
 {
 	char	*old_pwd;
+	char	*tmp;
 	int		i;
 
-	old_pwd = ft_strjoin("OLDPWD=", getcwd(NULL, 0), NULL, 0b000);
-	chdir(ft_strcut(ms->env[get_env_indice(ms, "OLDPWD")], "OLDPWD="));
+	old_pwd = ft_strjoin("OLDPWD=", cwd_get(), NULL, 0b010);
+	tmp = ft_strcut(ms->env[get_env_indice(ms, "OLDPWD")], "OLDPWD=");
+	chdir(tmp);
+	free(tmp);
 	i = get_env_indice(ms, "OLDPWD");
 	ms->env[i] = old_pwd;
 }
@@ -51,7 +64,7 @@ int	change_directory(t_ms *ms)
 	else
 	{
 		old_pwd(ms);
-		if (chdir(ft_strjoin(ms->lst->content, "/", NULL, 0b000)) == -1)
+		if (chdir(ms->lst->content) == -1)
 		{
 			error = ft_strjoin("minishell: cd: ", ms->lst->content, \
 		NULL, 0b000);
@@ -60,6 +73,7 @@ int	change_directory(t_ms *ms)
 			return (0);
 		}
 	}
+	free(ms->prompt);
 	ms->prompt = get_prompt(ms);
 	edit_env(ms);
 	return (1);

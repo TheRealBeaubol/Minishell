@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/12 20:38:43 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/12 22:17:08 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	handle_dquote_envvar(t_ms *ms, int i)
 }
 
 static int	handle_squote_envvar(t_ms *ms, int i)
-{	
+{
 	i++;
 	while (ms->input[i] != '\'')
 	{
