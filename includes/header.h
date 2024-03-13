@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/13 21:46:40 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/13 23:59:55 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "define.h"
 # include "structs.h"
+
+extern int  g_exit;
 
 /* ********************* */
 /*	     get_input.c	 */
@@ -79,7 +81,7 @@ char	*get_var_name(t_ms *ms, int i);
 char	*get_env(char **env, char *var_name);
 char	*wrong_var(t_ms *ms, int i);
 
-char	*cwdget(void);
+char	*get_cwd(void);
 
 void	unset(t_ms *ms, char *var);
 void	echo(t_ms *ms);

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/13 21:01:03 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/14 00:08:01 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ void	exec(t_ms *ms)
 		free(ms->prompt);
 		ft_free_list(&ms->lst);
 		ft_free_tab(ms->env);
-		exit(127);
+		g_exit = 127;
+		exit(g_exit);
 	}
 	waitpid(pid, NULL, 0);
 	ft_free_tab(ms->data->cmd);
@@ -116,7 +117,7 @@ int	choose_cmd(t_ms *ms)
 			change_directory(ms);
 		else if (!ft_strncmp(ms->lst->content, "pwd", 4))
 		{
-			str = cwdget();
+			str = get_cwd();
 			printf("%s\n", str);
 			free(str);
 		}

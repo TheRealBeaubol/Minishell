@@ -24,12 +24,12 @@
 	✅ ◦ cd with only a relative or absolute path		(+"cd -")
 	✅ ◦ pwd with no options
 	❌ ◦ export with no options
-	❌ ◦ unset with no options
+	✅ ◦ unset with no options
 	✅ ◦ env with no options or arguments
 	✅ ◦ exit with no options
 ✅ The readline() function can cause memory leaks. You don’t have to fix them. But that doesn’t mean your own code, yes the code you wrote, can have memory leaks.
 
-18 / 30
+19 / 30
 
 Bonus part :
 ❌ && and || with parenthesis for priorities

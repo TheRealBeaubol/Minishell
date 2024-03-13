@@ -6,20 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/13 20:49:00 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/13 23:46:24 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/header.h"
-
-char	*cwdget(void)
-{
-	char	cwd[65536];
-
-	if (getcwd(cwd, 0))
-		return (ft_strdup(cwd));
-	return (NULL);
-}
 
 static void	edit_env(t_ms *ms)
 {
@@ -27,7 +18,7 @@ static void	edit_env(t_ms *ms)
 
 	i = get_env_indice(ms, "PWD");
 	free(ms->env[i]);
-	ms->env[i] = ft_strjoin("PWD=", cwdget(), NULL, 0b010);
+	ms->env[i] = ft_strjoin("PWD=", get_cwd(), NULL, 0b010);
 }
 
 static void	old_pwd(t_ms *ms)
@@ -37,7 +28,7 @@ static void	old_pwd(t_ms *ms)
 	i = get_env_indice(ms, "OLDPWD");
 	free(ms->env[i]);
 	ms->env[i] = \
-		ft_strjoin("OLDPWD=", cwdget(), NULL, 0b010);
+		ft_strjoin("OLDPWD=", get_cwd(), NULL, 0b010);
 }
 
 static void	handle_flag(t_ms *ms)
@@ -46,7 +37,7 @@ static void	handle_flag(t_ms *ms)
 	char	*tmp;
 	int		i;
 
-	old_pwd = ft_strjoin("OLDPWD=", cwdget(), NULL, 0b010);
+	old_pwd = ft_strjoin("OLDPWD=", get_cwd(), NULL, 0b010);
 	tmp = ft_strcut(ms->env[get_env_indice(ms, "OLDPWD")], "OLDPWD=");
 	chdir(tmp);
 	free(tmp);

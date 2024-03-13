@@ -6,11 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 22:35:59 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/12 23:35:35 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/13 23:59:11 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
+
+int	g_exit;
 
 char	**my_env(char **env)
 {
@@ -40,6 +42,7 @@ int	main(int ac, char **av, char **env)
 
 	if (ac != 1)
 		return (1);
+	g_exit = 0;
 	ms.ac = ac;
 	ms.av = av;
 	ms.env = my_env(env);

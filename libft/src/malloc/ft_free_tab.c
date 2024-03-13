@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 00:54:06 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/01/28 00:21:14 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/14 00:10:32 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_free_tab(char **tab)
 	int	i;
 
 	i = 0;
+	if (!tab)
+		return ;
 	while (tab[i] != 0)
 	{
 		free(tab[i]);

@@ -6,20 +6,19 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:55:30 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/12 23:30:34 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/13 23:48:15 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/header.h"
 
-int	pwd(t_ms *ms)
+char	*get_cwd(void)
 {
-	char	*pwd;
+	char	cwd[65536];
 
-	(void) ms;
-	pwd = getcwd(NULL, 0);
-	ft_dprintf(1, "%s", pwd);
-	return (0);
+	if (getcwd(cwd, sizeof(cwd)))
+		return (ft_strdup(cwd));
+	return (NULL);
 }
 
 char	*get_pwd(t_ms *ms)

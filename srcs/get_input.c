@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/13 21:00:05 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/14 00:09:07 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ void	handle_sigint(int sig)
 
 void	get_input(t_ms *ms)
 {
+	int	i;
+
+	i = 0;
 	while (1)
 	{
 		signal(SIGINT, handle_sigint);
@@ -63,7 +66,11 @@ void	get_input(t_ms *ms)
 			ms->quote = 0;
 			parse(ms);
 			if (ms->input[0] != '\0')
-				choose_cmd(ms);
+			{
+				i = choose_cmd(ms);
+				if (i == 42)
+					free_and_exit(ms);
+			}
 		}
 		free(ms->input);
 	}
