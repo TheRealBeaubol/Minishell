@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/13 21:46:40 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/13 23:23:50 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,5 @@ void	echo(t_ms *ms);
 void	env(t_ms *ms);
 int		get_env_indice(t_ms *ms, char *var);
 int		ft_strstr_len(char **str);
+void	e_xport(t_ms *ms);
 #endif

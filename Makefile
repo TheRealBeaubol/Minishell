@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/10 22:02:07 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/13 23:24:31 by mhervoch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRCS	= 	srcs/main.c \
 			srcs/parsing/quote.c \
 			srcs/builtins/exec.c \
 			srcs/builtins/unset.c \
+			srcs/builtins/export.c \
 			srcs/parsing/getenv.c \
 			srcs/parsing/parse_utils.c \
 			srcs/parsing/getenv_utils.c \

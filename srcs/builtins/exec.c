@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/13 21:01:03 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/13 23:25:42 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	is_builtin(char *command)
 	!ft_strncmp(command, "unset", 6) || \
 	!ft_strncmp(command, "env", 4) || \
 	!ft_strncmp(command, "echo", 5) || \
+	!ft_strncmp(command, "export", 7) || \
 	!ft_strncmp(command, "exit", 5));
 }
 
@@ -126,6 +127,8 @@ int	choose_cmd(t_ms *ms)
 			env(ms);
 		else if (!ft_strncmp(ms->lst->content, "echo", 5))
 			echo(ms);
+		else if (!ft_strncmp(ms->lst->content, "export", 7))
+			e_xport(ms);
 		else if (!ft_strncmp(ms->lst->content, "exit", 5))
 			return (42);
 		ft_free_list(&ms->lst);

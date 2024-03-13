@@ -6,30 +6,51 @@
 /*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/13 21:48:40 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/13 23:44:54 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/header.h"
 
+int	ft_strlen_tr(char *str, char c)
+{
+	char	*tmp;
+
+	tmp = str;
+	if (!str)
+		return (0);
+	while (*tmp && *tmp != c)
+		tmp++;
+	return (tmp - str);
+}
+
 char	**feed_env_p(t_ms *ms)
 {
 	char	**export_env;
 	int		i;
+	int		b;
 
+	b = 0;
 	i = 0;
 	export_env = malloc(sizeof(char *) * (ft_strstr_len(ms->env) + 2));
 	while (ms->env[i])
 	{
-		export_env[i] = ft_strdup(ms->env[i]);
+		if (!strncmp(ms->lst->next->content, ms->env[i], ft_strlen_tr(ms->env[i], '=')))
+		{
+			export_env[i] = ft_strdup(ms->lst->next->content);
+			b = 1;
+		}
+		else
+			export_env[i] = ft_strdup(ms->env[i]);
 		i++;
 	}
-	export_env[i++] = ft_strdup(ms->lst->next->content);
+	if (!b)
+		export_env[i++] = ft_strdup(ms->lst->next->content);
 	export_env[i] = 0;
 	return (export_env);
 }
 
-void	export(t_ms *ms)
+void	e_xport(t_ms *ms)
 {
 	char	**new_env;
 
