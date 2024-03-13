@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:18:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/12 23:36:15 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/13 21:26:50 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,39 @@ char	*get_var(t_ms *ms, int indice)
 	return (var);
 }
 
+int	ft_strstr_len(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	**feed_env(t_ms *ms, int unset)
+{
+	int		i;
+	char	**unset_env;
+	
+	unset_env = malloc(sizeof(char *) * ft_strstr_len(ms->env));
+	i = 0;
+	while (ms->env[i])
+	{
+		if (i != unset)
+			unset_env[i] = ft_strdup(ms->env[i]);
+		i++;
+	}
+	return (unset_env);
+}
+
 void	unset(t_ms *ms, char *var)
 {
-	int	indice;
-
+	int		indice;
+	char	**new_env;
+	
 	indice = get_env_indice(ms, var);
-	printf("%s\n", ms->env[indice]);
-	ms->env[indice] = ft_strjoin(get_var(ms, indice), "=", NULL, 0b000);
-	printf("%s\n", ms->env[indice]);
+	new_env = feed_env(ms, indice);
+	ft_free_tab(ms->env);
+	ms->env = new_env;
 }
