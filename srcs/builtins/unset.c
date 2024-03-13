@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:18:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/13 23:05:39 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/13 23:17:45 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,19 @@ int	ft_strstr_len(char **str)
 char	**feed_env(t_ms *ms, int unset)
 {
 	int		i;
+	int		j;
 	char	**unset_env;
-	
+
 	unset_env = malloc(sizeof(char *) * ft_strstr_len(ms->env));
 	i = 0;
+	j = 0;
 	while (ms->env[i])
 	{
 		if (i != unset)
-			unset_env[i] = ft_strdup(ms->env[i]);
+			unset_env[j++] = ft_strdup(ms->env[i]);
 		i++;
 	}
+	unset_env[j] = NULL;
 	return (unset_env);
 }
 
@@ -72,7 +75,7 @@ void	unset(t_ms *ms, char *var)
 {
 	int		indice;
 	char	**new_env;
-	
+
 	indice = get_env_indice(ms, var);
 	new_env = feed_env(ms, indice);
 	ft_free_tab(ms->env);
