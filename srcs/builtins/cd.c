@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/12 23:41:15 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/13 20:49:00 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,20 @@ static void	handle_flag(t_ms *ms)
 int	change_directory(t_ms *ms)
 {
 	char	*error;
+	t_list	*tmp;
 
-	if (!ms->lst->next)
+	tmp = ms->lst;
+	if (!tmp->next)
 		return (0);
-	ms->lst = ms->lst->next;
-	if (ms->lst->content[0] == '-' && ms->lst->content[1] == '\0')
+	tmp = tmp->next;
+	if (tmp->content[0] == '-' && tmp->content[1] == '\0')
 		handle_flag(ms);
 	else
 	{
 		old_pwd(ms);
-		if (chdir(ms->lst->content) == -1)
+		if (chdir(tmp->content) == -1)
 		{
-			error = ft_strjoin("minishell: cd: ", ms->lst->content, \
+			error = ft_strjoin("minishell: cd: ", tmp->content, \
 		NULL, 0b000);
 			perror(error);
 			free(error);

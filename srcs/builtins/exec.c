@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/12 23:42:04 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/13 21:01:03 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,42 +79,58 @@ void	exec(t_ms *ms)
 	{
 		execve(ms->path->str, ms->data->cmd, ms->env);
 		printf("Command not found\n");
+		rl_clear_history();
 		ft_free_tab(ms->data->cmd);
 		free(ms->path->str);
 		free(ms->prompt);
 		ft_free_list(&ms->lst);
+		ft_free_tab(ms->env);
 		exit(127);
 	}
 	waitpid(pid, NULL, 0);
 	ft_free_tab(ms->data->cmd);
 	ms->data->cmd = NULL;
 	free(ms->path->str);
+	ft_free_list(&ms->lst);
 	free(ms->prompt);
 	ms->prompt = get_prompt(ms);
+}
+
+int	is_builtin(char *command)
+{
+	return (!ft_strncmp(command, "cd", 3) || \
+	!ft_strncmp(command, "pwd", 4) || \
+	!ft_strncmp(command, "unset", 6) || \
+	!ft_strncmp(command, "env", 4) || \
+	!ft_strncmp(command, "echo", 5) || \
+	!ft_strncmp(command, "exit", 5));
 }
 
 int	choose_cmd(t_ms *ms)
 {
 	char	*str;
 
-	if (!ft_strncmp(ms->lst->content, "cd", 3))
-		change_directory(ms);
-	else if (!ft_strncmp(ms->lst->content, "pwd", 4))
+	if (is_builtin(ms->lst->content))
 	{
-		str = cwdget();
-		printf("%s\n", str);
-		free(str);
+		if (!ft_strncmp(ms->lst->content, "cd", 3))
+			change_directory(ms);
+		else if (!ft_strncmp(ms->lst->content, "pwd", 4))
+		{
+			str = cwdget();
+			printf("%s\n", str);
+			free(str);
+		}
+		else if (!ft_strncmp(ms->lst->content, "unset", 6))
+			unset(ms, ms->lst->next->content);
+		else if (!ft_strncmp(ms->lst->content, "env", 4))
+			env(ms);
+		else if (!ft_strncmp(ms->lst->content, "echo", 5))
+			echo(ms);
+		else if (!ft_strncmp(ms->lst->content, "exit", 5))
+			return (42);
+		ft_free_list(&ms->lst);
 	}
-	else if (!ft_strncmp(ms->lst->content, "unset", 6))
-		unset(ms, ms->lst->next->content);
-	else if (!ft_strncmp(ms->lst->content, "env", 4))
-		env(ms);
-	else if (!ft_strncmp(ms->lst->content, "echo", 5))
-		echo(ms);
-	else if (!ft_strncmp(ms->lst->content, "exit", 5))
-		return (42);
 	else
 		exec(ms);
-	ft_free_list(&ms->lst);
 	return (0);
 }
