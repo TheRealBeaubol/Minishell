@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:18:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/13 23:17:45 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/13 23:21:53 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	unset(t_ms *ms, char *var)
 	char	**new_env;
 
 	indice = get_env_indice(ms, var);
+	if (indice == -1)
+		return ;
 	new_env = feed_env(ms, indice);
 	ft_free_tab(ms->env);
 	ms->env = new_env;
