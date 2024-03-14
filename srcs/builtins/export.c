@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/14 01:24:39 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:36:13 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	**feed_env_p(t_ms *ms)
 	return (export_env);
 }
 
-void	e_xport(t_ms *ms)
+void	export(t_ms *ms)
 {
 	char	**new_env;
 

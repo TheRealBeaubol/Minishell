@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/14 01:24:16 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:32:30 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	choose_cmd(t_ms *ms)
 		else if (!ft_strncmp(ms->lst->content, "echo", 5))
 			echo(ms);
 		else if (!ft_strncmp(ms->lst->content, "export", 7))
-			e_xport(ms);
+			export(ms);
 		else if (!ft_strncmp(ms->lst->content, "exit", 5))
 			return (42);
 		ft_free_list(&ms->lst);

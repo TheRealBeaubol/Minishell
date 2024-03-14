@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/14 01:12:30 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/14 17:54:29 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "define.h"
 # include "structs.h"
 
-extern int  g_exit;
+extern int	g_exit;
 
 /* ********************* */
 /*	     get_input.c	 */
@@ -88,5 +88,5 @@ void	echo(t_ms *ms);
 void	env(t_ms *ms);
 int		get_env_indice(t_ms *ms, char *var);
 int		ft_strstr_len(char **str);
-void	e_xport(t_ms *ms);
+void	export(t_ms *ms);
 #endif

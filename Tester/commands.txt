@@ -29,7 +29,5 @@ echo '$USER '
 echo $a
 echo "$a"
 echo '$a'
-echo $1a
-echo "$1a"
 echo '$1a'
 e'ch'""'o' '"'""'"''sa'l""u"t"''
