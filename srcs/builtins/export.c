@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/13 23:44:54 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:24:39 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/header.h"
+#include "header.h"
+
+extern int	g_exit;
 
 int	ft_strlen_tr(char *str, char c)
 {
@@ -35,7 +37,8 @@ char	**feed_env_p(t_ms *ms)
 	export_env = malloc(sizeof(char *) * (ft_strstr_len(ms->env) + 2));
 	while (ms->env[i])
 	{
-		if (!strncmp(ms->lst->next->content, ms->env[i], ft_strlen_tr(ms->env[i], '=')))
+		if (!strncmp(ms->lst->next->content, ms->env[i], \
+		ft_strlen_tr(ms->env[i], '=')))
 		{
 			export_env[i] = ft_strdup(ms->lst->next->content);
 			b = 1;

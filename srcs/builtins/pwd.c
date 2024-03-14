@@ -6,11 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:55:30 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/13 23:48:15 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:24:05 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/header.h"
+#include "header.h"
+
+extern int	g_exit;
 
 char	*get_cwd(void)
 {

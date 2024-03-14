@@ -6,11 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:18:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/13 23:21:53 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:25:29 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/header.h"
+#include "header.h"
+
+extern int	g_exit;
 
 int	get_range(char *s)
 {

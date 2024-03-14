@@ -6,11 +6,30 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/12 23:49:08 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:23:34 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/header.h"
+#include "header.h"
+
+extern int	g_exit;
+
+char	*handle_exit_env_var(t_ms *ms, char *var_name, char *end_str, int i)
+{
+	char	*input;
+	int		j;
+
+	j = -1;
+	input = ft_calloc((ft_strlen(end_str) + ft_strlen(var_name) + i + 1), \
+sizeof(char));
+	while (++j != i)
+		input[j] = ms->input[j];
+	input = ft_strjoin(input, var_name, NULL, 0b011);
+	if (end_str)
+		input = ft_strjoin(input, end_str, NULL, 0b001);
+	free(ms->input);
+	return (input);
+}
 
 void	replace_var(t_ms *ms, int *i)
 {
@@ -22,21 +41,27 @@ void	replace_var(t_ms *ms, int *i)
 		(*i)++;
 		return ;
 	}
-	var_name = get_var_name(ms, *i + 1);
+	var_name = get_var_name(ms, *i);
 	if (!var_name)
 	{
 		(*i)++;
 		return ;
 	}
 	end_str = get_end_str(ms, var_name, *i);
-	if (var_name && var_name[ft_strlen(var_name) - 1] != '=')
+	if (var_name && (var_name[ft_strlen(var_name) - 1] != '=' \
+		&& ms->input[*i + 1] != '?'))
 		ms->input = ft_strjoin(var_name, end_str, NULL, 0b001);
 	else
 	{
-		ms->input = get_new_input(ms, *i, end_str, var_name);
-		free(var_name);
-		if (ms->input[*i] == '\0')
-			return ;
+		if (ms->input[*i + 1] == '?')
+			ms->input = handle_exit_env_var(ms, var_name, end_str, *i);
+		else
+		{
+			ms->input = get_new_input(ms, *i, end_str, var_name);
+			free(var_name);
+			if (ms->input[*i] == '\0')
+				return ;
+		}
 	}
 	*i = ft_strlen(ms->input) - ft_strlen(end_str);
 	free(end_str);

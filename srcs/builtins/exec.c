@@ -6,11 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/14 00:11:53 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:24:16 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/header.h"
+#include "header.h"
+
+extern int	g_exit;
 
 char	*grep(t_ms *ms)
 {
@@ -71,6 +73,7 @@ void	initialyse_data(t_ms *ms)
 void	exec(t_ms *ms)
 {
 	int		pid;
+	int		err_code;
 
 	initialyse_data(ms);
 	get_path(ms);
@@ -88,7 +91,8 @@ void	exec(t_ms *ms)
 		g_exit = 127;
 		exit(g_exit);
 	}
-	waitpid(pid, NULL, 0);
+	waitpid(pid, &err_code, 0);
+	g_exit = WEXITSTATUS(err_code);
 	ft_free_tab(ms->data->cmd);
 	ms->data->cmd = NULL;
 	free(ms->path->str);

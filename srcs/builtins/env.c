@@ -6,11 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 01:40:35 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/12 20:25:56 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:25:29 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/header.h"
+#include "header.h"
+
+extern int	g_exit;
 
 void	env(t_ms *ms)
 {

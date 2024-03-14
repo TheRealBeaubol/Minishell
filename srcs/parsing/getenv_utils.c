@@ -6,11 +6,15 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 23:16:07 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/12 23:46:48 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/14 01:25:29 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/header.h"
+#include "header.h"
+
+extern int	g_exit;
+
+extern int	g_exit;
 
 char	*get_var_name(t_ms *ms, int i)
 {
@@ -22,6 +26,9 @@ char	*get_var_name(t_ms *ms, int i)
 	j = 0;
 	malloc_count = 0;
 	stock_i = i;
+	i++;
+	if (ms->input[i] == '?')
+		return (ft_itoa(g_exit));
 	if (ft_isdigit(ms->input[i]))
 		return (NULL);
 	if (!ft_isalpha(ms->input[i]) && ms->input[i] != '_')
@@ -44,7 +51,9 @@ char	*get_end_str(t_ms *ms, char *var_name, int i)
 
 	j = 0;
 	end_str = malloc((ft_strlen(ms->input) - i) * sizeof(char));
-	if (var_name && var_name[ft_strlen(var_name) - 1] == '=')
+	if (var_name && ms->input[i + 1] == '?')
+		i += ft_strlen(var_name) - 1;
+	else if (var_name && (var_name[ft_strlen(var_name) - 1] == '='))
 		i += ft_strlen(var_name);
 	else if (var_name)
 		i += ft_strlen(var_name) + 2;
