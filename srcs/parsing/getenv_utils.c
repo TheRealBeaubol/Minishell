@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 23:16:07 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/14 01:25:29 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/14 23:10:36 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 extern int	g_exit;
 
-extern int	g_exit;
 
 char	*get_var_name(t_ms *ms, int i)
 {
@@ -50,10 +49,8 @@ char	*get_end_str(t_ms *ms, char *var_name, int i)
 	int		j;
 
 	j = 0;
-	end_str = malloc((ft_strlen(ms->input) - i) * sizeof(char));
-	if (var_name && ms->input[i + 1] == '?')
-		i += ft_strlen(var_name) - 1;
-	else if (var_name && (var_name[ft_strlen(var_name) - 1] == '='))
+	end_str = ft_calloc((ft_strlen(ms->input) - i), sizeof(char));
+	if (var_name && (var_name[ft_strlen(var_name) - 1] == '='))
 		i += ft_strlen(var_name);
 	else if (var_name)
 		i += ft_strlen(var_name) + 2;

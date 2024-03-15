@@ -6,30 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/14 17:34:46 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/15 01:48:48 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
 extern int	g_exit;
-
-char	*handle_exit_env_var(t_ms *ms, char *var_name, char *end_str, int i)
-{
-	char	*input;
-	int		j;
-
-	j = -1;
-	input = ft_calloc((ft_strlen(end_str) + ft_strlen(var_name) + i + 1), \
-sizeof(char));
-	while (++j != i)
-		input[j] = ms->input[j];
-	input = ft_strjoin(input, var_name, NULL, 0b011);
-	if (end_str)
-		input = ft_strjoin(input, end_str, NULL, 0b001);
-	free(ms->input);
-	return (input);
-}
 
 void	replace_var(t_ms *ms, int *i)
 {
@@ -48,20 +31,14 @@ void	replace_var(t_ms *ms, int *i)
 		return ;
 	}
 	end_str = get_end_str(ms, var_name, *i);
-	if (var_name && (var_name[ft_strlen(var_name) - 1] != '=' \
-		&& ms->input[*i + 1] != '?'))
+	if (var_name && var_name[ft_strlen(var_name) - 1] != '=')
 		ms->input = ft_strjoin(var_name, end_str, NULL, 0b001);
 	else
 	{
-		if (ms->input[*i + 1] == '?')
-			ms->input = handle_exit_env_var(ms, var_name, end_str, *i);
-		else
-		{
-			ms->input = get_new_input(ms, *i, end_str, var_name);
-			free(var_name);
-			if (ms->input[*i] == '\0')
-				return ;
-		}
+		ms->input = get_new_input(ms, *i, end_str, var_name);
+		free(var_name);
+		if (ms->input[*i] == '\0')
+			return ;
 	}
 	*i = ft_strlen(ms->input) - ft_strlen(end_str);
 	free(end_str);
@@ -101,6 +78,27 @@ static int	handle_squote_envvar(t_ms *ms, int i)
 	return (i + 1);
 }
 
+void	handle_exit_envvar(t_ms *ms, int *i)
+{
+	char	*exit_code;
+	char	*new_input;
+	int		len;
+
+	exit_code = ft_itoa(g_exit);
+	new_input = ft_calloc((ft_strlen(ms->input) \
+	+ ft_strlen(exit_code) - 1), sizeof(char));
+	if (!new_input)
+		return ;
+	len = ft_strchr(ms->input, '$') - ms->input;
+	ft_strncat(new_input, ms->input, len);
+	ft_strcat(new_input + len, exit_code);
+	ft_strcat(new_input + len + ft_strlen(exit_code), ms->input + len + 2);
+	*i += ft_strlen(exit_code);
+	free(exit_code);
+	free(ms->input);
+	ms->input = new_input;
+}
+
 int	parse_env(t_ms *ms)
 {
 	int		i;
@@ -114,7 +112,10 @@ int	parse_env(t_ms *ms)
 			i = handle_squote_envvar(ms, i);
 		else if (ms->input[i] == '$')
 		{
-			replace_var(ms, &i);
+			if (ms->input[i + 1] == '?')
+				handle_exit_envvar(ms, &i);
+			else
+				replace_var(ms, &i);
 			if (ms->input[0] == '\0')
 				return (1);
 		}

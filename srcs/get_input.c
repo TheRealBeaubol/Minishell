@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/14 17:51:25 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/15 01:55:13 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,30 @@ void	get_input(t_ms *ms)
 		}
 		free(ms->input);
 	}
+}
+
+void	get_single_input(t_ms *ms, char *line)
+{
+	int	i;
+
+	i = 0;
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
+	ms->lst = NULL;
+	ms->input = line;
+	if (check_input(ms) == 0)
+	{
+		ms->quote = 0;
+		parse(ms);
+		if (ms->input[0] != '\0')
+		{
+			i = choose_cmd(ms);
+			if (i == 42)
+			{
+				rl_clear_history();
+				free_and_exit(ms);
+			}
+		}
+	}
+	free(ms->input);
 }
