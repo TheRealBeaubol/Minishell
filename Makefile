@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/14 01:20:31 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/14 23:00:56 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LIBFT_DIR			=	./libft
 LIBFT_NAME			= 	$(LIBFT_DIR)/libft.a
 
 CC					=	@cc
-CFLAGS				=	-Wall -Wextra -Werror 
+CFLAGS				=	-Wall -Wextra -Werror -g
 #-g3 -fsanitize=address -static-libsan
 IFLAGS				=	-I ./includes -I $(LIBFT_DIR)/src
 MK					=	@mkdir -p

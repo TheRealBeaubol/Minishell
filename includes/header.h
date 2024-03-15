@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/14 17:54:29 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/15 01:56:05 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ extern int	g_exit;
 int		is_skip(t_ms *ms);
 int		check_input(t_ms *ms);
 void	get_input(t_ms *ms);
+void	get_single_input(t_ms *ms, char *line);
 
 /* ********************* */
 /*		  error.c		 */

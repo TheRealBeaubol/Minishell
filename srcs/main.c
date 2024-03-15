@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 22:35:59 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/14 17:51:32 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/15 01:59:32 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	main(int ac, char **av, char **env)
 	t_data	data;
 	t_path	path;
 
-	if (ac != 1)
-		return (1);
+	// if (ac != 1)
+	// 	return (1);
 	g_exit = 0;
 	ms.ac = ac;
 	ms.av = av;
@@ -53,6 +53,11 @@ int	main(int ac, char **av, char **env)
 	ms.path = &path;
 	ms.lst = NULL;
 	ms.prompt = get_prompt(&ms);
+	if (ac >= 3 && !ft_strncmp(av[1], "-c", 3))
+	{
+		get_single_input(&ms, ft_strdup(av[2]));
+		exit(g_exit);
+	}
 	get_input(&ms);
 	return (0);
 }
