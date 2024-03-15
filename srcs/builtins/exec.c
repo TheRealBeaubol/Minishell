@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/15 01:28:18 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:14:30 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	choose_cmd(t_ms *ms)
 			free(str);
 		}
 		else if (!ft_strncmp(ms->lst->content, "unset", 6))
-			unset(ms, ms->lst->next->content);
+			unset(ms, ms->lst->content);
 		else if (!ft_strncmp(ms->lst->content, "env", 4))
 			env(ms);
 		else if (!ft_strncmp(ms->lst->content, "echo", 5))

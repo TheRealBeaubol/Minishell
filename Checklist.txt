@@ -38,11 +38,3 @@ Bonus part :
 
 ❌ Valgrind
 ❌ Norminette
-
-eCho 
-eChO
-eCHO
-ECHO
-echo ~
-echo ~/123
-echo ~/123/456

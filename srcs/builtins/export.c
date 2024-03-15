@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/15 19:51:15 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/15 20:56:30 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,24 @@ int	ft_strlen_tr(char *str, char c)
 	return (tmp - str);
 }
 
-char	**feed_env_p(t_ms *ms)
+char	**feed_env_p(t_ms *ms, int var_status)
 {
 	char	**export_env;
 	int		i;
 	int		b;
+	char	*tmp;
 
 	b = 0;
 	i = 0;
 	export_env = ft_calloc(ft_strstr_len(ms->env) + 2, sizeof(char *));
 	while (ms->env[i])
 	{
-		if (!strncmp(ms->lst->next->content, ms->env[i], \
-		ft_strlen_tr(ms->env[i], '=')))
+		if (!ft_strncmp(ms->lst->next->content, ms->env[i], ft_strlen_tr(ms->env[i], '=') - var_status + 2))
 		{
-			export_env[i] = ft_strdup(ms->lst->next->content);
+			if (var_status == 2)
+				export_env[i] = ft_strjoin(ms->env[i], ft_strchr(ms->lst->next->content, '=') + 1, NULL, 0b000);
+			else
+				export_env[i] = ft_strdup(ms->lst->next->content);
 			b = 1;
 		}
 		else
@@ -48,7 +51,16 @@ char	**feed_env_p(t_ms *ms)
 		i++;
 	}
 	if (!b)
-		export_env[i++] = ft_strdup(ms->lst->next->content);
+	{
+		if (var_status == 2)
+		{
+			tmp = ft_strrev(ms->lst->next->content);
+			export_env[i++] = ft_strjoin(ft_strrev(ft_strchr(tmp, '+') + 1), ft_strchr(ms->lst->next->content, '+') + 1, NULL, 0b001);
+			free(tmp);
+		}
+		else
+			export_env[i++] = ft_strdup(ms->lst->next->content);
+	}
 	export_env[i] = 0;
 	return (export_env);
 }
@@ -66,33 +78,6 @@ int	print_export(t_ms *ms)
 	return (1);
 }
 
-/*char	*get_var_name(t_ms *ms, int i)
-{
-	char	*str;
-	int		stock_i;
-	int		malloc_count;
-	int		j;
-
-	j = 0;
-	malloc_count = 0;
-	stock_i = i;
-	i++;
-	if (ms->input[i] == '?')
-		return (ft_itoa(g_exit));
-	if (ft_isdigit(ms->input[i]))
-		return (NULL);
-	if (!ft_isalpha(ms->input[i]) && ms->input[i] != '_')
-		return (NULL);
-	while (ms->input[stock_i++] && (ft_isalnum(ms->input[stock_i]) || \
-ms->input[stock_i] == '_'))
-		malloc_count++;
-	str = ft_calloc((malloc_count + 3), sizeof(char));
-	while (ft_isalnum(ms->input[i]) || ms->input[i] == '_')
-		str[j++] = ms->input[i++];
-	str[j] = '=';
-	str[++j] = '\0';
-	return (str);
-}*/
 int	check_export(char *var)
 {
 	int	i;
@@ -111,6 +96,8 @@ int	check_export(char *var)
 		else
 			return (0);
 	}
+	if (((int)ft_strlen(var) != i + 1) && var[i] == '+' && var[i + 1] == '=')
+		return (2);
 	if (var[i] != '\0' && var[i] != '=')
 		return (0);
 	return (1);
@@ -127,7 +114,7 @@ void	export(t_ms *ms)
 		return ;
 	}
 	var_status = check_export(ms->lst->next->content);
-	if (var_status != 1)
+	if (var_status < 1)
 	{
 		if (!var_status)
 			g_exit = 1;
@@ -135,7 +122,7 @@ void	export(t_ms *ms)
 			g_exit = 2;
 		return ;
 	}
-	new_env = feed_env_p(ms);
+	new_env = feed_env_p(ms, var_status);
 	ft_free_tab(ms->env);
 	ms->env = new_env;
 }

@@ -1,5 +1,5 @@
-eCho 
-eChO
-eCHO
-ECHO
+export TEST+=100
+export TEST+=100
+export TEST+=100
+export
 exit

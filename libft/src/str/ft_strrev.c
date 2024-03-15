@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 19:54:46 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/07 15:26:52 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/15 20:56:05 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ char	*ft_strrev(char *str)
 		i--;
 		j++;
 	}
-	free(str);
 	return (rev_str);
 }
