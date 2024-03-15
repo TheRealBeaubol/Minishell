@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/15 01:48:48 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:45:32 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,8 @@ static int	handle_dquote_envvar(t_ms *ms, int i)
 	{
 		if (ms->input[j] == '\0')
 			return (-1);
-		if (ms->input[j] == '\'')
-			i++;
-		if (ms->input[j] == '$' && (ft_iswhitespace(ms->input[j + 1]) \
-	|| ms->input[j + 1] == '"'))
-			j++;
-		else if (ms->input[j] == '$' && !ft_iswhitespace(ms->input[j + 1]))
-			return (i + 1);
+		if (ms->input[j] == '$')
+			replace_var(ms, &j);
 		else
 			j++;
 	}

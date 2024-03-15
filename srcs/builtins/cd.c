@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/15 01:28:34 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/15 18:09:59 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	change_directory(t_ms *ms)
 		old_pwd(ms);
 		if (chdir(tmp->content) == -1)
 		{
+			g_exit = 1;
 			error = ft_strjoin("minishell: cd: ", tmp->content, \
 		NULL, 0b000);
 			perror(error);
