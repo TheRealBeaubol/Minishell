@@ -6,11 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/14 16:36:13 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/15 02:01:22 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../../includes/header.h"
 
 extern int	g_exit;
 
@@ -53,10 +53,28 @@ char	**feed_env_p(t_ms *ms)
 	return (export_env);
 }
 
+int	print_export(t_ms *ms)
+{
+	int	i;
+
+	i = 0;
+	while (ms->env[i])
+	{
+		ft_dprintf(1, "declare -x %s\n", ms->env[i]);
+		i++;
+	}
+	return (1);
+}
+
 void	export(t_ms *ms)
 {
 	char	**new_env;
 
+	if (!ms->lst->next)
+	{
+		print_export(ms);
+		return ;
+	}
 	new_env = feed_env_p(ms);
 	ft_free_tab(ms->env);
 	ms->env = new_env;
