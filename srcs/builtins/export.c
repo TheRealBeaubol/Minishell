@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/15 20:56:30 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/15 22:22:59 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,19 @@ char	**feed_env_p(t_ms *ms, int var_status)
 
 int	print_export(t_ms *ms)
 {
-	int	i;
+	int		i;
+	char	*tmp;
+	char	*str;
 
 	i = 0;
 	while (ms->env[i])
 	{
-		ft_dprintf(1, "declare -x %s\n", ms->env[i]);
+		tmp = ft_strrev(ms->env[i]);
+		str = ft_strjoin(ft_strrev(ft_strchr(tmp, '=')), ft_strchr(ms->env[i], '=') + 1,"\"", 0b011);
+		free(tmp);
+		tmp = ft_strjoin(str, "\"", NULL, 0b001);
+		ft_dprintf(1, "declare -x %s\n", tmp);
+		free(tmp);
 		i++;
 	}
 	return (1);
