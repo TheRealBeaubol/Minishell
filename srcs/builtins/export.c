@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/16 16:44:58 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:50:32 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,31 @@ static char	**feed_env_p(t_ms *ms, int var_status)
 	return (export_env);
 }
 
-static int	print_export(t_ms *ms)
+static int	print_export(t_ms *ms, int *indice)
 {
-	int		i;
-	char	*tmp;
-	char	*str;
+	unsigned long	i;
+	unsigned long	len;
+	char			*tmp;
+	char			*str;
+	int				pos;
+	int				var;
 
 	i = 0;
-	while (ms->env[i])
+	len = sizeof(ms->env);
+	pos = 0;
+	while (i < len)
 	{
-		tmp = ft_strrev(ms->env[i]);
+		var = 0;
+		while (indice[var] != pos)
+			var++;
+		tmp = ft_strrev(ms->env[var]);
 		str = ft_strjoin(ft_strrev(ft_strchr(tmp, '=')), \
-			ft_strchr(ms->env[i], '=') + 1, "\"", 0b011);
+		ft_strchr(ms->env[var], '=') + 1, "\"", 0b011);
 		free(tmp);
 		tmp = ft_strjoin(str, "\"", NULL, 0b001);
 		ft_dprintf(1, "declare -x %s\n", tmp);
 		free(tmp);
+		pos++;
 		i++;
 	}
 	return (1);
@@ -90,10 +99,12 @@ void	export(t_ms *ms)
 {
 	char	**new_env;
 	int		var_status;
+	int		*indice;
 
 	if (!ms->lst->next || ms->lst->next->content[0] == '\0')
 	{
-		print_export(ms);
+		indice = ft_sort_string_tab(ms->env);
+		print_export(ms, indice);
 		return ;
 	}
 	var_status = check_export(ms->lst->next->content);

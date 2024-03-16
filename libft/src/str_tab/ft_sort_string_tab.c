@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 01:28:12 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 16:43:43 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 21:10:42 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_swap_indice(int **indice, int i, int j)
 
 	tmp = (*indice)[i];
 	(*indice)[i] = (*indice)[j];
-	(*indice)[j] = (*indice)[i];
+	(*indice)[j] = tmp;
 }
 
 static void	sort_indice(char **tab, int **indice)
@@ -40,6 +40,18 @@ static void	sort_indice(char **tab, int **indice)
 	}
 }
 
+void	print_indice(int *indice)
+{
+	unsigned long	i;
+
+	i = 0;
+	while (i < sizeof(indice))
+	{
+		ft_printf("%d\n", indice[i]);
+		i++;
+	}
+}
+
 int	*ft_sort_string_tab(char **tab)
 {
 	int		*indice;
@@ -50,5 +62,6 @@ int	*ft_sort_string_tab(char **tab)
 	while (++i < ft_tablen(tab))
 		indice[i] = i;
 	sort_indice(tab, &indice);
+	print_indice(indice);
 	return (indice);
 }
