@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:27:47 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/16 01:23:51 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 01:26:29 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	ft_swap_export(int **indice, int i, int j)
+void	ft_swap_indice(int **indice, int i, int j)
 {
 	int	tmp;
 
@@ -33,17 +33,24 @@ int	sort_indice(t_ms *ms, char **export, int **indice)
 		while (j < int_len(*indice))
 		{
 			if (ft_strcmp(ms->env[i], ms->env[j]) > 0)
-				ft_swap_export(indice, i, j);
+				ft_swap_indice(indice, i, j);
 			j++;
 		}
 		i++;
 	}
 }
 
-int	*tri_export(t_ms *ms)
+int	*sort_string_tab(t_ms *ms)
 {
 	char	**export;
 	int		*indice;
+	int		i;
 
-	env = calloc((ft_strstr_len(ms->env)), sizeof(char *));	
+	export = calloc((ft_strstr_len(ms->env)), sizeof(char *));
+	i = 0;
+	while (i < ft_strstr_len(ms->env))
+		indice[i] = i++;
+	i = 0;
+	sort_indice(ms, export, &indice);
+	return (indice);
 }
