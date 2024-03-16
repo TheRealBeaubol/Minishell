@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 10:18:04 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 10:31:45 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 19:14:15 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*join_custom_prompt(char *str, t_ms *ms)
 	char	*prompt;
 
 	prompt = get_env(ms->env, "USER=");
-	prompt = ft_strjoin("\e[1;91m[", "]▸ \e[4;1m\e[3;1m", prompt, 0b100);
+	prompt = ft_strjoin("\e[1;91m[", "]▸ \e[4;1m\e[3;1m\n", prompt, 0b100);
 	prompt = ft_strjoin(prompt, str, NULL, 0b011);
 	prompt = ft_strjoin(prompt, PROMPT, NULL, 0b001);
 	prompt = ft_strjoin(prompt, "\e[0m", NULL, 0b001);

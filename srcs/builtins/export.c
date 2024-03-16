@@ -6,13 +6,14 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/16 01:34:11 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 16:44:58 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-char	**fill_export_env(t_ms *ms, int	*b, char **export_env, int var_status)
+static char	**fill_export_env(t_ms *ms, int	*b, char **export_env, \
+	int var_status)
 {
 	int	i;
 
@@ -36,7 +37,7 @@ char	**fill_export_env(t_ms *ms, int	*b, char **export_env, int var_status)
 	return (export_env);
 }
 
-char	**feed_env_p(t_ms *ms, int var_status)
+static char	**feed_env_p(t_ms *ms, int var_status)
 {
 	char	**export_env;
 	int		i;
@@ -45,9 +46,9 @@ char	**feed_env_p(t_ms *ms, int var_status)
 
 	b = 0;
 	i = 0;
-	export_env = ft_calloc(ft_strstr_len(ms->env) + 2, sizeof(char *));
+	export_env = ft_calloc(ft_tablen(ms->env) + 2, sizeof(char *));
 	export_env = fill_export_env(ms, &b, export_env, var_status);
-	i = ft_strstr_len(ms->env);
+	i = ft_tablen(ms->env);
 	if (!b)
 	{
 		if (var_status == 2)
@@ -64,7 +65,7 @@ char	**feed_env_p(t_ms *ms, int var_status)
 	return (export_env);
 }
 
-int	print_export(t_ms *ms)
+static int	print_export(t_ms *ms)
 {
 	int		i;
 	char	*tmp;

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 17:45:07 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/01/04 22:42:34 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:23:43 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ static int	convert_atoi_base(char *str, char *base)
 			signe *= -1;
 		i++;
 	}
-	while (str[i] && position_in_base(base, str[i]) != -1)
+	while (str[i] && ft_position_in_base(base, str[i]) != -1)
 	{
-		res = res * convert_base_strlen(base) + position_in_base(base, str[i]);
+		res = res * ft_convert_base_strlen(base) + \
+			ft_position_in_base(base, str[i]);
 		i++;
 	}
 	return (res * signe);
@@ -44,18 +45,18 @@ static int	ft_intlen_in_base(int nb, char *base)
 	if (nb < 0)
 	{
 		n = 2;
-		while (nb < (convert_base_strlen(base) * -1))
+		while (nb < (ft_convert_base_strlen(base) * -1))
 		{
-			nb /= convert_base_strlen(base);
+			nb /= ft_convert_base_strlen(base);
 			n++;
 		}
 	}
 	else
 	{
 		n = 1;
-		while (nb > convert_base_strlen(base))
+		while (nb > ft_convert_base_strlen(base))
 		{
-			nb /= convert_base_strlen(base);
+			nb /= ft_convert_base_strlen(base);
 			n++;
 		}
 	}
@@ -64,9 +65,9 @@ static int	ft_intlen_in_base(int nb, char *base)
 
 static char	*convert_putnbr_base_rec(long int nbr, char *base, char *res)
 {
-	if (nbr >= convert_base_strlen(base))
-		convert_putnbr_base_rec(nbr / convert_base_strlen(base), base, res);
-	convert_base_strcat(res, base[nbr % convert_base_strlen(base)]);
+	if (nbr >= ft_convert_base_strlen(base))
+		convert_putnbr_base_rec(nbr / ft_convert_base_strlen(base), base, res);
+	ft_convert_base_strcat(res, base[nbr % ft_convert_base_strlen(base)]);
 	return (res);
 }
 
@@ -80,7 +81,7 @@ static char	*convert_putnbr_base(int nbr, char *base)
 	*res = 0;
 	if (nb < 0)
 	{
-		convert_base_strcat(res, '-');
+		ft_convert_base_strcat(res, '-');
 		nb = nb * -1;
 	}
 	return (convert_putnbr_base_rec(nb, base, res));

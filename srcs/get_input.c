@@ -6,25 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/15 23:05:34 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:10:50 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
-
-int	is_skip(t_ms *ms)
-{
-	int	i;
-
-	i = -1;
-	if ((ms->input[0] == '!' || ms->input[0] == ':') \
-		&& ms->input[1] == '\0')
-		return (1);
-	while ((9 <= ms->input[++i] && ms->input[i] <= 13) || ms->input[i] == 32)
-		if (ms->input[i + 1] == '\0')
-			return (1);
-	return (0);
-}
+#include "header.h"
 
 int	check_input(t_ms *ms)
 {

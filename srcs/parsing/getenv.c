@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 10:31:38 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 16:14:55 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-char	*get_var_name(t_ms *ms, int i)
+static char	*get_var_name(t_ms *ms, int i)
 {
 	char	*str;
 	int		stock_i;
@@ -40,7 +40,7 @@ ms->input[stock_i] == '_'))
 	return (str);
 }
 
-char	*get_end_str(t_ms *ms, char *var_name, int i)
+static char	*get_end_str(t_ms *ms, char *var_name, int i)
 {
 	char	*end_str;
 	int		j;
@@ -68,7 +68,7 @@ char	*get_end_str(t_ms *ms, char *var_name, int i)
 	return (end_str);
 }
 
-char	*get_new_input(t_ms *ms, int i, char *end_str, char *var_name)
+static char	*get_new_input(t_ms *ms, int i, char *end_str, char *var_name)
 {
 	char	*input;
 	char	*var_env;

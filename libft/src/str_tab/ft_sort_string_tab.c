@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 01:28:12 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 01:43:08 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/16 16:43:43 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int	*ft_sort_string_tab(char **tab)
 	int		*indice;
 	int		i;
 
-	indice = calloc((ft_strstr_len(tab)), sizeof(int));
+	indice = calloc((ft_tablen(tab)), sizeof(int));
 	i = -1;
-	while (++i < ft_strstr_len(tab))
+	while (++i < ft_tablen(tab))
 		indice[i] = i;
 	sort_indice(tab, &indice);
 	return (indice);

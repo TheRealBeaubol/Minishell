@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/16 10:29:13 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 19:41:12 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	get_path(t_ms *ms)
+static void	get_path(t_ms *ms)
 {
 	int		i;
 
@@ -38,7 +38,7 @@ void	get_path(t_ms *ms)
 	free(ms->path->path_str);
 }
 
-void	initialyse_data(t_ms *ms)
+static void	initialyse_data(t_ms *ms)
 {
 	int		len;
 	int		i;
@@ -59,7 +59,7 @@ void	initialyse_data(t_ms *ms)
 	}
 }
 
-void	exec(t_ms *ms)
+static void	exec(t_ms *ms)
 {
 	int		pid;
 	int		err_code;
@@ -69,28 +69,15 @@ void	exec(t_ms *ms)
 	pid = fork();
 	if (pid == 0)
 	{
+		err_code = 0;
 		execve(ms->path->str, ms->data->cmd, ms->env);
-		printf("Command not found\n");
-		rl_clear_history();
-		ft_free_tab(ms->data->cmd);
-		free(ms->path->str);
-		free(ms->prompt);
-		ft_free_list(&ms->lst);
-		ft_free_tab(ms->env);
-		g_exit = 127;
-		exit(g_exit);
+		free_exec(ms, 1, err_code);
 	}
 	waitpid(pid, &err_code, 0);
-	g_exit = WEXITSTATUS(err_code);
-	ft_free_tab(ms->data->cmd);
-	ms->data->cmd = NULL;
-	free(ms->path->str);
-	ft_free_list(&ms->lst);
-	free(ms->prompt);
-	ms->prompt = get_prompt(ms);
+	free_exec(ms, 0, err_code);
 }
 
-int	is_builtin(char *command)
+static int	is_builtin(char *command)
 {
 	return (!ft_strncmp(command, "cd", 3) || \
 	!ft_strncmp(command, "pwd", 4) || \
@@ -108,7 +95,7 @@ int	choose_cmd(t_ms *ms)
 		if (!ft_strncmp(ms->lst->content, "cd", 3))
 			change_directory(ms);
 		else if (!ft_strncmp(ms->lst->content, "pwd", 4))
-			get_pwd(ms);
+			get_cwd(1);
 		else if (!ft_strncmp(ms->lst->content, "unset", 6))
 			unset(ms, ms->lst->content);
 		else if (!ft_strncmp(ms->lst->content, "env", 4))

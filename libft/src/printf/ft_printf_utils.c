@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 23:06:15 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/07 14:24:29 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:15:23 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	printf_flag_mana(char c, va_list arg, int fd)
+int	ft_printf_flag_mana(char c, va_list arg, int fd)
 {
 	int		s;
 	int		condition;
@@ -41,7 +41,7 @@ int	printf_flag_mana(char c, va_list arg, int fd)
 	return (s);
 }
 
-int	printf_flag_verif(char c)
+int	ft_printf_flag_verif(char c)
 {
 	return (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i'
 		|| c == 'u' || c == 'x' || c == 'X' || c == '%');

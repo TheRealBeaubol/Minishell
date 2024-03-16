@@ -6,38 +6,46 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 00:57:17 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 16:28:14 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-static char	*str_split_strdup(char *src, int start, int end)
+static int	parse_quote(t_ms *ms, int i, char c)
 {
-	int		i;
+	char	*tmp;
+	char	*unquote_str;
 	int		j;
-	char	*dest;
+	int		k;
 
-	dest = malloc(end - start + 1 * sizeof(*dest));
-	if (dest == NULL)
-		return (dest);
-	i = start;
+	tmp = ft_calloc(ft_strlen(ms->input) - 1, sizeof(char));
+	if (!tmp)
+		return (-1);
+	unquote_str = tmp;
 	j = 0;
-	while (i < end)
+	k = 0;
+	while (j != i - 1)
+		tmp[k++] = ms->input[j++];
+	while (ms->input[i] != c)
 	{
-		dest[j] = src[i];
-		i++;
-		j++;
+		if (ms->input[i] == '\0')
+			return (-1);
+		tmp[k++] = ms->input[i++];
 	}
-	dest[j] = 0;
-	return (dest);
+	j = i++;
+	while (ms->input[i] != '\0')
+		tmp[k++] = ms->input[i++];
+	free(ms->input);
+	ms->input = unquote_str;
+	return (j - 1);
 }
 
-void	fill_list(char *input, t_list **lst, int i, int old_i)
+static void	fill_list(char *input, t_list **lst, int i, int old_i)
 {
 	char	*str;
 
-	str = str_split_strdup(input, old_i, i);
+	str = ft_strdup_range(input, old_i, i);
 	if (*lst == NULL)
 	{
 		*lst = ft_lstnew(str);

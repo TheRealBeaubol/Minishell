@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:46:19 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 01:37:12 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:22:50 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-int		ft_strstr_len(char **str);
+int		ft_tablen(char **str);
 int		ft_strlen_tr(char *str, char c);
 int		*ft_sort_string_tab(char **tab);
 int		ft_iswhitespace(char c);
@@ -87,8 +87,8 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_printf(char *s, ...);
 int		ft_dprintf(int fd, char *s, ...);
-int		printf_flag_verif(char c);
-int		printf_flag_mana(char c, va_list arg, int fd);
+int		ft_printf_flag_verif(char c);
+int		ft_printf_flag_mana(char c, va_list arg, int fd);
 void	ft_ul_nb_b(unsigned long nb, char *base, int *size, int i);
 void	ft_ui_nb_b(unsigned int nb, char *base, int *size, int fd);
 void	ft_printf_putnbr(int nb, int *size, int fd);
@@ -135,12 +135,12 @@ int		ft_atoi_base(char *str, char *base);
 char	**ft_str_split(char *str, char *charset);
 void	ft_free_tab(char **tab);
 void	*ft_realloc(char *ptr, int size);
-char	*gnl_strchr(char *s, int c);
-char	*gnl_strjoin(char *s1, char *s2);
-char	*get_next_line(int fd, int free_static);
-int		position_in_base(char *base, char c);
-int		convert_base_strlen(char *str);
-char	*convert_base_strcat(char *dest, char src);
+char	*ft_gnl_strchr(char *s, int c);
+char	*ft_gnl_strjoin(char *s1, char *s2);
+char	*ft_get_next_line(int fd, int free_static);
+int		ft_position_in_base(char *base, char c);
+int		ft_convert_base_strlen(char *str);
+char	*ft_convert_base_strcat(char *dest, char src);
 int		ft_is_prime(int nb);
 char	*ft_strdup_range(char *src, int start, int end);
 #endif

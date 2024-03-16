@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 01:30:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2023/11/26 01:33:12 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:20:15 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	position_in_base(char *base, char c)
+int	ft_position_in_base(char *base, char c)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ int	position_in_base(char *base, char c)
 	return (-1);
 }
 
-int	convert_base_strlen(char *str)
+int	ft_convert_base_strlen(char *str)
 {
 	int	n;
 
@@ -36,7 +36,7 @@ int	convert_base_strlen(char *str)
 	return (n);
 }
 
-char	*convert_base_strcat(char *dest, char src)
+char	*ft_convert_base_strcat(char *dest, char src)
 {
 	int	i;
 

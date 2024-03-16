@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_tablen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 21:55:30 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/16 10:19:55 by lboiteux         ###   ########.fr       */
+/*   Created: 2024/03/16 01:36:44 by lboiteux          #+#    #+#             */
+/*   Updated: 2024/03/16 16:37:50 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../libft.h"
 
-void	get_pwd(t_ms *ms)
+int	ft_tablen(char **str)
 {
 	int	i;
 
 	i = 0;
-	while (ms->env[i] && strncmp(ms->env[i], "PWD=", 4))
+	while (str[i])
 		i++;
-	ft_dprintf(1, "%s\n", ms->env[i] + 4);
+	return (i);
 }

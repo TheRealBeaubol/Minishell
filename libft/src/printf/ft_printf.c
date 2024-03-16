@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 20:48:10 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/11 21:32:10 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:16:23 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	ft_printf(char *s, ...)
 		return (-1);
 	while (s[i])
 	{
-		if (s[i] == '%' && (printf_flag_verif(s[i + 1])))
+		if (s[i] == '%' && (ft_printf_flag_verif(s[i + 1])))
 		{
-			size += printf_flag_mana(s[i + 1], arg, 1);
+			size += ft_printf_flag_mana(s[i + 1], arg, 1);
 			i += 2;
 		}
 		else if (s[i] == '%' && s[i + 1] == 0)
@@ -54,9 +54,9 @@ int	ft_dprintf(int fd, char *s, ...)
 		return (-1);
 	while (s[i])
 	{
-		if (s[i] == '%' && (printf_flag_verif(s[i + 1])))
+		if (s[i] == '%' && (ft_printf_flag_verif(s[i + 1])))
 		{
-			size += printf_flag_mana(s[i + 1], arg, fd);
+			size += ft_printf_flag_mana(s[i + 1], arg, fd);
 			i += 2;
 		}
 		else if (s[i] == '%' && s[i + 1] == 0)

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 01:55:29 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/11 21:32:10 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:12:20 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	if (ft_strlen(s) < start)
+	if ((unsigned int)ft_strlen(s) < start)
 		return (ft_strdup(""));
 	i = 0;
 	while (*(char *)(s + start + i) != 0 && i < len)

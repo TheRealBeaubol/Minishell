@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 10:37:29 by lboiteux          #+#    #+#             */
-/*   Updated: 2023/11/26 01:30:24 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:18:35 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	ft_atoi_base(char *str, char *base)
 			signe *= -1;
 		i++;
 	}
-	while (str[i] && position_in_base(base, str[i]) != -1)
+	while (str[i] && ft_position_in_base(base, str[i]) != -1)
 	{
-		stock = stock * ft_strlen(base) + position_in_base(base, str[i]);
+		stock = stock * ft_strlen(base) + ft_position_in_base(base, str[i]);
 		i++;
 	}
 	return (stock * signe);

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:57:47 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/01/27 23:49:37 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:21:17 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char	*ft_get_line(int fd, char *line)
 	if (!buffer)
 		return (NULL);
 	sizeread = 1;
-	while (!gnl_strchr(buffer, '\n') && sizeread != 0)
+	while (!ft_gnl_strchr(buffer, '\n') && sizeread != 0)
 	{
 		sizeread = read(fd, buffer, BUFFER_SIZE);
 		if (sizeread == -1)
@@ -57,7 +57,7 @@ static char	*ft_get_line(int fd, char *line)
 			return (NULL);
 		}
 		buffer[sizeread] = '\0';
-		line = gnl_strjoin(line, buffer);
+		line = ft_gnl_strjoin(line, buffer);
 	}
 	free(buffer);
 	return (line);

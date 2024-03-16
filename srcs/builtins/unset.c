@@ -6,31 +6,19 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:18:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/16 01:36:33 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 16:45:10 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int	get_env_indice(t_ms *ms, char *var)
-{
-	int	i;
-
-	i = 0;
-	while (ms->env[i] && ft_strncmp(ms->env[i], var, ft_strlen(var)))
-		i++;
-	if (!ms->env[i])
-		return (-1);
-	return (i);
-}
-
-char	**feed_env(t_ms *ms, int unset)
+static char	**feed_env(t_ms *ms, int unset)
 {
 	int		i;
 	int		j;
 	char	**unset_env;
 
-	unset_env = malloc(sizeof(char *) * ft_strstr_len(ms->env));
+	unset_env = malloc(sizeof(char *) * ft_tablen(ms->env));
 	i = 0;
 	j = 0;
 	while (ms->env[i])

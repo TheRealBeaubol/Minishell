@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 22:58:02 by lboiteux          #+#    #+#             */
-/*   Updated: 2023/11/26 01:36:56 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:21:17 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-char	*gnl_strchr(char *s, int c)
+char	*ft_gnl_strchr(char *s, int c)
 {
 	int		i;
 	char	*cast;
@@ -33,7 +33,7 @@ char	*gnl_strchr(char *s, int c)
 	return (NULL);
 }
 
-char	*gnl_strjoin(char *s1, char *s2)
+char	*ft_gnl_strjoin(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	j;

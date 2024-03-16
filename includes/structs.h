@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:15:46 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/14 17:51:28 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 19:25:03 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ typedef struct s_path
 
 typedef struct s_ms
 {
-	int		ac;
-	char	**av;
 	char	**env;
 	char	*input;
 	char	*prompt;

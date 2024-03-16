@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/16 10:25:22 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/16 17:02:12 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,22 +48,19 @@ RM					= 	@rm -rf
 
 #SOURCES
 SRCS	= 	srcs/main.c \
-			srcs/error.c \
+			srcs/main_utils.c \
 			srcs/get_input.c \
 			srcs/prompt.c \
-			srcs/builtins/cd_utils.c \
+			srcs/builtins/utils.c \
 			srcs/builtins/cd.c \
 			srcs/builtins/echo.c \
 			srcs/builtins/env.c \
 			srcs/builtins/exec.c \
 			srcs/builtins/export_utils.c \
 			srcs/builtins/export.c \
-			srcs/builtins/pwd.c \
 			srcs/builtins/unset.c \
 			srcs/parsing/parse.c \
-			srcs/parsing/quote.c \
 			srcs/parsing/getenv.c \
-			srcs/parsing/parse_utils.c \
 			srcs/parsing/getenv_utils.c \
 # OBJECTS
 
