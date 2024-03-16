@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 01:21:21 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 01:21:25 by lboiteux         ###   ########.fr       */
+/*   Created: 2024/03/15 22:27:47 by mhervoch          #+#    #+#             */
+/*   Updated: 2024/03/16 01:23:51 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,6 @@ int	*tri_export(t_ms *ms)
 {
 	char	**export;
 	int		*indice;
-	int		i;
 
-<<<<<<< HEAD
-	env = calloc((ft_strstr_len(ms->env)), sizeof(char *));
-=======
-	export = calloc((ft_strstr_len(ms->env)), sizeof(char *));
-	i = 0;
-	while (i < ft_strstr_len(ms->env))
-		indice[i] = i++;
-	i = 0;
-	sort_indice(ms, export, &indice);
-	return (indice);
->>>>>>> b9521c5b66b271966526d997851c181b66100dc7
+	env = calloc((ft_strstr_len(ms->env)), sizeof(char *));	
 }
