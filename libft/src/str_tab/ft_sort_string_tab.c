@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 01:28:12 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 21:10:42 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/16 22:08:40 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ static void	ft_swap_indice(int **indice, int i, int j)
 
 static void	sort_indice(char **tab, int **indice)
 {
-	unsigned long	i;
-	unsigned long	j;
+	int	i;
+	int	j;
 
 	i = 0;
-	while (i < sizeof(*indice))
+	while (i < ft_tablen(tab))
 	{
 		j = i + 1;
-		while (j < sizeof(*indice))
+		while (j < ft_tablen(tab))
 		{
 			if (ft_strcmp(tab[i], tab[j]) > 0)
 				ft_swap_indice(indice, i, j);
@@ -40,12 +40,12 @@ static void	sort_indice(char **tab, int **indice)
 	}
 }
 
-void	print_indice(int *indice)
+void	print_indice(int *indice, char **tab)
 {
-	unsigned long	i;
+	int	i;
 
 	i = 0;
-	while (i < sizeof(indice))
+	while (i < ft_tablen(tab))
 	{
 		ft_printf("%d\n", indice[i]);
 		i++;
@@ -62,6 +62,6 @@ int	*ft_sort_string_tab(char **tab)
 	while (++i < ft_tablen(tab))
 		indice[i] = i;
 	sort_indice(tab, &indice);
-	print_indice(indice);
+	//print_indice(indice, tab);
 	return (indice);
 }

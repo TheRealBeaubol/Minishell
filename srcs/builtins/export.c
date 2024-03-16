@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/16 20:50:32 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/16 21:59:23 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,15 @@ static char	**feed_env_p(t_ms *ms, int var_status)
 
 static int	print_export(t_ms *ms, int *indice)
 {
-	unsigned long	i;
-	unsigned long	len;
-	char			*tmp;
-	char			*str;
-	int				pos;
-	int				var;
+	int		i;
+	char	*tmp;
+	char	*str;
+	int		pos;
+	int		var;
 
 	i = 0;
-	len = sizeof(ms->env);
 	pos = 0;
-	while (i < len)
+	while (i < ft_tablen(ms->env))
 	{
 		var = 0;
 		while (indice[var] != pos)
