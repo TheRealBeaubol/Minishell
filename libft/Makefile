@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 09:36:52 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/16 01:31:24 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/16 01:37:41 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,6 +98,8 @@ SRCS		:=	char/ft_isalnum.c\
 							str/ft_strcut.c\
 							str/ft_strstr.c\
 							str/ft_strncat.c\
+							str/ft_strstr_len.c\
+							str/ft_strlen_tr.c\
 							str_tab/ft_sort_string_tab.c\
 							chain_list/ft_lstnew.c\
 							chain_list/ft_lstadd_front.c\

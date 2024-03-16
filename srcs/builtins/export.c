@@ -6,23 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/16 01:32:36 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 01:34:11 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-int	ft_strlen_tr(char *str, char c)
-{
-	char	*tmp;
-
-	tmp = str;
-	if (!str)
-		return (0);
-	while (*tmp && *tmp != c)
-		tmp++;
-	return (tmp - str);
-}
 
 char	**fill_export_env(t_ms *ms, int	*b, char **export_env, int var_status)
 {

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:18:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/16 01:32:36 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 01:36:33 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,6 @@ int	get_env_indice(t_ms *ms, char *var)
 		i++;
 	if (!ms->env[i])
 		return (-1);
-	return (i);
-}
-
-int	ft_strstr_len(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
 	return (i);
 }
 
