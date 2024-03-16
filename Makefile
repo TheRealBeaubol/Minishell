@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/14 23:00:56 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/16 00:59:51 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,6 @@ RM					= 	@rm -rf
 
 #SOURCES
 SRCS	= 	srcs/main.c \
-			srcs/path.c \
 			srcs/error.c \
 			srcs/get_input.c \
 			srcs/builtins/cd.c \

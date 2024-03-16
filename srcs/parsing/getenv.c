@@ -6,42 +6,35 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/15 17:45:32 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 01:03:28 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-extern int	g_exit;
-
-void	replace_var(t_ms *ms, int *i)
+int	replace_var(t_ms *ms, int i)
 {
 	char	*var_name;
 	char	*end_str;
 
-	if (ft_iswhitespace(ms->input[*i + 1]))
-	{
-		(*i)++;
-		return ;
-	}
-	var_name = get_var_name(ms, *i);
+	if (ft_iswhitespace(ms->input[i + 1]))
+		return (i + 1);
+	var_name = get_var_name(ms, i);
 	if (!var_name)
-	{
-		(*i)++;
-		return ;
-	}
-	end_str = get_end_str(ms, var_name, *i);
+		return (i + 1);
+	end_str = get_end_str(ms, var_name, i);
 	if (var_name && var_name[ft_strlen(var_name) - 1] != '=')
 		ms->input = ft_strjoin(var_name, end_str, NULL, 0b001);
 	else
 	{
-		ms->input = get_new_input(ms, *i, end_str, var_name);
+		ms->input = get_new_input(ms, i, end_str, var_name);
 		free(var_name);
-		if (ms->input[*i] == '\0')
-			return ;
+		if (ms->input[i] == '\0')
+			return (i);
 	}
-	*i = ft_strlen(ms->input) - ft_strlen(end_str);
+	i = ft_strlen(ms->input) - ft_strlen(end_str);
 	free(end_str);
+	return (i);
 }
 
 static int	handle_dquote_envvar(t_ms *ms, int i)
@@ -54,7 +47,7 @@ static int	handle_dquote_envvar(t_ms *ms, int i)
 		if (ms->input[j] == '\0')
 			return (-1);
 		if (ms->input[j] == '$')
-			replace_var(ms, &j);
+			j = replace_var(ms, j);
 		else
 			j++;
 	}
@@ -110,7 +103,7 @@ int	parse_env(t_ms *ms)
 			if (ms->input[i + 1] == '?')
 				handle_exit_envvar(ms, &i);
 			else
-				replace_var(ms, &i);
+				i = replace_var(ms, i);
 			if (ms->input[0] == '\0')
 				return (1);
 		}

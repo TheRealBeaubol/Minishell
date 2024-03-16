@@ -6,13 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 21:17:05 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/14 01:25:29 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/15 22:56:58 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-extern int	g_exit;
 
 void	print_list(t_list *lst)
 {

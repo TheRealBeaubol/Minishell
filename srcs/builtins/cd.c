@@ -6,13 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/15 18:09:59 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 01:08:31 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/header.h"
-
-extern int	g_exit;
 
 static void	edit_env(t_ms *ms)
 {
@@ -65,8 +63,7 @@ int	change_directory(t_ms *ms)
 		if (chdir(tmp->content) == -1)
 		{
 			g_exit = 1;
-			error = ft_strjoin("minishell: cd: ", tmp->content, \
-		NULL, 0b000);
+			error = ft_strjoin("minishell: cd: ", tmp->content, NULL, 0b000);
 			perror(error);
 			free(error);
 			return (0);

@@ -6,13 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 20:48:18 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/15 01:28:26 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/15 22:56:58 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/header.h"
-
-extern int	g_exit;
 
 static int	is_valid_flag(char *str)
 {

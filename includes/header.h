@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/15 19:38:19 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 01:06:42 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*get_prompt(t_ms *ms);
 /*       getenv.c       */
 /* ******************** */
 int		parse_env(t_ms *ms);
-void	replace_var(t_ms *ms, int *i);
+int		replace_var(t_ms *ms, int i);
 
 /* ********************* */
 /*     getenv_utils.c	 */

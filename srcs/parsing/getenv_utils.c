@@ -6,14 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 23:16:07 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/14 23:10:36 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/15 23:01:28 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-extern int	g_exit;
-
 
 char	*get_var_name(t_ms *ms, int i)
 {

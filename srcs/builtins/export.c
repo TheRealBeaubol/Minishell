@@ -6,13 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/15 22:22:59 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 01:19:10 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/header.h"
-
-extern int	g_exit;
 
 int	ft_strlen_tr(char *str, char c)
 {
@@ -26,6 +24,30 @@ int	ft_strlen_tr(char *str, char c)
 	return (tmp - str);
 }
 
+char	**fill_export_env(t_ms *ms, int	*b, char **export_env, int var_status)
+{
+	int	i;
+
+	i = 0;
+	while (ms->env[i])
+	{
+		if (!ft_strncmp(ms->lst->next->content, ms->env[i], \
+			ft_strlen_tr(ms->env[i], '=') - var_status + 2))
+		{
+			if (var_status == 2)
+				export_env[i] = ft_strjoin(ms->env[i], \
+					ft_strchr(ms->lst->next->content, '=') + 1, NULL, 0b000);
+			else
+				export_env[i] = ft_strdup(ms->lst->next->content);
+			*b = 1;
+		}
+		else
+			export_env[i] = ft_strdup(ms->env[i]);
+		i++;
+	}
+	return (export_env);
+}
+
 char	**feed_env_p(t_ms *ms, int var_status)
 {
 	char	**export_env;
@@ -36,26 +58,15 @@ char	**feed_env_p(t_ms *ms, int var_status)
 	b = 0;
 	i = 0;
 	export_env = ft_calloc(ft_strstr_len(ms->env) + 2, sizeof(char *));
-	while (ms->env[i])
-	{
-		if (!ft_strncmp(ms->lst->next->content, ms->env[i], ft_strlen_tr(ms->env[i], '=') - var_status + 2))
-		{
-			if (var_status == 2)
-				export_env[i] = ft_strjoin(ms->env[i], ft_strchr(ms->lst->next->content, '=') + 1, NULL, 0b000);
-			else
-				export_env[i] = ft_strdup(ms->lst->next->content);
-			b = 1;
-		}
-		else
-			export_env[i] = ft_strdup(ms->env[i]);
-		i++;
-	}
+	export_env = fill_export_env(ms, &b, export_env, var_status);
+	i = ft_strstr_len(ms->env);
 	if (!b)
 	{
 		if (var_status == 2)
 		{
 			tmp = ft_strrev(ms->lst->next->content);
-			export_env[i++] = ft_strjoin(ft_strrev(ft_strchr(tmp, '+') + 1), ft_strchr(ms->lst->next->content, '+') + 1, NULL, 0b001);
+			export_env[i++] = ft_strjoin(ft_strrev(ft_strchr(tmp, '+') + 1), \
+				ft_strchr(ms->lst->next->content, '+') + 1, NULL, 0b001);
 			free(tmp);
 		}
 		else
@@ -75,7 +86,8 @@ int	print_export(t_ms *ms)
 	while (ms->env[i])
 	{
 		tmp = ft_strrev(ms->env[i]);
-		str = ft_strjoin(ft_strrev(ft_strchr(tmp, '=')), ft_strchr(ms->env[i], '=') + 1,"\"", 0b011);
+		str = ft_strjoin(ft_strrev(ft_strchr(tmp, '=')), \
+			ft_strchr(ms->env[i], '=') + 1, "\"", 0b011);
 		free(tmp);
 		tmp = ft_strjoin(str, "\"", NULL, 0b001);
 		ft_dprintf(1, "declare -x %s\n", tmp);
@@ -96,7 +108,8 @@ int	check_export(char *var)
 		return (0);
 	while (var[i] && (ft_isalnum(var[i]) || var[i] == '_' || var[i] == '\\'))
 	{
-		if (var[i] == '\\' && var[i + 1] && (ft_isalnum(var[i + 1]) || var[i + 1] == '_'))
+		if (var[i] == '\\' && var[i + 1] && (ft_isalnum(var[i + 1]) \
+			|| var[i + 1] == '_'))
 			i++;
 		else if (var[i] != '\\')
 			i++;

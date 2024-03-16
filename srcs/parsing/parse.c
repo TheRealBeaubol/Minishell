@@ -6,13 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/14 23:37:48 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 00:57:17 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-extern int	g_exit;
 
 static char	*str_split_strdup(char *src, int start, int end)
 {
@@ -54,7 +52,7 @@ void	parse(t_ms *ms)
 	int		old_i;
 
 	i = 0;
-	if (parse_env(ms) == -1)
+	if (parse_env(ms) == 1)
 		return ;
 	while (ms->input[i] != '\0')
 	{
@@ -64,16 +62,14 @@ void	parse(t_ms *ms)
 		while ((ms->input[i] != ' ') && ms->input[i] != '\0')
 		{
 			if (ms->input[i] == '"' || ms->input[i] == '\'')
-			{
 				i = parse_quote(ms, i + 1, ms->input[i]);
-				if (i == -1)
-				{
-					ft_dprintf(2, "Parsing Error");
-					return ;
-				}
-			}
 			else
 				i++;
+			if (i == -1)
+			{
+				ft_dprintf(2, "Parsing Error");
+				return ;
+			}
 		}
 		fill_list(ms->input, &(ms->lst), i, old_i);
 	}

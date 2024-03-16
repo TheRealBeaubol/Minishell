@@ -6,23 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:18:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/15 18:48:12 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 01:01:13 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/header.h"
-
-extern int	g_exit;
-
-int	get_range(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '=')
-		i++;
-	return (i);
-}
 
 int	get_env_indice(t_ms *ms, char *var)
 {
@@ -34,14 +22,6 @@ int	get_env_indice(t_ms *ms, char *var)
 	if (!ms->env[i])
 		return (-1);
 	return (i);
-}
-
-char	*get_var(t_ms *ms, int indice)
-{
-	char	*var;
-
-	var = ft_strdup_range(ms->env[indice], 0, get_range(ms->env[indice]));
-	return (var);
 }
 
 int	ft_strstr_len(char **str)
