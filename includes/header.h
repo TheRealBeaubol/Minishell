@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 01:32:55 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 10:32:14 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int		parse_quote(t_ms *ms, int i, char c);
 /*         exec.c       */
 /* ******************** */
 void	exec(t_ms *ms);
-char	*grep(t_ms *ms);
 void	get_path(t_ms *ms);
 int		choose_cmd(t_ms *ms);
 
@@ -63,7 +62,7 @@ int		change_directory(t_ms *ms);
 /* ******************** */
 /*         pwd.c        */
 /* ******************** */
-char	*get_pwd(t_ms *ms);
+void	get_pwd(t_ms *ms);
 int		pwd(t_ms *ms);
 char	*get_prompt(t_ms *ms);
 
@@ -81,13 +80,18 @@ char	*get_end_str(t_ms *ms, char *var_name, int i);
 char	*get_var_name(t_ms *ms, int i);
 char	*get_env(char **env, char *var_name);
 char	*wrong_var(t_ms *ms, int i);
-
 char	*get_cwd(void);
 int		check_export(char *var);
 void	unset(t_ms *ms, char *var);
 void	echo(t_ms *ms);
+void	handle_flag(t_ms *ms);
+void	edit_env(t_ms *ms);
+void	old_pwd(t_ms *ms);
 void	env(t_ms *ms);
 int		get_env_indice(t_ms *ms, char *var);
 int		ft_strstr_len(char **str);
+int		handle_dquote_envvar(t_ms *ms, int i);
+int		handle_squote_envvar(t_ms *ms, int i);
+void	handle_exit_envvar(t_ms *ms, int *i);
 void	export(t_ms *ms);
 #endif

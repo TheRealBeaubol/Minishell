@@ -6,29 +6,20 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/16 01:32:36 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/16 10:29:13 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-char	*grep(t_ms *ms)
+void	get_path(t_ms *ms)
 {
-	char	*path;
 	int		i;
 
 	i = 0;
 	while (ft_strncmp(ms->env[i], "PATH=", 5))
 		i++;
-	path = ft_strdup(ms->env[i] + 5);
-	return (path);
-}
-
-void	get_path(t_ms *ms)
-{
-	int		i;
-
-	ms->path->path_str = grep(ms);
+	ms->path->path_str = ft_strdup(ms->env[i] + 5);
 	ms->path->dec_path = ft_char_split(ms->data->cmd[0], ' ');
 	ms->path->commande = ft_strjoin("/", ms->path->dec_path[0], NULL, 0b000);
 	i = 0;
@@ -112,18 +103,12 @@ int	is_builtin(char *command)
 
 int	choose_cmd(t_ms *ms)
 {
-	char	*str;
-
 	if (is_builtin(ms->lst->content))
 	{
 		if (!ft_strncmp(ms->lst->content, "cd", 3))
 			change_directory(ms);
 		else if (!ft_strncmp(ms->lst->content, "pwd", 4))
-		{
-			str = get_cwd();
-			printf("%s\n", str);
-			free(str);
-		}
+			get_pwd(ms);
 		else if (!ft_strncmp(ms->lst->content, "unset", 6))
 			unset(ms, ms->lst->content);
 		else if (!ft_strncmp(ms->lst->content, "env", 4))
