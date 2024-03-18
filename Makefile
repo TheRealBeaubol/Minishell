@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/16 17:02:12 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/18 17:29:29 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,12 +51,12 @@ SRCS	= 	srcs/main.c \
 			srcs/main_utils.c \
 			srcs/get_input.c \
 			srcs/prompt.c \
+			srcs/signals.c \
 			srcs/builtins/utils.c \
 			srcs/builtins/cd.c \
 			srcs/builtins/echo.c \
 			srcs/builtins/env.c \
 			srcs/builtins/exec.c \
-			srcs/builtins/export_utils.c \
 			srcs/builtins/export.c \
 			srcs/builtins/unset.c \
 			srcs/parsing/parse.c \
@@ -94,7 +94,7 @@ clean:
 		$(RM) $(OBJS_DIR)
 
 fclean: clean
-		@make fclean -C $(LIBFT_DIR) --no-print-directory
+		@make fclean -C $(LIBFT_DIR) --no-print-directory -j
 		@printf "  \033[1;38;5;240m└──> 🗑️    \033[1;38;5;255mlibft binary \033[1;38;5;248mhas been deleted$(RESET)\n"
 		$(RM) $(NAME)
 		@printf "  \033[1;38;5;240m└──> 🗑️    \033[1;38;5;255mminishell binary \033[1;38;5;248mhas been deleted$(RESET)\n\n"

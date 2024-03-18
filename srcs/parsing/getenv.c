@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 16:14:55 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/17 18:35:54 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-static char	*get_var_name(t_ms *ms, int i)
+char	*get_var_name(t_ms *ms, int i)
 {
 	char	*str;
 	int		stock_i;

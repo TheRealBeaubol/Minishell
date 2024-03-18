@@ -6,18 +6,45 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/16 21:59:23 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:44:36 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-static char	**fill_export_env(t_ms *ms, int	*b, char **export_env, \
-	int var_status)
+static int	check_export(char *var)
 {
 	int	i;
 
+	i = 1;
+	if (var[i - 1] == '-')
+		return (-1);
+	if (!ft_isalpha(var[i - 1]) && var[i - 1] != '_')
+		return (0);
+	while (var[i] && (ft_isalnum(var[i]) || var[i] == '_' || var[i] == '\\'))
+	{
+		if (var[i] == '\\' && var[i + 1] && (ft_isalnum(var[i + 1]) \
+			|| var[i + 1] == '_'))
+			i++;
+		else if (var[i] != '\\')
+			i++;
+		else
+			return (0);
+	}
+	if (((int)ft_strlen(var) != i + 1) && var[i] == '+' && var[i + 1] == '=')
+		return (2);
+	if (var[i] != '\0' && var[i] != '=')
+		return (0);
+	return (1);
+}
+
+static char	**fill_export_env(t_ms *ms, int	*b, int var_status)
+{
+	int		i;
+	char	**export_env;
+
 	i = 0;
+	export_env = ft_calloc(ft_tablen(ms->env) + 2, sizeof(char *));
 	while (ms->env[i])
 	{
 		if (!ft_strncmp(ms->lst->next->content, ms->env[i], \
@@ -46,8 +73,9 @@ static char	**feed_env_p(t_ms *ms, int var_status)
 
 	b = 0;
 	i = 0;
-	export_env = ft_calloc(ft_tablen(ms->env) + 2, sizeof(char *));
-	export_env = fill_export_env(ms, &b, export_env, var_status);
+	if (!ft_strchr(ms->lst->next->content, '='))
+		return (NULL);
+	export_env = fill_export_env(ms, &b, var_status);
 	i = ft_tablen(ms->env);
 	if (!b)
 	{
@@ -65,29 +93,22 @@ static char	**feed_env_p(t_ms *ms, int var_status)
 	return (export_env);
 }
 
-static int	print_export(t_ms *ms, int *indice)
+static int	print_export(char **tab)
 {
 	int		i;
 	char	*tmp;
 	char	*str;
-	int		pos;
-	int		var;
 
 	i = 0;
-	pos = 0;
-	while (i < ft_tablen(ms->env))
+	while (i < ft_tablen(tab))
 	{
-		var = 0;
-		while (indice[var] != pos)
-			var++;
-		tmp = ft_strrev(ms->env[var]);
+		tmp = ft_strrev(tab[i]);
 		str = ft_strjoin(ft_strrev(ft_strchr(tmp, '=')), \
-		ft_strchr(ms->env[var], '=') + 1, "\"", 0b011);
+		ft_strchr(tab[i], '=') + 1, "\"", 0b001);
 		free(tmp);
 		tmp = ft_strjoin(str, "\"", NULL, 0b001);
 		ft_dprintf(1, "declare -x %s\n", tmp);
 		free(tmp);
-		pos++;
 		i++;
 	}
 	return (1);
@@ -97,12 +118,12 @@ void	export(t_ms *ms)
 {
 	char	**new_env;
 	int		var_status;
-	int		*indice;
 
 	if (!ms->lst->next || ms->lst->next->content[0] == '\0')
 	{
-		indice = ft_sort_string_tab(ms->env);
-		print_export(ms, indice);
+		new_env = ft_sort_string_tab(ms->env);
+		print_export(new_env);
+		ft_free_tab(new_env);
 		return ;
 	}
 	var_status = check_export(ms->lst->next->content);
@@ -115,6 +136,9 @@ void	export(t_ms *ms)
 		return ;
 	}
 	new_env = feed_env_p(ms, var_status);
-	ft_free_tab(ms->env);
-	ms->env = new_env;
+	if (new_env)
+	{
+		ft_free_tab(ms->env);
+		ms->env = new_env;
+	}
 }

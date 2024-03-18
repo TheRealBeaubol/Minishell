@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap.c                                          :+:      :+:    :+:   */
+/*   ft_min.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/13 11:03:39 by lboiteux          #+#    #+#             */
-/*   Updated: 2023/11/25 01:18:34 by lboiteux         ###   ########.fr       */
+/*   Created: 2024/03/17 15:12:29 by lboiteux          #+#    #+#             */
+/*   Updated: 2024/03/17 15:15:54 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-void	ft_swap(int *a, int *b)
+int	ft_min(int nb1, int nb2)
 {
-	int	tpm;
-
-	tpm = *a;
-	*a = *b;
-	*b = tpm;
+	if (nb1 > nb2)
+		return (nb2);
+	if (nb2 > nb1)
+		return (nb1);
+	return (nb1);
 }

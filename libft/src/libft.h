@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:46:19 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 17:22:50 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:47:42 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_list
 
 int		ft_tablen(char **str);
 int		ft_strlen_tr(char *str, char c);
-int		*ft_sort_string_tab(char **tab);
+char	**ft_sort_string_tab(char **tab);
 int		ft_iswhitespace(char c);
 int		ft_putchar_len_fd(char c, int fd);
 int		ft_putstr_len_fd(char *s, int fd);
@@ -98,7 +98,8 @@ void	ft_putstr(char *s);
 void	ft_putnbr(int n);
 void	ft_putendl(char *s);
 void	ft_putchar(char c);
-void	ft_swap(int *a, int *b);
+void	ft_int_swap(int *a, int *b);
+void	ft_str_swap(char **a, char **b);
 void	ft_rev_int_tab(int *tab, int size);
 void	ft_sort_int_tab(int *tab, int size);
 int		ft_str_is_alpha(char *str);
@@ -136,6 +137,7 @@ char	**ft_str_split(char *str, char *charset);
 void	ft_free_tab(char **tab);
 void	*ft_realloc(char *ptr, int size);
 char	*ft_gnl_strchr(char *s, int c);
+int		ft_min(int nb1, int nb2);
 char	*ft_gnl_strjoin(char *s1, char *s2);
 char	*ft_get_next_line(int fd, int free_static);
 int		ft_position_in_base(char *base, char c);

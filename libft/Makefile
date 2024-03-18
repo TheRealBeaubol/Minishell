@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 09:36:52 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/16 16:38:25 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/18 16:48:48 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,6 +99,7 @@ SRCS		:=	char/ft_isalnum.c\
 							str/ft_strstr.c\
 							str/ft_strncat.c\
 							str/ft_strlen_tr.c\
+							str/ft_str_swap.c\
 							str_tab/ft_tablen.c\
 							str_tab/ft_sort_string_tab.c\
 							chain_list/ft_lstnew.c\
@@ -128,13 +129,14 @@ SRCS		:=	char/ft_isalnum.c\
 							printf/ft_printf.c\
 							printf/ft_printf_nbr_utils.c\
 							printf/ft_printf_utils.c\
-							int_tab/ft_swap.c\
+							int_tab/ft_int_swap.c\
 							int_tab/ft_dup_int_tab.c\
 							int_tab/ft_rev_int_tab.c\
 							int_tab/ft_sort_int_tab.c\
 							int_tab/ft_range.c\
 							int_tab/ft_ultimate_range.c\
 							int/ft_intlen.c\
+							int/ft_min.c\
 							convert/ft_atoi_base.c\
 							convert/ft_atoi.c\
 							convert/ft_base_error.c\

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:15:46 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 19:25:03 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:45:45 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_ms
 	char	**env;
 	char	*input;
 	char	*prompt;
-	int		quote;
 	t_list	*lst;
 	t_data	*data;
 	t_path	*path;

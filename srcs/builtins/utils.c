@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 10:16:04 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 19:41:44 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:44:16 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,21 @@ int	get_env_indice(t_ms *ms, char *var)
 	return (i);
 }
 
+static int	get_exit_code(int err_code)
+{
+	if (!WIFEXITED(err_code) && WCOREDUMP(err_code))
+	{
+		ft_dprintf(2, "Quit (core dumped)\n");
+		return (131);
+	}
+	if (WTERMSIG(err_code) == 2)
+	{
+		ft_dprintf(2, "\n");
+		return (130);
+	}
+	return (WEXITSTATUS(err_code));
+}
+
 void	free_exec(t_ms *ms, int is_fork, int err_code)
 {
 	if (is_fork == 1)
@@ -72,7 +87,7 @@ void	free_exec(t_ms *ms, int is_fork, int err_code)
 	}
 	else if (!is_fork)
 	{
-		g_exit = WEXITSTATUS(err_code);
+		g_exit = get_exit_code(err_code);
 		ft_free_tab(ms->data->cmd);
 		ms->data->cmd = NULL;
 		free(ms->path->str);

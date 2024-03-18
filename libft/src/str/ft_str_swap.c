@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ultimate_range.c                                :+:      :+:    :+:   */
+/*   ft_str_swap.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/26 00:27:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/18 16:49:22 by lboiteux         ###   ########.fr       */
+/*   Created: 2024/03/18 16:47:52 by lboiteux          #+#    #+#             */
+/*   Updated: 2024/03/18 16:48:30 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_ultimate_range(int **range, int min, int max)
+void	ft_str_swap(char **a, char **b)
 {
-	int	i;
+	char	*tpm;
 
-	i = 0;
-	if (min >= max)
-		return (0);
-	*range = malloc ((max - min) * sizeof(int));
-	while (min < max)
-	{
-		(*range)[i] = min;
-		i++;
-		min++;
-	}
-	return (i);
+	tpm = *a;
+	*a = *b;
+	*b = tpm;
 }

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 17:10:50 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:45:30 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,6 @@ int	check_input(t_ms *ms)
 	return (0);
 }
 
-void	handle_sigint(int sig)
-{
-	(void) sig;
-	ft_dprintf (1, "\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
 void	get_input(t_ms *ms)
 {
 	int	i;
@@ -43,22 +34,22 @@ void	get_input(t_ms *ms)
 	i = 0;
 	while (1)
 	{
-		signal(SIGINT, handle_sigint);
-		signal(SIGQUIT, SIG_IGN);
+		signal_state_manager(0);
 		ms->lst = NULL;
 		ms->input = readline(ms->prompt);
 		if (check_input(ms) == 0)
 		{
-			ms->quote = 0;
 			parse(ms);
 			if (ms->input[0] != '\0')
 			{
+				signal_state_manager(1);
 				i = choose_cmd(ms);
 				if (i == 42)
 				{
 					rl_clear_history();
 					free_and_exit(ms);
 				}
+				signal_state_manager(0);
 			}
 		}
 		free(ms->input);
@@ -70,13 +61,11 @@ void	get_single_input(t_ms *ms, char *line)
 	int	i;
 
 	i = 0;
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, SIG_IGN);
+	signal_state_manager(0);
 	ms->lst = NULL;
 	ms->input = line;
 	if (check_input(ms) == 0)
 	{
-		ms->quote = 0;
 		parse(ms);
 		if (ms->input[0] != '\0')
 		{
