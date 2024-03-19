@@ -2,461 +2,461 @@
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 518 allocs, 294 frees, 248,395 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 518 allocs, 294 frees, 248,363 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo "$1a"][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,408 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,376 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo $ ][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 520 allocs, 296 frees, 248,408 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 520 allocs, 296 frees, 248,376 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo  $ ][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 520 allocs, 296 frees, 248,410 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 520 allocs, 296 frees, 248,378 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo $][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 518 allocs, 294 frees, 248,389 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 518 allocs, 294 frees, 248,357 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo "$"][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,400 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,368 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo '$'][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,400 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,368 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo $ ][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 520 allocs, 296 frees, 248,408 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 520 allocs, 296 frees, 248,376 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo "$ "][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,404 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,372 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo '$ '][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,580 bytes in 222 blocks
-  total heap usage: 518 allocs, 296 frees, 248,384 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,372 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,580 bytes in 222 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo  $][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 518 allocs, 294 frees, 248,391 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 518 allocs, 294 frees, 248,359 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo " $"][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,404 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,372 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo ' $'][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,404 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,372 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo  $ ][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 520 allocs, 296 frees, 248,410 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 520 allocs, 296 frees, 248,378 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo " $ "][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,408 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,376 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo ' $ '][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,408 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,376 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo "$USER a"][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 525 allocs, 301 frees, 248,505 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 525 allocs, 301 frees, 248,473 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo "$USER"][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 525 allocs, 301 frees, 248,491 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 525 allocs, 301 frees, 248,459 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo "$USERa" ][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 527 allocs, 303 frees, 248,470 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 527 allocs, 303 frees, 248,438 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo "a$USER"][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 525 allocs, 301 frees, 248,498 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 525 allocs, 301 frees, 248,466 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo "a $USER"][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 525 allocs, 301 frees, 248,505 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 525 allocs, 301 frees, 248,473 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo "$USER "][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 525 allocs, 301 frees, 248,498 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 525 allocs, 301 frees, 248,466 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo '$USER'][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,416 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,384 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo '$USER a'][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,424 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,392 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo '$USERa'][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,420 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,388 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo 'a$USER'][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,420 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,388 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo 'a $USER'][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,424 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,392 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo '$USER '][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,420 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,388 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo $a][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 523 allocs, 299 frees, 248,409 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 523 allocs, 299 frees, 248,377 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo "$a"][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 525 allocs, 301 frees, 248,431 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 525 allocs, 301 frees, 248,399 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo '$a'][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,404 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,372 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[echo '$1a'][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 519 allocs, 295 frees, 248,408 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 519 allocs, 295 frees, 248,376 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m
 [3;1;92m[e'ch'""'o' '"'""'"''sa'l""u"t"''][96m
 FILE DESCRIPTORS: 3 open (3 std) at exit.
 
 HEAP SUMMARY:
-    in use at exit: 215,729 bytes in 224 blocks
-  total heap usage: 529 allocs, 305 frees, 248,699 bytes allocated
+    in use at exit: 215,741 bytes in 224 blocks
+  total heap usage: 529 allocs, 305 frees, 248,667 bytes allocated
 
 LEAK SUMMARY:
    definitely lost: 0 bytes in 0 blocks
    indirectly lost: 0 bytes in 0 blocks
      possibly lost: 0 bytes in 0 blocks
    still reachable: 0 bytes in 0 blocks
-        suppressed: 215,729 bytes in 224 blocks
+        suppressed: 215,741 bytes in 224 blocks
 [0m

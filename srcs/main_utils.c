@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 16:58:02 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/16 17:01:56 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:04:53 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	free_and_exit(t_ms *ms)
 {
+	rl_clear_history();
 	free(ms->input);
 	free(ms->prompt);
 	ft_free_list(&(ms->lst));

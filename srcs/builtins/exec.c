@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/19 16:11:43 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:23:16 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	exec(t_ms *ms)
 	free_exec(ms, 0, err_code);
 }
 
-int	choose_cmd(t_ms *ms)
+void	choose_cmd(t_ms *ms)
 {
 	if (!ft_strncmp(ms->lst->content, "cd", 3) || !ft_strncmp(ms->lst->content, \
 "pwd", 4) || !ft_strncmp(ms->lst->content, "unset", 6) || \
@@ -98,10 +98,9 @@ int	choose_cmd(t_ms *ms)
 		else if (!ft_strncmp(ms->lst->content, "export", 7))
 			export(ms);
 		else if (!ft_strncmp(ms->lst->content, "exit", 5))
-			return (42);
+			exit_function(ms);
 		ft_free_list(&ms->lst);
 	}
 	else
 		exec(ms);
-	return (0);
 }

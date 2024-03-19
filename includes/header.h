@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/18 17:28:48 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:26:25 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int		change_directory(t_ms *ms);
 void	unset(t_ms *ms, char *var);
 void	echo(t_ms *ms);
 void	env(t_ms *ms);
-int		choose_cmd(t_ms *ms);
+void	choose_cmd(t_ms *ms);
 void	export(t_ms *ms);
+void	exit_function(t_ms *ms);
 
 /* ********************* */
 /*		  utils.c		 */

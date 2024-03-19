@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/18 17:29:29 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/19 17:09:58 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS	= 	srcs/main.c \
 			srcs/prompt.c \
 			srcs/signals.c \
 			srcs/builtins/utils.c \
+			srcs/builtins/exit.c \
 			srcs/builtins/cd.c \
 			srcs/builtins/echo.c \
 			srcs/builtins/env.c \
