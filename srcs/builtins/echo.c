@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 20:48:18 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/16 01:32:36 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:49:33 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ static void	echo_printing(t_list *tmp, int n)
 	while (tmp->next)
 	{
 		if (cpt++ == 0)
-			ft_dprintf(1, tmp->content);
+			ft_dprintf(1, "%s", tmp->content);
 		else
 		{
 			ft_dprintf(1, " ");
-			ft_dprintf(1, tmp->content);
+			ft_dprintf(1, "%s", tmp->content);
 		}
 		tmp = tmp->next;
 	}
-	if (cpt != 0 && tmp->content[0] != '\0')
+	if (cpt != 0)
 		ft_dprintf(1, " ");
-	ft_dprintf(1, tmp->content);
+	ft_dprintf(1, "%s", tmp->content);
 	if (n == 1)
 		ft_dprintf(1, "\n");
 }
