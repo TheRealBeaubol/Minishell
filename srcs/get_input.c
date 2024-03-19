@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/19 19:40:35 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:50:39 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,18 @@ void	get_input(t_ms *ms)
 
 void	get_single_input(t_ms *ms, char *line)
 {
-	// while (1)
-	// {
-		signal_state_manager(0);
-		ms->lst = NULL;
-		ms->input = line;
-		if (check_input(ms) == 0)
+	signal_state_manager(0);
+	ms->lst = NULL;
+	ms->input = line;
+	if (check_input(ms) == 0)
+	{
+		parse(ms);
+		if (ms->input[0] != '\0')
 		{
-			parse(ms);
-			if (ms->input[0] != '\0')
-			{
-				signal_state_manager(1);
-				choose_cmd(ms);
-				signal_state_manager(0);
-			}
+			signal_state_manager(1);
+			choose_cmd(ms);
+			signal_state_manager(0);
 		}
-		free(ms->input);
-	// }
+	}
+	free(ms->input);
 }
