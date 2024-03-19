@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 10:16:04 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/18 17:44:16 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:29:08 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	free_exec(t_ms *ms, int is_fork, int err_code)
 {
 	if (is_fork == 1)
 	{
-		printf("Command not found\n");
+		ft_dprintf(2, "Command not found\n");
 		rl_clear_history();
 		free(ms->prompt);
 		free(ms->path->str);

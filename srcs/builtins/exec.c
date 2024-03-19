@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/18 17:48:10 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:11:43 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,13 @@ static void	exec(t_ms *ms)
 	free_exec(ms, 0, err_code);
 }
 
-static int	is_builtin(char *command)
-{
-	return (!ft_strncmp(command, "cd", 3) || \
-	!ft_strncmp(command, "pwd", 4) || \
-	!ft_strncmp(command, "unset", 6) || \
-	!ft_strncmp(command, "env", 4) || \
-	!ft_strncmp(command, "echo", 5) || \
-	!ft_strncmp(command, "export", 7) || \
-	!ft_strncmp(command, "exit", 5));
-}
-
 int	choose_cmd(t_ms *ms)
 {
-	if (is_builtin(ms->lst->content))
+	if (!ft_strncmp(ms->lst->content, "cd", 3) || !ft_strncmp(ms->lst->content, \
+"pwd", 4) || !ft_strncmp(ms->lst->content, "unset", 6) || \
+!ft_strncmp(ms->lst->content, "env", 4) || !ft_strncmp(ms->lst->content, "echo"\
+, 5) || !ft_strncmp(ms->lst->content, "export", 7) || \
+!ft_strncmp(ms->lst->content, "exit", 5))
 	{
 		if (!ft_strncmp(ms->lst->content, "cd", 3))
 			change_directory(ms);

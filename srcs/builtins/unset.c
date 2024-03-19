@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:18:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/16 16:45:10 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:19:43 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	unset(t_ms *ms, char *var)
 
 	if (!ms->lst->next)
 		return ;
-	free(var);
 	var = ms->lst->next->content;
 	indice = get_env_indice(ms, var);
 	if (indice == -1)

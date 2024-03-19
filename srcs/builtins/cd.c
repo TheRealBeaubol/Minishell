@@ -6,29 +6,29 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/16 16:43:03 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:06:44 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-static void	edit_env(t_ms *ms)
+static void	edit_pwd(t_ms *ms, int condition)
 {
 	int	i;
 
-	i = get_env_indice(ms, "PWD");
-	free(ms->env[i]);
-	ms->env[i] = ft_strjoin("PWD=", get_cwd(0), NULL, 0b010);
-}
-
-static void	old_pwd(t_ms *ms)
-{
-	int		i;
-
-	i = get_env_indice(ms, "OLDPWD");
-	free(ms->env[i]);
-	ms->env[i] = \
-		ft_strjoin("OLDPWD=", get_cwd(0), NULL, 0b010);
+	if (condition == 0)
+	{
+		i = get_env_indice(ms, "PWD");
+		free(ms->env[i]);
+		ms->env[i] = ft_strjoin("PWD=", get_cwd(0), NULL, 0b010);
+	}
+	else
+	{
+		i = get_env_indice(ms, "OLDPWD");
+		free(ms->env[i]);
+		ms->env[i] = \
+			ft_strjoin("OLDPWD=", get_cwd(0), NULL, 0b010);
+	}
 }
 
 static void	handle_flag(t_ms *ms)
@@ -59,7 +59,7 @@ int	change_directory(t_ms *ms)
 		handle_flag(ms);
 	else
 	{
-		old_pwd(ms);
+		edit_pwd(ms, 1);
 		if (chdir(tmp->content) == -1)
 		{
 			g_exit = 1;
@@ -71,6 +71,6 @@ int	change_directory(t_ms *ms)
 	}
 	free(ms->prompt);
 	ms->prompt = get_prompt(ms);
-	edit_env(ms);
+	edit_pwd(ms, 0);
 	return (1);
 }

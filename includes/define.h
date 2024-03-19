@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:13:45 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/18 18:56:31 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:44:43 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@
 # include <termios.h>
 # include "libft.h"
 
-# define PROMPT "\e[4;0m\e[1;37m >"
+# define PROMPT "\001\033[4;0m\002\001\033[1;37m\002 >"
 
 #endif
