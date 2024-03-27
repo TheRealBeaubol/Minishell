@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 09:36:52 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/18 16:48:48 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/24 17:38:30 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,25 +20,23 @@ NAME	=	libft.a
 # **************************************************************************** #
 CC		=	@cc
 CFLAGS	=	-Wall -Wextra -Werror -g
+IFLAGS	=	-I ./includes
 MK		=	@mkdir -p
 RM		=	@rm -rf
-FILE	=	$(shell ls -lR src/ | grep -F .c | wc -l)
-LIB_CMP		=	1
+FILE	=	$(shell ls -lR srcs/ | grep -F .c | wc -l)
+PROJ_CMP	=	1
+RM		= 	@rm -rf
 CLEAR	=	@clear
 
 # **************************************************************************** #
 # 								   COLORS									   #
 # **************************************************************************** #
-GREEN	=	\033[38;5;76m
-RED		=	\033[38;5;160m
-YELLOW	=	\033[38;5;226m
-ORANGE	=	\033[38;5;202m
-PURPLE	=	\033[38;5;213m
-LBLUE	=	\033[38;5;51m
-BLUE	=	\033[38;5;117m
-INDI	=	\033[38;5;99m
-LIME 	=	\033[38;5;47m
-RESET	=	\033[00m
+COLOR_1	= \033[1;38;5;28m
+COLOR_2	= \033[1;38;5;120m
+COLOR_3	= \033[1;38;5;240m
+COLOR_4	= \033[1;38;5;255m
+COLOR_5	= \033[1;38;5;248m
+RESET	= \033[0m
 
 # **************************************************************************** #
 # 								   SOURCES									   #
@@ -144,18 +142,18 @@ SRCS		:=	char/ft_isalnum.c\
 							convert/ft_convert_base_utils.c\
 							convert/ft_itoa.c\
 							convert/ft_putnbr_base.c\
+							get_next_line/get_next_line.c\
+							get_next_line/get_next_line_utils.c\
 							maths/ft_iterative_factorial.c\
 							maths/ft_iterative_power.c\
 							maths/ft_recursive_factorial.c\
 							maths/ft_recursive_power.c\
+							maths/ft_fibonacci.c\
 							maths/ft_sqrt.c\
 							maths/ft_is_prime.c\
 							maths/ft_find_next_prime.c\
-							maths/ft_fibonacci.c\
-							get_next_line/get_next_line.c\
-							get_next_line/get_next_line_utils.c
 
-SRCS_DIR	:=	src
+SRCS_DIR	:=	srcs
 SRCS		:=	$(SRCS:%=$(SRCS_DIR)/%)
 
 # OBJECTS
@@ -170,23 +168,31 @@ all: $(NAME)
 
 $(OBJS_DIR)/%.o: %.c
 	$(MK) $(@D)
-	@if [ "$(LIB_CMP)" -ne "$(FILE)" ]; then \
-		printf " \033[1;38;5;28m [\033[0m$(LIB_CMP)\033[1;38;5;28m/\033[0m$(FILE)\033[1;38;5;28m]	\033[0m$<                        \r"; \
+	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+	@if [ "$(PROJ_CMP)" -ne "$(FILE)" ]; then \
+		printf " $(COLOR_1) [$(RESET)$(PROJ_CMP)$(COLOR_1)/$(RESET)$(FILE)$(COLOR_1)]\t$(RESET)$<                     \r"; \
 	else \
-		printf " \033[1;38;5;28m [\033[0m$(LIB_CMP)\033[1;38;5;28m/\033[0m$(FILE)\033[1;38;5;28m]	\033[0m$<\n\n"; \
+		printf " $(COLOR_1) [$(RESET)$(PROJ_CMP)$(COLOR_1)/$(RESET)$(FILE)$(COLOR_1)]\t$(RESET)$<                 \n\n"; \
 	fi
-	$(CC) $(CFLAGS) -c $< -o  $@
-	$(eval LIB_CMP=$(shell echo $$(($(LIB_CMP)+1))))
+	@$(eval PROJ_CMP=$(shell echo $$(($(PROJ_CMP)+1))))
 
 $(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
+	@printf "  ✅ $(COLOR_2)$(NAME) successfully compiled$(RESET)\n"
+	@printf "  🔄 $(COLOR_3)$(NAME) is ready to run$(RESET) \n\n"
 
 clean:
+	@printf "  👾 \033[1;4;38;5;240m$(NAME)$(RESET)   \n  $(COLOR_3)└──> 🗑️    \033[1;38;5;255m.o \033[1;38;5;248mhave been deleted$(RESET)\n"	
 	$(RM) $(OBJS_DIR)
 
 fclean: clean
+	@printf "  $(COLOR_3)└──> 🗑️    \033[1;38;5;255mlibft binary \033[1;38;5;248mhas been deleted$(RESET)\n\n"
 	$(RM) $(NAME)
 
-re: fclean all
+clear:
+	@clear
 
+re:	clear fclean all
+
+.PHONY:	re fclean all clean
 

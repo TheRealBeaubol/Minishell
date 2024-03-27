@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/19 17:09:58 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/03/24 18:01:00 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,18 +25,23 @@ LIBFT_NAME			= 	$(LIBFT_DIR)/libft.a
 
 CC					=	@cc
 CFLAGS				=	-Wall -Wextra -Werror -g
-#-g3 -fsanitize=address -static-libsan
-IFLAGS				=	-I ./includes -I $(LIBFT_DIR)/src
+IFLAGS				=	-I ./includes -I $(LIBFT_DIR)/includes
 MK					=	@mkdir -p
-CPT_MINISHELL		=	$(shell ls -lR srcs | grep -F .c | wc -l)
-FILE_MINISHELL		=	$(shell echo "$(CPT_MINISHELL)" | bc)
-PROJ_CMP_MINISHELL	=	1
+CPT					=	$(shell ls -lR srcs | grep -F .c | wc -l)
+FILE				=	$(shell echo "$(CPT)" | bc)
+PROJ_CMP			=	1
 RM					= 	@rm -rf
 
 
 # **************************************************************************** #
 #                                   COLORS                                     #
 # **************************************************************************** #
+COLOR_1	= \033[1;38;5;28m
+COLOR_2	= \033[1;38;5;120m
+COLOR_3	= \033[1;38;5;240m
+COLOR_4	= \033[1;38;5;255m
+COLOR_5	= \033[1;38;5;248m
+RESET	= \033[0m
 
 # **************************************************************************** #
 #                                   PRINTS                                     #
@@ -50,7 +55,6 @@ RM					= 	@rm -rf
 SRCS	= 	srcs/main.c \
 			srcs/main_utils.c \
 			srcs/get_input.c \
-			srcs/prompt.c \
 			srcs/signals.c \
 			srcs/builtins/utils.c \
 			srcs/builtins/exit.c \
@@ -61,48 +65,48 @@ SRCS	= 	srcs/main.c \
 			srcs/builtins/export.c \
 			srcs/builtins/unset.c \
 			srcs/parsing/parse.c \
-			srcs/parsing/getenv.c \
 			srcs/parsing/getenv_utils.c \
+			srcs/parsing/getenv.c \
+			srcs/prompt.c
 # OBJECTS
 
 OBJS_DIR	:=	.objs
 OBJS		:=	$(addprefix $(OBJS_DIR)/, $(SRCS:%.c=%.o))
 
 all: $(NAME)
+
 $(OBJS_DIR)/%.o: %.c
 	$(MK) $(@D)
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
-	@if [ "$(PROJ_CMP_MINISHELL)" -ne "$(FILE_MINISHELL)" ]; then \
-		printf " \033[1;38;5;28m [\033[0m$(PROJ_CMP_MINISHELL)\033[1;38;5;28m/\033[0m$(FILE_MINISHELL)\033[1;38;5;28m]\t\033[0m$(GREEN)$<$(BLUE)$(RESET)                        \r"; \
+	@if [ "$(PROJ_CMP)" -ne "$(FILE)" ]; then \
+		printf " $(COLOR_1) [$(RESET)$(PROJ_CMP)$(COLOR_1)/$(RESET)$(FILE)$(COLOR_1)]\t$(RESET)$<                     \r"; \
 	else \
-		printf " \033[1;38;5;28m [\033[0m$(PROJ_CMP_MINISHELL)\033[1;38;5;28m/\033[0m$(FILE_MINISHELL)\033[1;38;5;28m]\t\033[0m$(GREEN)$<$(BLUE)$(RESET)\n\n"; \
+		printf " $(COLOR_1) [$(RESET)$(PROJ_CMP)$(COLOR_1)/$(RESET)$(FILE)$(COLOR_1)]\t$(RESET)$<                 \n\n"; \
 	fi
-	@$(eval PROJ_CMP_MINISHELL=$(shell echo $$(($(PROJ_CMP_MINISHELL)+1))))
+	@$(eval PROJ_CMP=$(shell echo $$(($(PROJ_CMP)+1))))
 
 $(NAME) : $(LIBFT_NAME) $(OBJS)
 		$(CC) $(CFLAGS) $(IFLAGS) $(OBJS) $(LIBFT_NAME) -lreadline -o $(NAME)
-		@printf "  ✅ \033[1;38;5;120mMinishell successfully compiled\033[0m\n"
-		@printf "  🔄 \033[1;38;5;240mMinishell is ready to run\033[0m \n"
+		@printf "\n\n  ✅ $(COLOR_2)$(NAME) successfully compiled$(RESET)\n"
+		@printf "  🔄 $(COLOR_3)$(NAME) is ready to run$(RESET) \n\n"
 
 $(LIBFT_NAME):
-		@printf "  📖 \033[1;38;5;240mCompiling libft\033[0m 📖\n"
+		@printf "  📖 $(COLOR_3)Compiling $(LIBFT_NAME)$(RESET) 📖\n"
 		@make -C $(LIBFT_DIR) -j --no-print-directory
-		@printf "  ✅ \033[1;38;5;120mLibft successfully compiled\033[0m\n\n"
-		@printf "  🖥️  \033[1;38;5;240mCompiling minishell\033[0m 🖥️\n"
+		@printf "  🖥️  $(COLOR_3)Compiling $(NAME)$(RESET) 🖥️\n"
 
 clean:
-		@printf "  👾 \033[1;4;38;5;240m$(NAME)\033[0m   \n  \033[1;38;5;240m└──> 🗑️    \033[1;38;5;255m.o \033[1;38;5;248mhave been deleted$(RESET)\n"
+		@printf "  👾 \033[1;4;38;5;240m$(NAME)$(RESET)   \n  $(COLOR_3)└──> 🗑️    $(COLOR_4).o $(COLOR_5)have been deleted$(RESET)\n"
 		$(RM) $(OBJS_DIR)
 
 fclean: clean
-		@make fclean -C $(LIBFT_DIR) --no-print-directory -j
-		@printf "  \033[1;38;5;240m└──> 🗑️    \033[1;38;5;255mlibft binary \033[1;38;5;248mhas been deleted$(RESET)\n"
 		$(RM) $(NAME)
-		@printf "  \033[1;38;5;240m└──> 🗑️    \033[1;38;5;255mminishell binary \033[1;38;5;248mhas been deleted$(RESET)\n\n"
+		@printf "  $(COLOR_3)└──> 🗑️    $(COLOR_4)$(NAME) binary $(COLOR_5)has been deleted$(RESET)\n\n"
+		@make fclean -C $(LIBFT_DIR) --no-print-directory -j
+
 clear:
 	@clear
 
 re:	clear fclean all
 
 .PHONY:	re fclean all clean
-.SILENT:
