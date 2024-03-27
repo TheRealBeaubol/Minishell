@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:35:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/19 19:26:12 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/27 18:10:43 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ long long	ft_atoll(char *nbr)
 	sign = 1;
 	i = 0;
 	stock = 0;
+	while (nbr[i] == '0')
+		i++;
 	if (nbr[i] == '-' || nbr[i] == '+')
 	{
 		if (nbr[i] == '-')
