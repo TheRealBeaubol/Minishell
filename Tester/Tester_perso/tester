@@ -20,6 +20,8 @@ if [ -x "./minishell" ]; then
 	MINISHELL="./minishell"
 elif [ -x "../minishell" ]; then
 	MINISHELL="../minishell"
+elif [ -x "../../minishell" ]; then
+	MINISHELL="../../minishell"
 else
 	echo -e "\n${COLOR_3}Impossible de trouver l'exécutable 'minishell' \nL'exécutable doit se situer dans le répertoire actuel ou dans le répertoire parent."
 	exit 1
@@ -30,6 +32,8 @@ if [ -f "./commands.txt" ]; then
 	COMMANDS_FILE="./commands.txt"
 elif [ -f "Tester/commands.txt" ]; then
 	COMMANDS_FILE="Tester/commands.txt"
+elif [ -f "Tester/Tester_perso/commands.txt" ]; then
+	COMMANDS_FILE="Tester/Tester_perso/commands.txt"
 else
 	echo -e "\n${COLOR_3}Impossible de trouver le fichier 'commands.txt' \nLe fichier doit se situer dans le répertoire actuel ou dans le répertoire parent."
 	exit 1
@@ -40,6 +44,8 @@ if [ -f "./.supp/bash.supp" ]; then
 	SUPP="./.supp/bash.supp"
 elif [ -f "../.supp/bash.supp" ]; then
 	SUPP="../.supp/bash.supp"
+elif [ -f "../../.supp/bash.supp" ]; then
+	SUPP="../../.supp/bash.supp"
 else
 	echo -e "\n${COLOR_3}Impossible de trouver le fichier 'commands.txt' \nLe fichier doit se situer dans le répertoire actuel ou dans le répertoire parent."
 	exit 1

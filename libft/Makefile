@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/13 09:36:52 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/24 17:38:30 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/04/02 20:10:07 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -134,8 +134,10 @@ SRCS		:=	char/ft_isalnum.c\
 							int_tab/ft_range.c\
 							int_tab/ft_ultimate_range.c\
 							int/ft_intlen.c\
+							int/ft_longlonglen.c\
 							int/ft_min.c\
 							convert/ft_atoi_base.c\
+							convert/ft_atoll.c\
 							convert/ft_atoi.c\
 							convert/ft_base_error.c\
 							convert/ft_convert_base.c\

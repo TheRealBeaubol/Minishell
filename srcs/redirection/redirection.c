@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/22 16:12:04 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:43:42 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ char	**parse_redirection(t_ms *ms, int bool_in, int bool_out)
 		tmp = tmp->next;
 		i++;
 	}*/
-	while (!ft_strncmp(tmp->next->content, "<", ft_strlen(tmp->next->content)) &&\ 
-			!ft_strncmp(tmp->next->content, ">", ft_strlen(tmp->next->content)))
+	while (!ft_strncmp(tmp->next->content, "<", ft_strlen(tmp->next->content)) \
+	&& !ft_strncmp(tmp->next->content, ">", ft_strlen(tmp->next->content)))
 		tmp = tmp->next;
 	if (!ft_strncmp(tmp->next->content, "<", ft_strlen(tmp->next->content)))
 	{
@@ -76,5 +76,5 @@ void	redirection(t_ms *ms)
 	char	**cmd;
 
 	get_bool(ms, &bool_in, &bool_out);
-	cmd = parse_redirection(ms, boll_in. bool_out);
+	cmd = parse_redirection(ms, bool_in. bool_out);
 }
