@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/03 17:59:24 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:42:01 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ static char	**feed_env_p(t_ms *ms, int var_status, char *content)
 
 	b = 0;
 	i = 0;
-	if (!ft_strchr(content, '='))
-		return (NULL);
 	export_env = fill_export_env(ms, &b, var_status, content);
 	i = ft_tablen(ms->env);
 	if (!b)
@@ -104,13 +102,18 @@ static int	print_export(t_ms *ms)
 	tab = ft_sort_string_tab(ms->env);
 	while (i < ft_tablen(tab))
 	{
-		tmp = ft_strrev(tab[i]);
-		str = ft_strjoin(ft_strrev(ft_strchr(tmp, '=')), \
-		ft_strchr(tab[i], '=') + 1, "\"", 0b001);
-		free(tmp);
-		tmp = ft_strjoin(str, "\"", NULL, 0b001);
-		ft_dprintf(1, "declare -x %s\n", tmp);
-		free(tmp);
+		if (ft_strchr(tab[i], '='))
+		{
+			tmp = ft_strrev(tab[i]);
+			str = ft_strjoin(ft_strrev(ft_strchr(tmp, '=')), \
+			ft_strchr(tab[i], '=') + 1, "\"", 0b001);
+			free(tmp);
+			tmp = ft_strjoin(str, "\"", NULL, 0b001);
+			ft_dprintf(1, "declare -x %s\n", tmp);
+			free(tmp);
+		}
+		else
+			ft_dprintf(1, "declare -x %s\n", tab[i]);
 		i++;
 	}
 	ft_free_tab(tab);
@@ -128,13 +131,17 @@ void	export(t_ms *ms)
 		print_export(ms);
 	while (tmp)
 	{
-		var_status = check_export(tmp->content);
-		if (var_status < 1)
+		if (ft_strchr(tmp->content, '='))
 		{
-			g_exit = var_status + 1 + (var_status * -2);
-			return ;
+			var_status = check_export(tmp->content);
+			if (var_status < 1)
+			{
+				g_exit = var_status + 1 + (var_status * -2);
+				return ;
+			}
 		}
-		new_env = feed_env_p(ms, var_status, tmp->content);
+		new_env = feed_env_p(ms, 1, tmp->content);
+		ft_printf("new_env: %s\n", new_env[ft_tablen(new_env) - 1]);
 		if (new_env)
 		{
 			ft_free_tab(ms->env);
