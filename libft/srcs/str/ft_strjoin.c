@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 02:14:31 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/24 14:46:43 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/03/29 19:35:49 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strjoin(char *s1, char *s2, char *c, int tofree)
 	char	*str;
 	int		mask;
 
-	mask = !s1 + (!s2 << 1) | tofree;
+	mask = (!s1 + (!s2 << 1)) | tofree;
 	if (!s1)
 		s1 = ft_strdup("");
 	if (!s2)

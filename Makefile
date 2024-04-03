@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/03/24 18:01:00 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/04/03 15:57:59 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME	=	minishell
 LIBFT_DIR			=	./libft
 LIBFT_NAME			= 	$(LIBFT_DIR)/libft.a
 
-CC					=	@cc
+CC					=	@gcc
 CFLAGS				=	-Wall -Wextra -Werror -g
 IFLAGS				=	-I ./includes -I $(LIBFT_DIR)/includes
 MK					=	@mkdir -p

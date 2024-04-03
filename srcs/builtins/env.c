@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 01:40:35 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/02 20:24:55 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:21:18 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ void	env(t_ms *ms)
 			free(str);
 			i++;
 		}
+		return ;
 	}
 	if (ms->lst->next->content[0] == '-')
 	{
 		g_exit = 125;
-		ft_dprintf(2, "env: invalid option -- %c\n", ms->lst->next->content[1]);
+		ft_dprintf(2, ENV_EXIT_MSG_1, ms->lst->next->content[1]);
 	}
 	else
 	{
 		g_exit = 127;
-		ft_dprintf(2, "env: %s: No such file or directory\n", \
-		ms->lst->next->content);
+		ft_dprintf(2, ENV_EXIT_MSG_2, ms->lst->next->content);
 	}
 }

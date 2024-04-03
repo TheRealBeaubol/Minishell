@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/02 20:31:42 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:14:57 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,85 @@ static void	handle_flag(t_ms *ms)
 	ms->env[i] = old_pwd;
 }
 
+static int	handle_no_args(t_ms *ms)
+{
+	char	*home;
+
+	if (!ms->lst->next)
+	{
+		edit_pwd(ms, 1);
+		home = get_env(ms->env, "HOME");
+		if (!home || chdir(home + 1) == -1)
+		{
+			free(home);
+			g_exit = 1;
+			if (!home)
+				perror("minishell: cd: HOME not set\n");
+			else
+				perror("minishell: cd: permission denied\n");
+			return (0);
+		}
+		free(home);
+		free(ms->prompt);
+		ms->prompt = get_prompt(ms);
+		edit_pwd(ms, 0);
+		return (0);
+	}
+	return (1);
+}
+// static int	handle_no_args(t_ms *ms)
+// {
+// 	char	*home;
+
+// 	if (!ms->lst->next)
+// 	{
+// 		edit_pwd(ms, 1);
+// 		home = get_env(ms->env, "HOME");
+// 		g_exit = 1;
+// 		if (!home)
+// 		{
+// 			ft_dprintf(2, "minishell: cd: HOME not set\n");
+// 			return (0);
+// 		}
+// 		if (chdir(home + 1) == -1)
+// 		{
+// 			free(home);
+// 			perror("minishell: cd: permission denied\n");
+// 			return (0);
+// 		}
+// 		free(home);
+// 		free(ms->prompt);
+// 		ms->prompt = get_prompt(ms);
+// 		edit_pwd(ms, 0);
+// 		return (0);
+// 	}
+// 	return (1);
+// }
+
+static int	handle_wrong_args(t_ms *ms)
+{
+	int	i;
+
+	i = handle_no_args(ms);
+	if (i == 0)
+		return (0);
+	if (ms->lst->next->next)
+	{
+		g_exit = 1;
+		ft_dprintf(2, "minishell: cd: too many arguments\n");
+		return (0);
+	}
+	return (1);
+}
+
 int	change_directory(t_ms *ms)
 {
 	char	*error;
 	t_list	*tmp;
 
-	tmp = ms->lst;
-	if (!tmp->next)
+	if (!handle_wrong_args(ms))
 		return (0);
-	tmp = tmp->next;
+	tmp = ms->lst->next;
 	if (tmp->content[0] == '-' && tmp->content[1] == '\0')
 		handle_flag(ms);
 	else

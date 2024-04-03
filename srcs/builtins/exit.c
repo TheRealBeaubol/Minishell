@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:35:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/02 20:07:33 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:46:26 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int	arg_len(char *arg)
 
 void	print_msg_and_exit(char	*msg, t_ms *ms, char *arg, int exit_code)
 {
-	ft_dprintf(2, msg, arg);
 	g_exit = exit_code;
+	ft_dprintf(2, msg, arg);
 	free_and_exit(ms);
 }
 

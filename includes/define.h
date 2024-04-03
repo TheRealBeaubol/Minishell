@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:13:45 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/02 18:01:57 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/03 17:21:03 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@
 # define PROMPT "\001\033[4;0m\002\001\033[1;37m\002 >"
 # define EXIT_MSG_1 "minishell: exit: %s: numeric argument required\n"
 # define EXIT_MSG_2 "minishell: exit: %s: too many arguments\n"
+# define ENV_EXIT_MSG_1 "env: invalid option -- %c\n"
+# define ENV_EXIT_MSG_2 "env: %s: No such file or directory\n"
 
 #endif
