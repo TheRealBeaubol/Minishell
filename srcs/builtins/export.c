@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/05 20:42:45 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/05 20:44:47 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,17 +139,15 @@ void	export(t_ms *ms)
 		{
 			var_status = check_export(tmp->content);
 			if (var_status < 1)
-			{
 				g_exit = var_status + 1 + (var_status * -2);
+			if (var_status < 1)
 				return ;
-			}
 		}
 		new_env = feed_env_p(ms, var_status, tmp);
 		if (new_env)
-		{
 			ft_free_tab(ms->env);
+		if (new_env)
 			ms->env = new_env;
-		}
 		tmp = tmp->next;
 	}
 }
