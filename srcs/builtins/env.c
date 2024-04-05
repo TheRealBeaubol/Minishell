@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 01:40:35 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/03 18:26:52 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/04 10:40:59 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	env(t_ms *ms)
 		while (ms->env[i])
 		{
 			if (ft_strchr(ms->env[i], '='))
-				ft_dprintf(1,"%s\n", ms->env[i]);
+				ft_dprintf(1, "%s\n", ms->env[i]);
 			i++;
 		}
 		return ;

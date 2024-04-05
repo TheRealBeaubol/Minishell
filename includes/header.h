@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/03 17:19:14 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/05 20:33:09 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	env(t_ms *ms);
 void	choose_cmd(t_ms *ms);
 void	export(t_ms *ms);
 void	exit_function(t_ms *ms);
+int		check_export(char *var);
 
 /* ********************* */
 /*		  utils.c		 */
@@ -55,7 +56,7 @@ char	**my_env(char **env);
 /* ********************* */
 /*		  parse.c		 */
 /* ********************* */
-void	parse(t_ms *ms);
+int		parse(t_ms *ms);
 
 /* ********************* */
 /*		  signal.c		 */

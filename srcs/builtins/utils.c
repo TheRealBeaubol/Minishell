@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 10:16:04 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/03 16:06:23 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:10:58 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,30 @@ char	*get_cwd(int i)
 	return (NULL);
 }
 
-char	*get_env(char **env, char *var_name)
+int	check_export(char *var)
 {
-	int		i;
-	char	*cut_str;
+	int	i;
 
-	i = 0;
-	if (!env || !*env || !var_name)
-		return (NULL);
-	while (env[i] && ft_strncmp(env[i], var_name, ft_strlen(var_name)))
-		i++;
-	if (!env || !env[i])
-		return (NULL);
-	cut_str = ft_strcut(env[i], var_name);
-	return (cut_str);
+	i = 1;
+	if (var[i - 1] == '-')
+		return (-1);
+	if (!ft_isalpha(var[i - 1]) && var[i - 1] != '_')
+		return (0);
+	while (var[i] && (ft_isalnum(var[i]) || var[i] == '_' || var[i] == '\\'))
+	{
+		if (var[i] == '\\' && var[i + 1] && (ft_isalnum(var[i + 1]) \
+			|| var[i + 1] == '_'))
+			i++;
+		else if (var[i] != '\\')
+			i++;
+		else
+			return (0);
+	}
+	if (((int)ft_strlen(var) != i + 1) && var[i] == '+' && var[i + 1] == '=')
+		return (2);
+	if (var[i] != '\0' && var[i] != '=')
+		return (0);
+	return (1);
 }
 
 int	get_env_indice(t_ms *ms, char *var)

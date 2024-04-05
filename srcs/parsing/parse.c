@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/27 17:17:18 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/05 20:10:28 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ static void	fill_list(char *input, t_list **lst, int i, int old_i)
 	ft_lstadd_back(lst, ft_lstnew(str));
 }
 
-void	parse(t_ms *ms)
+int	parse(t_ms *ms)
 {
 	int		i;
 	int		old_i;
 
 	i = 0;
 	if (parse_env(ms) == 1)
-		return ;
+		return (-1);
 	while (ms->input[i] != '\0')
 	{
 		while (ft_iswhitespace(ms->input[i]))
@@ -74,11 +74,9 @@ void	parse(t_ms *ms)
 			else
 				i++;
 			if (i == -1)
-			{
-				ft_dprintf(2, "Parsing Error");
-				return ;
-			}
+				return (-1);
 		}
 		fill_list(ms->input, &(ms->lst), i, old_i);
 	}
+	return (0);
 }

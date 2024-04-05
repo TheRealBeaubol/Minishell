@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/19 19:50:39 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/05 20:32:05 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ void	get_input(t_ms *ms)
 		ms->input = readline(ms->prompt);
 		if (check_input(ms) == 0)
 		{
-			parse(ms);
-			if (ms->input[0] != '\0')
+			if (parse(ms) == -1)
+			{
+				g_exit = 2;
+				ft_dprintf(2, "Parsing Error\n");
+			}
+			else if (ms->input[0] != '\0')
 			{
 				signal_state_manager(1);
 				choose_cmd(ms);
