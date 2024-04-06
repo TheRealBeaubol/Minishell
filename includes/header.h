@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/05 20:33:09 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/06 18:04:31 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,10 @@ int		handle_dquote_envvar(t_ms *ms, int i);
 int		handle_squote_envvar(t_ms *ms, int i);
 void	handle_exit_envvar(t_ms *ms, int *i);
 
+/* ******************** */
+/*        pipe.c        */
+/* ******************** */
+void	print_tokens(t_list *pipeline);
+t_list	*get_pipeline(t_list *lst);
+int		check_pipeline(char *content);
 #endif

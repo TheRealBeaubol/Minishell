@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/04/04 11:11:06 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/04/06 15:57:37 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,8 @@ SRCS	= 	srcs/main.c \
 			srcs/parsing/parse.c \
 			srcs/parsing/getenv_utils.c \
 			srcs/parsing/getenv.c \
-			srcs/prompt.c
+			srcs/prompt.c \
+			srcs/pipe/pipe.c
 # OBJECTS
 
 OBJS_DIR	:=	.objs

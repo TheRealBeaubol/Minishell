@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/05 20:32:05 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/06 18:08:35 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ int	check_input(t_ms *ms)
 	}
 	if (ms->input[0] != '\0')
 		add_history(ms->input);
+	if (!check_pipeline(ms->input))
+	{
+		g_exit = 2;
+		ft_dprintf(2, "bash: syntax error near unexpected token `|'\n");
+		return (1);
+	}
 	if (is_skip(ms) == 1)
 		return (1);
 	return (0);
@@ -29,6 +35,8 @@ int	check_input(t_ms *ms)
 
 void	get_input(t_ms *ms)
 {
+	t_list	*tmp;
+
 	while (1)
 	{
 		signal_state_manager(0);
@@ -44,8 +52,17 @@ void	get_input(t_ms *ms)
 			else if (ms->input[0] != '\0')
 			{
 				signal_state_manager(1);
-				choose_cmd(ms);
-				signal_state_manager(0);
+				tmp = get_pipeline(ms->lst);
+				if (!tmp)
+					g_exit = 2;
+				else
+				{
+					free(ms->lst);
+					ms->lst = tmp;
+					print_tokens(ms->lst);
+					choose_cmd(ms);
+					signal_state_manager(0);
+				}
 			}
 		}
 		free(ms->input);
