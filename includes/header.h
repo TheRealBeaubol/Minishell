@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/07 20:07:59 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/08 00:24:45 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	handle_exit_envvar(t_ms *ms, int *i);
 /* ******************** */
 /*        pipe.c        */
 /* ******************** */
-void	print_tokens(t_list *pipeline);
-int		check_pipeline(char *content);
+void	    print_tokens(t_list *pipeline);
+int		    check_pipeline(char *content);
+t_cmdlist	*do_cmd_list(t_ms *ms);
+void	    print_cmd_list(t_cmdlist *cmd);
 #endif

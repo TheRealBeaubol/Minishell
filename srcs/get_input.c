@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/07 20:05:38 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/08 00:23:15 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	check_input(t_ms *ms)
 
 void	get_input(t_ms *ms)
 {
+	t_cmdlist *cmd;
+
 	while (1)
 	{
 		signal_state_manager(0);
@@ -51,6 +53,8 @@ void	get_input(t_ms *ms)
 			{
 				signal_state_manager(1);
 				print_tokens(ms->lst);
+				cmd = do_cmd_list(ms);
+				print_cmd_list(cmd);
 				choose_cmd(ms);
 				signal_state_manager(0);
 			}
