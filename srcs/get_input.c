@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/06 18:08:35 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/07 20:05:38 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	check_input(t_ms *ms)
 
 void	get_input(t_ms *ms)
 {
-	t_list	*tmp;
-
 	while (1)
 	{
 		signal_state_manager(0);
@@ -52,17 +50,9 @@ void	get_input(t_ms *ms)
 			else if (ms->input[0] != '\0')
 			{
 				signal_state_manager(1);
-				tmp = get_pipeline(ms->lst);
-				if (!tmp)
-					g_exit = 2;
-				else
-				{
-					free(ms->lst);
-					ms->lst = tmp;
-					print_tokens(ms->lst);
-					choose_cmd(ms);
-					signal_state_manager(0);
-				}
+				print_tokens(ms->lst);
+				choose_cmd(ms);
+				signal_state_manager(0);
 			}
 		}
 		free(ms->input);
