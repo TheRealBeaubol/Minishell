@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/08 18:48:17 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:45:32 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,40 +101,28 @@ t_cmdlist	*do_cmd_list(t_ms *ms)
 	}
 	return (cmdlist);
 }
-
-// echo "Hello | World" | cat Makefile | ls
-void	print_cmd_list(t_cmdlist *cmd)
+void	free_cmdlist(t_cmdlist *cmdlist)
 {
-	int	i;
-	int	j;
+	t_cmdlist	*tmp;
 
-	j = 0;
-	i = 0;
-	while (cmd)
+	while (cmdlist)
 	{
-		i = 0;
-		ft_printf("[cmd %d] : %s\n", j, cmd->cmd);
-		while (cmd->param[i])
-		{
-			ft_printf("	->[param][%d] : %s\n", i, cmd->param[i]);
-			i++;
-		}
-		j++;
-		cmd = cmd->next;
+		tmp = cmdlist->next;
+		ft_free_tab(cmdlist->param);
+		free(cmdlist->cmd);
+		free(cmdlist);
+		cmdlist = tmp;
 	}
 }
 
-void	ft_print_tab(char **tab)
+void	free_pipe(t_ms *ms, int err_code, t_cmdlist	*cmdlist)
 {
-	int	i;
-
-	i = 0;
-	ft_dprintf(2, "			tab : \n");
-	while (tab[i])
-	{
-		ft_dprintf(2, "tab[%d] : %s\n", i, tab[i]);
-		i++;
-	}
+	g_exit = get_exit_code(err_code);
+	free_cmdlist(cmdlist);
+	ft_free_list(&ms->lst);
+	ms->lst = NULL;
+	free(ms->prompt);
+	ms->prompt = get_prompt(ms);
 }
 
 char	*get_cmd(char **path, char *cmd)
@@ -182,26 +170,29 @@ int	process(char **env, t_cmdlist *cmdlist, t_pipe *data)
 	int		pid;
 
 	pipe(data->pipe_fd);
+	if (!data->input_fd)
+		data->input_fd = data->pipe_fd[0];
 	pid = fork();
 	data->cmd = get_cmd(grep(env), cmdlist->cmd);
 	if (pid == 0)
 	{
+		dup2(data->input_fd, STDIN_FILENO);
 		close(data->pipe_fd[0]);
 		if (cmdlist->next)
 			dup2(data->pipe_fd[1], STDOUT_FILENO);
 		close(data->pipe_fd[1]);
-		if (execve(data->cmd, cmdlist->param, env) == -1)
-			exit(EXIT_FAILURE);
-		if (!cmdlist->next)
-			exit(EXIT_SUCCESS);
+		execve(data->cmd, cmdlist->param, env);
+		close (data->input_fd);
+		free(data->cmd);
+		exit(EXIT_FAILURE);
 	}
 	else
 	{
 		close(data->pipe_fd[1]);
-		if (cmdlist->next)
-			dup2(data->pipe_fd[0], STDIN_FILENO);
-		close(data->pipe_fd[0]);
+		data->input_fd = dup(data->pipe_fd[0]);
+ 		close(data->pipe_fd[0]);
 	}
+	free(data->cmd);
 	return (pid);
 }
 
@@ -212,17 +203,22 @@ void	do_pipe(t_cmdlist *cmdlist, t_ms *ms)
 	int			pid[1024];
 	int			i;
 	int			j;
+	int			err_code;
 
 	i = 0;
 	tmp = cmdlist;
 	data = ft_calloc(2, sizeof(t_pipe));
+	data->input_fd = 0;
 	while (tmp)
 	{
+		err_code = 0;
 		pid[i++] = process(ms->env, tmp, data);
 		tmp = tmp->next;
 	}
 	j = 0;
 	while (j < i)
-		waitpid(pid[j++], NULL, 0);
+		waitpid(pid[j++], &err_code, 0);
+	free_pipe(ms, err_code, cmdlist);
+	free(data);
 	return ;
 }

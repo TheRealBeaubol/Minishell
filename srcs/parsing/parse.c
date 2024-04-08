@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/08 17:50:20 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:33:46 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	parse(t_ms *ms)
 					fill_list(ms->input, &(ms->lst), i, old_i);
 					old_i = i + 1;
 				}
-				ft_lstadd_back(&(ms->lst), ft_lstnew("|"));
+				ft_lstadd_back(&(ms->lst), ft_lstnew(ft_strdup("|")));
 				i++;
 				break ;
 			}
