@@ -6,12 +6,20 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:15:46 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/08 00:04:05 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:18:43 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
+
+typedef struct s_pipe
+{
+	char	*cmd;
+	int		pipe_fd[2];
+	int		input_fd;
+	int		output_fd;
+}	t_pipe;
 
 typedef struct s_cmdlist
 {

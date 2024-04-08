@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/08 00:24:45 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:39:49 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ void	    print_tokens(t_list *pipeline);
 int		    check_pipeline(char *content);
 t_cmdlist	*do_cmd_list(t_ms *ms);
 void	    print_cmd_list(t_cmdlist *cmd);
+void	    do_pipe(t_cmdlist *cmdlist, t_ms *ms);
 #endif

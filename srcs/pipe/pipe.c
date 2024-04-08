@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/08 00:43:51 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/08 14:55:01 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,11 @@ t_cmdlist	*do_cmd_list(t_ms *ms)
 	tmpcmdlist->param = ft_calloc(2, sizeof(char *));
 	while (tmp)
 	{
-		ft_printf("do_cmd_list\n");	
 		if (!++is_cmd)
+		{
 			tmpcmdlist->cmd = ft_strdup(tmp->content);
+			tmpcmdlist->param[0] = ft_strdup(tmp->content);
+		}
 		else if (ft_strncmp(tmp->content, "|", 2) == 0)
 		{
 			tmpcmdlist->next = ft_calloc(2, sizeof(t_cmdlist));
@@ -92,8 +94,6 @@ t_cmdlist	*do_cmd_list(t_ms *ms)
 			tmpcmdlist->param = ft_calloc(2, sizeof(char *));
 			is_cmd = 0;
 		}
-		else if (is_cmd++ == 1)
-			tmpcmdlist->param[0] = ft_strdup(tmp->content);
 		else
 			tmpcmdlist->param = join_tab(tmpcmdlist->param, tmp->content);
 		tmp = tmp->next;
@@ -121,23 +121,70 @@ void	print_cmd_list(t_cmdlist *cmd)
 		j++;
 		cmd = cmd->next;
 	}
-
 }
 
-/*
-PIPEX BONUS A IMPLEMENTER
+char	*get_cmd(char **path, t_pipe *data)
+{
+	char	*join_path;
+	char	*path_cmd;
+	int		i;
 
-int	process(char **env, t_data *data)
+	i = -1;
+	ft_dprintf(2, "cmd1 : %s\n", data->cmd);
+	while (path[++i])
+	{
+		join_path = ft_strjoin(path[i], "/", NULL, 0b000);
+		path_cmd = ft_strjoin(join_path, data->cmd, NULL, 0b000);
+		free(join_path);
+		if (access(path_cmd, 0) == 0)
+		{
+			ft_free_tab(path);
+			return (path_cmd);
+		}
+		if (path[i + 1])
+			free(path_cmd);
+	}
+	ft_free_tab(path);
+	return (path_cmd);
+}
+
+char	**grep(char **env)
+{
+	int		i;
+	char	*cut_split;
+	char	**splited_path;
+
+	i = 0;
+	if (!env || !*env)
+		return (NULL);
+	while (env[i] && ft_strncmp(env[i], "PATH=", 5))
+		i++;
+	if (!env || !env[i])
+		return (NULL);
+	cut_split = ft_strcut(env[i], "PATH=");
+	splited_path = ft_char_split(cut_split, ':');
+	free(cut_split);
+	return (splited_path);
+}
+
+
+int	process(char **env, t_cmdlist *cmdlist, t_pipe *data)
 {
 	int		pid;
-	char	**split_cmd;
 
 	pipe(data->pipe_fd);
 	pid = fork();
-	split_cmd = ft_char_split(data->cmd, ' ');
+	ft_dprintf(2, "cmd : %s\n", data->cmd);
 	data->cmd = get_cmd(grep(env), data);
 	if (pid == 0)
-		do_dup_and_execve(data, split_cmd, env);
+	{
+		close(data->pipe_fd[0]);
+		dup2(data->pipe_fd[1], STDOUT_FILENO);
+		close(data->pipe_fd[1]);
+		close(data->output_fd);
+		if (execve(data->cmd, cmdlist->param, env) == -1)
+			exit(EXIT_FAILURE);
+	}
 	else
 	{
 		close(data->pipe_fd[1]);
@@ -146,37 +193,30 @@ int	process(char **env, t_data *data)
 		dup2(data->output_fd, STDOUT_FILENO);
 		close(data->output_fd);
 	}
-	free(data->cmd);
-	ft_free_tab(split_cmd);
 	return (pid);
 }
 
-void	do_pipe(int ac, char **av, char **env, t_data *data)
+void	do_pipe(t_cmdlist *cmdlist, t_ms *ms)
 {
-	char	*path;
-	char	**split_cmd;
+	t_cmdlist	*tmp;
+	t_pipe	*data;
 	int		pid[1024];
 	int		i;
 
 	i = 0;
-	while (data->i < ac - 2)
+	tmp = cmdlist;
+	data = ft_calloc(2, sizeof(t_pipe));
+	ft_printf("cmdlist\n");
+	while (tmp->next)
 	{
-		data->cmd = av[data->i++];
-		pid[i++] = process(env, data);
+		pid[i++] = process(ms->env, tmp, data);
+		ft_printf("1cmdlist\n");
+		tmp = tmp->next;
 	}
-	data->cmd = av[ac - 2];
-	path = get_cmd(grep(env), data);
-	split_cmd = ft_char_split(av[ac - 2], ' ');
-	if (execve(path, split_cmd, env) == -1)
-	{
-		free(path);
-		ft_free_tab(split_cmd);
+	data->cmd = get_cmd(grep(ms->env), data);
+	if (execve(data->cmd, tmp->param, ms->env) == -1)
 		exit(EXIT_FAILURE);
-	}
 	i = -1;
 	while (pid[++i])
 		waitpid(pid[i], NULL, 0);
-	free(path);
-	ft_free_tab(split_cmd);
-}
-*/
+	}
