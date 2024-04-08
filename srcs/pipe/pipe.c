@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/08 14:55:01 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:48:17 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	check_pipeline(char *content)
 	return (1);
 }
 
-
 void	print_tokens(t_list *pipeline)
 {
 	t_list	*tmp;
@@ -47,6 +46,7 @@ void	print_tokens(t_list *pipeline)
 		i++;
 	}
 }
+
 char	**join_tab(char **tab, char *str)
 {
 	char	**new_tab;
@@ -81,8 +81,9 @@ t_cmdlist	*do_cmd_list(t_ms *ms)
 	tmpcmdlist->param = ft_calloc(2, sizeof(char *));
 	while (tmp)
 	{
-		if (!++is_cmd)
+		if (!is_cmd)
 		{
+			is_cmd = 1;
 			tmpcmdlist->cmd = ft_strdup(tmp->content);
 			tmpcmdlist->param[0] = ft_strdup(tmp->content);
 		}
@@ -99,8 +100,8 @@ t_cmdlist	*do_cmd_list(t_ms *ms)
 		tmp = tmp->next;
 	}
 	return (cmdlist);
-	
 }
+
 // echo "Hello | World" | cat Makefile | ls
 void	print_cmd_list(t_cmdlist *cmd)
 {
@@ -123,19 +124,28 @@ void	print_cmd_list(t_cmdlist *cmd)
 	}
 }
 
-char	*get_cmd(char **path, t_pipe *data)
+void	ft_print_tab(char **tab)
 {
-	char	*join_path;
+	int	i;
+
+	i = 0;
+	ft_dprintf(2, "			tab : \n");
+	while (tab[i])
+	{
+		ft_dprintf(2, "tab[%d] : %s\n", i, tab[i]);
+		i++;
+	}
+}
+
+char	*get_cmd(char **path, char *cmd)
+{
 	char	*path_cmd;
 	int		i;
 
 	i = -1;
-	ft_dprintf(2, "cmd1 : %s\n", data->cmd);
 	while (path[++i])
 	{
-		join_path = ft_strjoin(path[i], "/", NULL, 0b000);
-		path_cmd = ft_strjoin(join_path, data->cmd, NULL, 0b000);
-		free(join_path);
+		path_cmd = ft_strjoin(path[i], cmd, "/", 0b000);
 		if (access(path_cmd, 0) == 0)
 		{
 			ft_free_tab(path);
@@ -167,31 +177,30 @@ char	**grep(char **env)
 	return (splited_path);
 }
 
-
 int	process(char **env, t_cmdlist *cmdlist, t_pipe *data)
 {
 	int		pid;
 
 	pipe(data->pipe_fd);
 	pid = fork();
-	ft_dprintf(2, "cmd : %s\n", data->cmd);
-	data->cmd = get_cmd(grep(env), data);
+	data->cmd = get_cmd(grep(env), cmdlist->cmd);
 	if (pid == 0)
 	{
 		close(data->pipe_fd[0]);
-		dup2(data->pipe_fd[1], STDOUT_FILENO);
+		if (cmdlist->next)
+			dup2(data->pipe_fd[1], STDOUT_FILENO);
 		close(data->pipe_fd[1]);
-		close(data->output_fd);
 		if (execve(data->cmd, cmdlist->param, env) == -1)
 			exit(EXIT_FAILURE);
+		if (!cmdlist->next)
+			exit(EXIT_SUCCESS);
 	}
 	else
 	{
 		close(data->pipe_fd[1]);
-		dup2(data->pipe_fd[0], STDIN_FILENO);
+		if (cmdlist->next)
+			dup2(data->pipe_fd[0], STDIN_FILENO);
 		close(data->pipe_fd[0]);
-		dup2(data->output_fd, STDOUT_FILENO);
-		close(data->output_fd);
 	}
 	return (pid);
 }
@@ -199,24 +208,21 @@ int	process(char **env, t_cmdlist *cmdlist, t_pipe *data)
 void	do_pipe(t_cmdlist *cmdlist, t_ms *ms)
 {
 	t_cmdlist	*tmp;
-	t_pipe	*data;
-	int		pid[1024];
-	int		i;
+	t_pipe		*data;
+	int			pid[1024];
+	int			i;
+	int			j;
 
 	i = 0;
 	tmp = cmdlist;
 	data = ft_calloc(2, sizeof(t_pipe));
-	ft_printf("cmdlist\n");
-	while (tmp->next)
+	while (tmp)
 	{
 		pid[i++] = process(ms->env, tmp, data);
-		ft_printf("1cmdlist\n");
 		tmp = tmp->next;
 	}
-	data->cmd = get_cmd(grep(ms->env), data);
-	if (execve(data->cmd, tmp->param, ms->env) == -1)
-		exit(EXIT_FAILURE);
-	i = -1;
-	while (pid[++i])
-		waitpid(pid[i], NULL, 0);
-	}
+	j = 0;
+	while (j < i)
+		waitpid(pid[j++], NULL, 0);
+	return ;
+}

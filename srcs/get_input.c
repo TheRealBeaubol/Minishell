@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/08 14:41:16 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:45:41 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,14 @@ void	get_input(t_ms *ms)
 			else if (ms->input[0] != '\0')
 			{
 				signal_state_manager(1);
-				print_tokens(ms->lst);
 				cmd = do_cmd_list(ms);
-				print_cmd_list(cmd);
 				do_pipe(cmd, ms);
 				// choose_cmd(ms);
 				signal_state_manager(0);
 			}
 		}
 		free(ms->input);
+		ms->input = NULL;
 	}
 }
 
