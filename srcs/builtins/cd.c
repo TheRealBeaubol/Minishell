@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/04 10:40:18 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:13:21 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ static void	handle_flag(t_ms *ms)
 	ms->env[i] = old_pwd;
 }
 
-static int	handle_no_args(t_ms *ms)
+static int	handle_no_args(t_cmdlist *cmdlst, t_ms *ms)
 {
 	char	*home;
 
-	if (!ms->lst->next)
+	if (!cmdlst->param[1])
 	{
 		edit_pwd(ms, 1);
 		home = get_env(ms->env, "HOME");
@@ -73,14 +73,14 @@ static int	handle_no_args(t_ms *ms)
 	return (1);
 }
 
-static int	handle_wrong_args(t_ms *ms)
+static int	handle_wrong_args(t_cmdlist *cmdlst, t_ms *ms)
 {
 	int	i;
 
-	i = handle_no_args(ms);
+	i = handle_no_args(cmdlst, ms);
 	if (i == 0)
 		return (0);
-	if (ms->lst->next->next)
+	if (cmdlst->param[2])
 	{
 		g_exit = 1;
 		ft_dprintf(2, "minishell: cd: too many arguments\n");
@@ -89,23 +89,22 @@ static int	handle_wrong_args(t_ms *ms)
 	return (1);
 }
 
-int	change_directory(t_ms *ms)
+int	change_directory(t_cmdlist *cmdlst, t_ms *ms)
 {
 	char	*error;
-	t_list	*tmp;
 
-	if (!handle_wrong_args(ms))
+	if (!handle_wrong_args(cmdlst, ms))
 		return (0);
-	tmp = ms->lst->next;
-	if (tmp->content[0] == '-' && tmp->content[1] == '\0')
+	if (!ft_strncmp(cmdlst->param[1], "-", 2))
 		handle_flag(ms);
 	else
 	{
 		edit_pwd(ms, 1);
-		if (chdir(tmp->content) == -1)
+		if (chdir(cmdlst->param[1]) == -1)
 		{
 			g_exit = 1;
-			error = ft_strjoin("minishell: cd: ", tmp->content, NULL, 0b000);
+			error = ft_strjoin("minishell: cd: ", \
+				cmdlst->param[1], NULL, 0b000);
 			perror(error);
 			free(error);
 			return (0);

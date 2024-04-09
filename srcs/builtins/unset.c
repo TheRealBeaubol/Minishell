@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:18:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/04 16:10:34 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:47:24 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ static char	**feed_env(t_ms *ms, int unset)
 	int		j;
 	char	**unset_env;
 
-	unset_env = malloc(sizeof(char *) * ft_tablen(ms->env));
+	unset_env = ft_calloc(ft_tablen(ms->env), sizeof(char *));
+	if (!unset_env)
+		return (NULL);
 	i = 0;
 	j = 0;
 	while (ms->env[i])
@@ -47,20 +49,27 @@ char	*get_env(char **env, char *var_name)
 	return (cut_str);
 }
 
-void	unset(t_ms *ms, char *var)
+void	unset(t_cmdlist *cmdlst, char *var, t_ms *ms)
 {
 	int		indice;
 	char	**new_env;
 
-	if (!ms->lst->next)
+	if (!cmdlst->param[1])
 		return ;
-	var = ms->lst->next->content;
 	if (var[0] == '-')
 		g_exit = 2;
 	indice = get_env_indice(ms, var);
 	if (indice == -1)
 		return ;
 	new_env = feed_env(ms, indice);
-	ft_free_tab(ms->env);
-	ms->env = new_env;
+	if (new_env)
+	{
+		ft_free_tab(ms->env);
+		ms->env = new_env;
+	}
+	else
+	{
+		ft_dprintf(2, "malloc error: nothing done\n");
+		return ;
+	}
 }

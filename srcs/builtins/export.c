@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/05 20:44:47 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:44:52 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static char	**fill_export_env(t_ms *ms, int	*b, int var_status, char *content)
 
 	i = 0;
 	export_env = ft_calloc(ft_tablen(ms->env) + 2, sizeof(char *));
+	if (!export_env)
+		return (NULL);
 	while (ms->env[i])
 	{
 		if (!ft_strncmp(content, ms->env[i], \
@@ -65,7 +67,7 @@ valid identifier\n", content);
 	return ;
 }
 
-static char	**feed_env_p(t_ms *ms, int var_status, t_list *lst)
+static char	**feed_env_p(t_ms *ms, int var_status, char *content)
 {
 	char	**export_env;
 	int		i;
@@ -74,21 +76,21 @@ static char	**feed_env_p(t_ms *ms, int var_status, t_list *lst)
 
 	b = 0;
 	i = 0;
-	if (!ft_strchr(lst->content, '='))
-		handle_wrong_args(lst->content);
-	export_env = fill_export_env(ms, &b, var_status, lst->content);
+	if (!ft_strchr(content, '='))
+		handle_wrong_args(content);
+	export_env = fill_export_env(ms, &b, var_status, content);
 	i = ft_tablen(ms->env);
 	if (!b)
 	{
 		if (var_status == 2)
 		{
-			tmp = ft_strrev(lst->content);
+			tmp = ft_strrev(content);
 			export_env[i++] = ft_strjoin(ft_strrev(ft_strchr(tmp, '+') + 1), \
-				ft_strchr(lst->content, '+') + 1, NULL, 0b001);
+				ft_strchr(content, '+') + 1, NULL, 0b001);
 			free(tmp);
 		}
 		else
-			export_env[i++] = ft_strdup(lst->content);
+			export_env[i++] = ft_strdup(content);
 	}
 	export_env[i] = 0;
 	return (export_env);
@@ -123,31 +125,31 @@ static int	print_export(t_ms *ms)
 	return (1);
 }
 
-void	export(t_ms *ms)
+void	export(t_cmdlist *cmdlst, t_ms *ms)
 {
 	char	**new_env;
 	int		var_status;
-	t_list	*tmp;
+	int		i;
 
-	tmp = ms->lst->next;
+	i = 1;
 	var_status = 0;
-	if (!tmp || tmp->content[0] == '\0')
+	if (!cmdlst->param[i])
 		print_export(ms);
-	while (tmp)
+	while (cmdlst->param[i])
 	{
-		if (ft_strchr(tmp->content, '='))
+		if (ft_strchr(cmdlst->param[i], '='))
 		{
-			var_status = check_export(tmp->content);
+			var_status = check_export(cmdlst->param[i]);
 			if (var_status < 1)
 				g_exit = var_status + 1 + (var_status * -2);
 			if (var_status < 1)
 				return ;
 		}
-		new_env = feed_env_p(ms, var_status, tmp);
+		new_env = feed_env_p(ms, var_status, cmdlst->param[i]);
 		if (new_env)
 			ft_free_tab(ms->env);
 		if (new_env)
 			ms->env = new_env;
-		tmp = tmp->next;
+		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 10:16:04 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/08 20:01:11 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:14:11 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	get_exit_code(int err_code)
 	}
 	return (WEXITSTATUS(err_code));
 }
+
 void	free_exec(t_ms *ms, int is_fork, int err_code)
 {
 	if (is_fork == 1)

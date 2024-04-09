@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/04/08 19:45:04 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/04/09 13:44:23 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME	=	minishell
 LIBFT_DIR			=	./libft
 LIBFT_NAME			= 	$(LIBFT_DIR)/libft.a
 
-CC					=	@gcc
+CC					=	@clang
 CFLAGS				=	-Wall -Wextra -Werror -g
 IFLAGS				=	-I ./includes -I $(LIBFT_DIR)/includes
 MK					=	@mkdir -p
@@ -68,7 +68,8 @@ SRCS	= 	srcs/main.c \
 			srcs/parsing/getenv_utils.c \
 			srcs/parsing/getenv.c \
 			srcs/prompt.c \
-			srcs/pipe/pipe.c
+			srcs/pipe/pipe.c \
+			srcs/pipe/utils.c
 # OBJECTS
 
 OBJS_DIR	:=	.objs

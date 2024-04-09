@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/08 20:33:46 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:41:15 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,35 @@ static void	fill_list(char *input, t_list **lst, int i, int old_i)
 	ft_lstadd_back(lst, ft_lstnew(str));
 }
 
+int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
+{
+	while (ft_iswhitespace(ms->input[i]))
+		i++;
+	*old_i = i;
+	while ((ms->input[i] != ' ') && ms->input[i] != '\0')
+	{
+		if (ms->input[i] == '"' || ms->input[i] == '\'')
+			i = parse_quote(ms, i + 1, ms->input[i]);
+		else if (ms->input[i] == '|')
+		{
+			*is_pipe = 1;
+			if (*old_i != i)
+			{
+				fill_list(ms->input, &(ms->lst), i, *old_i);
+				*old_i = i + 1;
+			}
+			ft_lstadd_back(&(ms->lst), ft_lstnew(ft_strdup("|")));
+			i++;
+			break ;
+		}
+		else
+			i++;
+		if (i == -1)
+			return (-1);
+	}
+	return (i);
+}
+
 int	parse(t_ms *ms)
 {
 	int		i;
@@ -66,30 +95,9 @@ int	parse(t_ms *ms)
 		return (-1);
 	while (ms->input[i] != '\0')
 	{
-		while (ft_iswhitespace(ms->input[i]))
-			i++;
-		old_i = i;
-		while ((ms->input[i] != ' ') && ms->input[i] != '\0')
-		{
-			if (ms->input[i] == '"' || ms->input[i] == '\'')
-				i = parse_quote(ms, i + 1, ms->input[i]);
-			else if (ms->input[i] == '|')
-			{
-				is_pipe = 1;
-				if (old_i != i)
-				{
-					fill_list(ms->input, &(ms->lst), i, old_i);
-					old_i = i + 1;
-				}
-				ft_lstadd_back(&(ms->lst), ft_lstnew(ft_strdup("|")));
-				i++;
-				break ;
-			}
-			else
-				i++;
-			if (i == -1)
-				return (-1);
-		}
+		i = parse_element(ms, i, &old_i, &is_pipe);
+		if (i == -1)
+			return (-1);
 		if (is_pipe == 1)
 			is_pipe = 0;
 		else

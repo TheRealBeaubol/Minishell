@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/08 20:01:20 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:15:28 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ extern int	g_exit;
 /* ******************** */
 /*      builtins.c      */
 /* ******************** */
-int		change_directory(t_ms *ms);
-void	unset(t_ms *ms, char *var);
-void	echo(t_ms *ms);
-void	env(t_ms *ms);
-void	choose_cmd(t_ms *ms);
-void	export(t_ms *ms);
-void	exit_function(t_ms *ms);
+int		change_directory(t_cmdlist *cmdlst, t_ms *ms);
+void	unset(t_cmdlist *cmdlst, char *var, t_ms *ms);
+void	echo(t_cmdlist *cmdlst);
+void	env(t_cmdlist *cmdlst, t_ms *ms);
+void	exec_builtin(t_cmdlist *cmdlist, char *cmd, t_ms *ms);
+void	export(t_cmdlist *cmdlst, t_ms *ms);
+void	exit_function(t_cmdlist *cmdlst, t_ms *ms);
 int		check_export(char *var);
 
 /* ********************* */
@@ -81,10 +81,14 @@ void	handle_exit_envvar(t_ms *ms, int *i);
 /* ******************** */
 /*        pipe.c        */
 /* ******************** */
-void	    print_tokens(t_list *pipeline);
-int		    check_pipeline(char *content);
-t_cmdlist	*do_cmd_list(t_ms *ms);
-void	    print_cmd_list(t_cmdlist *cmd);
-void	    do_pipe(t_cmdlist *cmdlist, t_ms *ms);
-int	get_exit_code(int err_code);
+int		check_pipeline(char *content);
+void	do_cmd_list(t_ms *ms);
+void	do_pipe(t_cmdlist *cmdlist, t_ms *ms);
+int		get_exit_code(int err_code);
+int		is_builtin(char *cmd);
+int		check_pipeline(char *content);
+void	free_cmdlist(t_cmdlist *cmdlist);
+char	*get_cmd(char **path, char *cmd);
+void	free_pipe(t_ms *ms, int err_code, t_cmdlist	*cmdlist);
+char	**grep(char **env);
 #endif

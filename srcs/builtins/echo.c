@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 20:48:18 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/03/27 16:53:03 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:00:24 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,48 +30,48 @@ static int	is_valid_flag(char *str)
 		return (1);
 }
 
-static void	echo_printing(t_list *tmp, int n)
+static void	echo_printing(t_cmdlist *cmdlst, int n, int i)
 {
 	int	cpt;
 
 	cpt = 0;
-	while (tmp->next)
+	while (cmdlst->param[i + 1])
 	{
 		if (cpt++ == 0)
-			ft_dprintf(1, "%s", tmp->content);
+			ft_dprintf(1, "%s", cmdlst->param[i]);
 		else
 		{
 			ft_dprintf(1, " ");
-			ft_dprintf(1, "%s", tmp->content);
+			ft_dprintf(1, "%s", cmdlst->param[i]);
 		}
-		tmp = tmp->next;
+		i++;
 	}
 	if (cpt != 0)
 		ft_dprintf(1, " ");
-	ft_dprintf(1, "%s", tmp->content);
+	ft_dprintf(1, "%s", cmdlst->param[i]);
 	if (n == 1)
 		ft_dprintf(1, "\n");
 }
 
-void	echo(t_ms *ms)
+void	echo(t_cmdlist *cmdlst)
 {
-	t_list	*tmp;
-	int		n;
+	int			n;
+	int			i;
 
-	if (!ms->lst->next)
+	i = 1;
+	if (!cmdlst->param[i])
 	{
 		ft_dprintf(1, "\n");
 		return ;
 	}
 	n = 1;
-	tmp = ms->lst->next;
-	while (!is_valid_flag(tmp->content))
+	while (!is_valid_flag(cmdlst->param[i]))
 	{
 		n = 0;
-		if (tmp->next)
-			tmp = tmp->next;
+		if (cmdlst->param[i + 1])
+			i += 1;
 		else
 			return ;
 	}
-	echo_printing(tmp, n);
+	echo_printing(cmdlst, n, i);
 }

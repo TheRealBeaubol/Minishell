@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_jointab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 01:40:35 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/09 14:04:02 by lboiteux         ###   ########.fr       */
+/*   Created: 2024/04/09 13:41:24 by lboiteux          #+#    #+#             */
+/*   Updated: 2024/04/09 13:41:35 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "libft.h"
 
-void	env(t_cmdlist *cmdlst, t_ms *ms)
+char	**ft_join_tab(char **tab, char *str)
 {
+	char	**new_tab;
 	int		i;
 
 	i = 0;
-	if (!cmdlst->param[1])
+	while (tab[i])
+		i++;
+	new_tab = ft_calloc(i + 2, sizeof(char *));
+	i = 0;
+	while (tab[i])
 	{
-		while (ms->env[i])
-		{
-			if (ft_strchr(ms->env[i], '='))
-				ft_dprintf(1, "%s\n", ms->env[i]);
-			i++;
-		}
-		return ;
+		new_tab[i] = ft_strdup(tab[i]);
+		i++;
 	}
-	if (cmdlst->param[1][0] == '-')
-	{
-		g_exit = 125;
-		ft_dprintf(2, ENV_EXIT_MSG_1, cmdlst->param[1][1]);
-	}
-	else
-	{
-		g_exit = 127;
-		ft_dprintf(2, ENV_EXIT_MSG_2, cmdlst->param[1]);
-	}
+	new_tab[i] = ft_strdup(str);
+	ft_free_tab(tab);
+	return (new_tab);
 }

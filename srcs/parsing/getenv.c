@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/05 20:41:24 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 15:31:57 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ char	*get_var_name(t_ms *ms, int i)
 ms->input[stock_i] == '_'))
 		malloc_count++;
 	str = ft_calloc((malloc_count + 3), sizeof(char));
+	if (!str)
+		return (NULL);
 	while (ft_isalnum(ms->input[i]) || ms->input[i] == '_')
 		str[j++] = ms->input[i++];
 	str[j] = '=';
-	str[++j] = '\0';
 	return (str);
 }
 
@@ -47,6 +48,8 @@ static char	*get_end_str(t_ms *ms, char *var_name, int i)
 
 	j = 0;
 	end_str = ft_calloc((ft_strlen(ms->input) - i), sizeof(char));
+	if (!end_str)
+		return (NULL);
 	if (var_name && (var_name[ft_strlen(var_name) - 1] == '='))
 		i += ft_strlen(var_name);
 	else if (var_name)
@@ -59,11 +62,7 @@ static char	*get_end_str(t_ms *ms, char *var_name, int i)
 		return (NULL);
 	}
 	while (ms->input[i] != '\0')
-	{
-		end_str[j] = ms->input[i];
-		i++;
-		j++;
-	}
+		end_str[j++] = ms->input[i++];
 	end_str[j] = '\0';
 	return (end_str);
 }

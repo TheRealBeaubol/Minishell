@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/08 20:07:29 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:13:48 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	check_input(t_ms *ms)
 
 void	get_input(t_ms *ms)
 {
-	t_cmdlist *cmd;
-
 	while (1)
 	{
 		signal_state_manager(0);
@@ -52,9 +50,8 @@ void	get_input(t_ms *ms)
 			else if (ms->input[0] != '\0')
 			{
 				signal_state_manager(1);
-				cmd = do_cmd_list(ms);
-				do_pipe(cmd, ms);
-				// choose_cmd(ms);
+				do_cmd_list(ms);
+				do_pipe(ms->cmdlist, ms);
 				signal_state_manager(0);
 			}
 		}
@@ -74,7 +71,8 @@ void	get_single_input(t_ms *ms, char *line)
 		if (ms->input[0] != '\0')
 		{
 			signal_state_manager(1);
-			choose_cmd(ms);
+			do_cmd_list(ms);
+			do_pipe(ms->cmdlist, ms);
 			signal_state_manager(0);
 		}
 	}

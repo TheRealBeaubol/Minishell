@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:46:19 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/02 20:09:45 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:41:46 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+char		**ft_join_tab(char **tab, char *str);
 long long	ft_atoll(char *nbr);
 int			ft_longlonglen(long long n);
 int			ft_tablen(char **str);

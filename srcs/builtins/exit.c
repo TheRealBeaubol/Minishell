@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:35:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/03 16:46:26 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:00:50 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,27 +73,27 @@ void	print_msg_and_exit(char	*msg, t_ms *ms, char *arg, int exit_code)
 	free_and_exit(ms);
 }
 
-void	exit_function(t_ms *ms)
+void	exit_function(t_cmdlist *cmdlst, t_ms *ms)
 {
 	long long	nbr;
 	char		*arg;
 	int			boolean;
 
 	ft_dprintf(2, "exit\n");
-	if (!ms->lst->next)
+	if (!cmdlst->param[1])
 		free_and_exit(ms);
 	else
 	{
-		arg = format_arg(ms->lst->next->content);
+		arg = format_arg(cmdlst->param[1]);
 		boolean = get_boolean(arg);
 		if (boolean == 1)
-			print_msg_and_exit(EXIT_MSG_1, ms, ms->lst->next->content, 2);
+			print_msg_and_exit(EXIT_MSG_1, ms, cmdlst->param[1], 2);
 		if (boolean == 2)
-			print_msg_and_exit(EXIT_MSG_2, ms, ms->lst->next->content, 2);
+			print_msg_and_exit(EXIT_MSG_2, ms, cmdlst->param[1], 2);
 		nbr = ft_atoll(arg);
 		if (ft_longlonglen(nbr) != arg_len(arg))
 			print_msg_and_exit(EXIT_MSG_1, ms, arg, 2);
-		if (ms->lst->next->next)
+		if (cmdlst->param[2])
 			print_msg_and_exit(EXIT_MSG_2, ms, arg, 1);
 		g_exit = nbr % 256;
 		free_and_exit(ms);
