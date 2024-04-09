@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/09 14:13:48 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:27:07 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	check_input(t_ms *ms)
 {
 	if (!ms->input)
 	{
-		rl_clear_history();
 		ft_dprintf (2, "exit\n");
 		free_and_exit(ms);
 	}
@@ -51,6 +50,7 @@ void	get_input(t_ms *ms)
 			{
 				signal_state_manager(1);
 				do_cmd_list(ms);
+				ft_free_list(&ms->lst);
 				do_pipe(ms->cmdlist, ms);
 				signal_state_manager(0);
 			}

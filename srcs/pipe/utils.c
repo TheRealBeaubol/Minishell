@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:39:17 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/09 14:14:25 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:27:35 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ void	free_pipe(t_ms *ms, int err_code, t_cmdlist	*cmdlist)
 {
 	g_exit = get_exit_code(err_code);
 	free_cmdlist(cmdlist);
-	ft_free_list(&ms->lst);
-	ms->lst = NULL;
 	free(ms->prompt);
 	ms->prompt = get_prompt(ms);
 }

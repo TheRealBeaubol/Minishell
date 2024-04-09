@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/09 15:31:57 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:32:07 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,14 @@ int	replace_var(t_ms *ms, int i)
 	else
 	{
 		ms->input = get_new_input(ms, i, end_str, var_name);
-		free(var_name);
+		if (ms->input[i] == '\0')
+			free(var_name);
 		if (ms->input[i] == '\0')
 			return (i);
 	}
 	if (var_name[0] != '$' && var_name[1] != '?')
 		i = ft_strlen(ms->input) - ft_strlen(end_str);
+	free(var_name);
 	free(end_str);
 	return (i);
 }

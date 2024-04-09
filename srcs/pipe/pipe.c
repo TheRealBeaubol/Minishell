@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/09 15:32:33 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/09 22:04:17 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data)
 	close(data->pipe_fd[1]);
 	execve(data->cmd, cmdlst->param, env);
 	close (data->input_fd);
-	free(data->cmd);
 }
 
 int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
@@ -39,6 +38,13 @@ int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 			exec_builtin(cmdlst, cmdlst->cmd, ms);
 		else
 			exec(env, cmdlst, data);
+		rl_clear_history();
+		free_cmdlist(ms->cmdlist);
+		free(ms->input);
+		free(ms->prompt);
+		free(data->cmd);
+		free(data);
+		ft_free_tab(env);
 		exit(g_exit);
 	}
 	else
@@ -47,6 +53,8 @@ int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 		data->input_fd = dup(data->pipe_fd[0]);
 		close(data->pipe_fd[0]);
 	}
+	free(ms->prompt);
+	ms->prompt = get_prompt(ms);
 	free(data->cmd);
 	return (pid);
 }
@@ -104,6 +112,11 @@ void	do_pipe(t_cmdlist *cmdlist, t_ms *ms)
 
 	i = 0;
 	tmp = ms->cmdlist;
+	if (!tmp->next && is_builtin(tmp->cmd))
+	{
+		exec_builtin(tmp, tmp->cmd, ms);
+		return ;
+	}
 	data = ft_calloc(2, sizeof(t_pipe));
 	if (!data)
 		return ;
