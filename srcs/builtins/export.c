@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/09 14:44:52 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:40:19 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,20 @@ static char	**fill_export_env(t_ms *ms, int	*b, int var_status, char *content)
 	return (export_env);
 }
 
-static void	handle_wrong_args(char *content)
+static int	handle_wrong_args(char *content)
 {
 	int	i;
 
 	i = 0;
+	ft_printf("%c\n", content[i]);
 	if (!ft_isalpha(content[i]) && content[i] != '_')
 	{
 		ft_dprintf(2, "minishell: export: `%s': not a \
 valid identifier\n", content);
 		g_exit = 1;
-		return ;
+		return (1);
 	}
+	i++;
 	while (content[i])
 	{
 		if (ft_isalnum(content[i]) || content[i] == '_')
@@ -61,10 +63,10 @@ valid identifier\n", content);
 			ft_dprintf(2, "minishell: export: `%s': not a \
 valid identifier\n", content);
 			g_exit = 1;
-			return ;
+			return (1);
 		}
 	}
-	return ;
+	return (0);
 }
 
 static char	**feed_env_p(t_ms *ms, int var_status, char *content)
@@ -74,10 +76,13 @@ static char	**feed_env_p(t_ms *ms, int var_status, char *content)
 	int		b;
 	char	*tmp;
 
-	b = 0;
-	i = 0;
 	if (!ft_strchr(content, '='))
-		handle_wrong_args(content);
+	{
+		b = handle_wrong_args(content);
+		if (b)
+			return (ms->env);
+	}
+	b = 0;
 	export_env = fill_export_env(ms, &b, var_status, content);
 	i = ft_tablen(ms->env);
 	if (!b)

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:39:17 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/09 21:27:35 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:44:14 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,16 @@ int	check_pipeline(char *content)
 void	free_cmdlist(t_cmdlist *cmdlist)
 {
 	t_cmdlist	*tmp;
+	t_cmdlist	*next;
 
-	while (cmdlist)
+	tmp =  cmdlist;
+	while (tmp)
 	{
-		tmp = cmdlist->next;
-		ft_free_tab(cmdlist->param);
-		free(cmdlist->cmd);
-		free(cmdlist);
-		cmdlist = tmp;
+		free(tmp->cmd);
+		ft_free_tab(tmp->param);
+		next = tmp->next;
+		free(tmp);
+		tmp = next;
 	}
 }
 
@@ -93,12 +95,4 @@ char	*get_cmd(char **path, char *cmd)
 	}
 	ft_free_tab(path);
 	return (path_cmd);
-}
-
-void	free_pipe(t_ms *ms, int err_code, t_cmdlist	*cmdlist)
-{
-	g_exit = get_exit_code(err_code);
-	free_cmdlist(cmdlist);
-	free(ms->prompt);
-	ms->prompt = get_prompt(ms);
 }

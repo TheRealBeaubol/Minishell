@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/09 22:04:17 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:44:54 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,21 @@ int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	if (pid == 0)
 	{
 		if (is_builtin(cmdlst->cmd))
+		{
 			exec_builtin(cmdlst, cmdlst->cmd, ms);
+			close(data->pipe_fd[1]);
+			// close(data->pipe_fd[0]);
+			close(data->input_fd);
+		}
 		else
 			exec(env, cmdlst, data);
-		rl_clear_history();
 		free_cmdlist(ms->cmdlist);
+		ft_free_tab(env);
 		free(ms->input);
 		free(ms->prompt);
 		free(data->cmd);
 		free(data);
-		ft_free_tab(env);
+		rl_clear_history();
 		exit(g_exit);
 	}
 	else
@@ -102,7 +107,7 @@ void	do_cmd_list(t_ms *ms)
 	}
 }
 
-void	do_pipe(t_cmdlist *cmdlist, t_ms *ms)
+void	do_pipe(t_ms *ms)
 {
 	t_cmdlist	*tmp;
 	t_pipe		*data;
@@ -130,7 +135,10 @@ void	do_pipe(t_cmdlist *cmdlist, t_ms *ms)
 	j = 0;
 	while (j < i)
 		waitpid(data->pid[j++], &err_code, 0);
-	free_pipe(ms, err_code, cmdlist);
+	g_exit = get_exit_code(err_code);
+	free(ms->prompt);
+	ms->prompt = get_prompt(ms);
+	close(data->input_fd);
 	free(data);
 	return ;
 }

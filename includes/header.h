@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/09 14:15:28 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:45:29 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,11 @@ void	handle_exit_envvar(t_ms *ms, int *i);
 /* ******************** */
 int		check_pipeline(char *content);
 void	do_cmd_list(t_ms *ms);
-void	do_pipe(t_cmdlist *cmdlist, t_ms *ms);
+void	do_pipe(t_ms *ms);
 int		get_exit_code(int err_code);
 int		is_builtin(char *cmd);
 int		check_pipeline(char *content);
 void	free_cmdlist(t_cmdlist *cmdlist);
 char	*get_cmd(char **path, char *cmd);
-void	free_pipe(t_ms *ms, int err_code, t_cmdlist	*cmdlist);
 char	**grep(char **env);
 #endif
