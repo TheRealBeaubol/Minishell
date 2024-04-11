@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:39:17 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/10 18:44:14 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:13:53 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	free_cmdlist(t_cmdlist *cmdlist)
 	t_cmdlist	*tmp;
 	t_cmdlist	*next;
 
-	tmp =  cmdlist;
+	tmp = cmdlist;
 	while (tmp)
 	{
 		free(tmp->cmd);

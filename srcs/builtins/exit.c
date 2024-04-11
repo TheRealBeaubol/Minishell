@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:35:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/09 14:00:50 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:56:54 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,24 @@ int	arg_len(char *arg)
 	return (j);
 }
 
-void	print_msg_and_exit(char	*msg, t_ms *ms, char *arg, int exit_code)
+void	print_msg_and_exit(int boolean, t_ms *ms, char *param, int exit_code)
 {
+	char	*arg;
+
 	g_exit = exit_code;
-	ft_dprintf(2, msg, arg);
+	if (boolean == 0)
+	{
+		arg = format_arg(param);
+		if (exit_code == 1)
+			ft_dprintf(2, EXIT_MSG_2, arg);
+		else
+			ft_dprintf(2, EXIT_MSG_1, arg);
+		free(arg);
+	}
+	if (boolean == 1)
+		ft_dprintf(2, EXIT_MSG_1, param);
+	if (boolean == 2)
+		ft_dprintf(2, EXIT_MSG_2, param);
 	free_and_exit(ms);
 }
 
@@ -78,6 +92,7 @@ void	exit_function(t_cmdlist *cmdlst, t_ms *ms)
 	long long	nbr;
 	char		*arg;
 	int			boolean;
+	int			i;
 
 	ft_dprintf(2, "exit\n");
 	if (!cmdlst->param[1])
@@ -86,15 +101,18 @@ void	exit_function(t_cmdlist *cmdlst, t_ms *ms)
 	{
 		arg = format_arg(cmdlst->param[1]);
 		boolean = get_boolean(arg);
-		if (boolean == 1)
-			print_msg_and_exit(EXIT_MSG_1, ms, cmdlst->param[1], 2);
-		if (boolean == 2)
-			print_msg_and_exit(EXIT_MSG_2, ms, cmdlst->param[1], 2);
 		nbr = ft_atoll(arg);
-		if (ft_longlonglen(nbr) != arg_len(arg))
-			print_msg_and_exit(EXIT_MSG_1, ms, arg, 2);
+		i = arg_len(arg);
+		if (ft_strncmp(arg, "a", 2) && ft_strncmp(arg, "b", 2))
+			free(arg);
+		if (boolean == 1)
+			print_msg_and_exit(boolean, ms, cmdlst->param[1], 2);
+		if (boolean == 2)
+			print_msg_and_exit(boolean, ms, cmdlst->param[1], 2);
+		if (ft_longlonglen(nbr) != i)
+			print_msg_and_exit(boolean, ms, cmdlst->param[1], 2);
 		if (cmdlst->param[2])
-			print_msg_and_exit(EXIT_MSG_2, ms, arg, 1);
+			print_msg_and_exit(boolean, ms, cmdlst->param[1], 1);
 		g_exit = nbr % 256;
 		free_and_exit(ms);
 	}

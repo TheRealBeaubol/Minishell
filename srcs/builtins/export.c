@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/10 18:40:19 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:14:21 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	handle_wrong_args(char *content)
 	int	i;
 
 	i = 0;
-	ft_printf("%c\n", content[i]);
 	if (!ft_isalpha(content[i]) && content[i] != '_')
 	{
 		ft_dprintf(2, "minishell: export: `%s': not a \

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/10 18:44:54 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:13:06 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 		{
 			exec_builtin(cmdlst, cmdlst->cmd, ms);
 			close(data->pipe_fd[1]);
-			// close(data->pipe_fd[0]);
 			close(data->input_fd);
 		}
 		else

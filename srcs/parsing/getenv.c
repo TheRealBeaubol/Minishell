@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/09 21:32:07 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:02:29 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_var_name(t_ms *ms, int i)
 	stock_i = i;
 	i++;
 	if (ms->input[i] == '?')
-		return ("$?");
+		return (ft_strdup("$?"));
 	if (ft_isdigit(ms->input[i]))
 		return (NULL);
 	if (!ft_isalpha(ms->input[i]) && ms->input[i] != '_')
