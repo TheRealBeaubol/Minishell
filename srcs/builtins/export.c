@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/11 11:14:21 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:44:30 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void	export(t_cmdlist *cmdlst, t_ms *ms)
 				return ;
 		}
 		new_env = feed_env_p(ms, var_status, cmdlst->param[i]);
-		if (new_env)
+		if (new_env && ft_tablen(ms->env) != ft_tablen(new_env))
 			ft_free_tab(ms->env);
 		if (new_env)
 			ms->env = new_env;
