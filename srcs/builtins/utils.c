@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 10:16:04 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/11 16:48:26 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/12 12:28:14 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,63 +26,6 @@ char	*get_cwd(int i)
 		return (ft_strdup(cwd));
 	}
 	return (NULL);
-}
-
-// int	check_export(char *var)
-// {
-// 	char	*tmp;
-
-// 	tmp = var;
-// 	if (!var)
-// 		return (0);
-// 	if (ft_isdigit(var[0]))
-// 		return (0);
-// 	tmp++;
-// 	while (*tmp && (ft_isalnum(*tmp) || *tmp == '_'))
-// 		tmp++;
-// 	return (!ft_strncmp(tmp, "=", 1) || !ft_strncmp(tmp, "+=", 2));
-// }
-
-int	check_export(char *var)
-{
-	int	i;
-
-	i = 1;
-	if (var[i - 1] == '-')
-	{
-		ft_dprintf(2, "minishell: export: `%s': not a \
-valid identifier\n", var);
-		return (-1);
-	}
-	if (!ft_isalpha(var[i - 1]) && var[i - 1] != '_')
-	{
-		ft_dprintf(2, "minishell: export: `%s': not a \
-valid identifier\n", var);
-		return (0);
-	}
-	while (var[i] && (ft_isalnum(var[i]) || var[i] == '_' || var[i] == '\\'))
-	{
-
-		if (var[i] == '\\' && var[i + 1] && (ft_isalnum(var[i + 1]) \
-			|| var[i + 1] == '_'))
-			i++;
-		else if (var[i] != '\\')
-			i++;
-		else
-		{		
-			ft_dprintf(2, "minishell: export: `%s': not a valid identifier\n", var);
-			return (0);
-		}
-	}
-	if (((int)ft_strlen(var) != i + 1) && var[i] == '+' && var[i + 1] == '=')
-		return (2);
-	if (var[i] != '\0' && var[i] != '=')
-	{
-		ft_dprintf(2, "minishell: export: `%s': not a \
-valid identifier\n", var);
-		return (0);
-	}
-	return (1);
 }
 
 int	get_env_indice(t_ms *ms, char *var)

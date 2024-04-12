@@ -6,99 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/11 16:44:30 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/12 13:14:00 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-static char	**fill_export_env(t_ms *ms, int	*b, int var_status, char *content)
-{
-	int		i;
-	char	**export_env;
-
-	i = 0;
-	export_env = ft_calloc(ft_tablen(ms->env) + 2, sizeof(char *));
-	if (!export_env)
-		return (NULL);
-	while (ms->env[i])
-	{
-		if (!ft_strncmp(content, ms->env[i], \
-			ft_strlen_tr(ms->env[i], '=') - var_status + 2))
-		{
-			if (var_status == 2)
-				export_env[i] = ft_strjoin(ms->env[i], \
-					ft_strchr(content, '=') + 1, NULL, 0b000);
-			else
-				export_env[i] = ft_strdup(content);
-			*b = 1;
-		}
-		else
-			export_env[i] = ft_strdup(ms->env[i]);
-		i++;
-	}
-	return (export_env);
-}
-
-static int	handle_wrong_args(char *content)
-{
-	int	i;
-
-	i = 0;
-	if (!ft_isalpha(content[i]) && content[i] != '_')
-	{
-		ft_dprintf(2, "minishell: export: `%s': not a \
-valid identifier\n", content);
-		g_exit = 1;
-		return (1);
-	}
-	i++;
-	while (content[i])
-	{
-		if (ft_isalnum(content[i]) || content[i] == '_')
-			i++;
-		else
-		{
-			ft_dprintf(2, "minishell: export: `%s': not a \
-valid identifier\n", content);
-			g_exit = 1;
-			return (1);
-		}
-	}
-	return (0);
-}
-
-static char	**feed_env_p(t_ms *ms, int var_status, char *content)
-{
-	char	**export_env;
-	int		i;
-	int		b;
-	char	*tmp;
-
-	if (!ft_strchr(content, '='))
-	{
-		b = handle_wrong_args(content);
-		if (b)
-			return (ms->env);
-	}
-	b = 0;
-	export_env = fill_export_env(ms, &b, var_status, content);
-	i = ft_tablen(ms->env);
-	if (!b)
-	{
-		if (var_status == 2)
-		{
-			tmp = ft_strrev(content);
-			export_env[i++] = ft_strjoin(ft_strrev(ft_strchr(tmp, '+') + 1), \
-				ft_strchr(content, '+') + 1, NULL, 0b001);
-			free(tmp);
-		}
-		else
-			export_env[i++] = ft_strdup(content);
-	}
-	export_env[i] = 0;
-	return (export_env);
-}
 
 static int	print_export(t_ms *ms)
 {
@@ -129,31 +41,86 @@ static int	print_export(t_ms *ms)
 	return (1);
 }
 
+int	check_export(char *var)
+{
+	char	*tmp;
+
+	tmp = var;
+	if (!var)
+		return (0);
+	if (ft_isdigit(var[0]))
+		return (0);
+	tmp++;
+	while (*tmp && (ft_isalnum(*tmp) || *tmp == '_'))
+		tmp++;
+	return (!ft_strncmp(tmp, "=", 1) || !ft_strncmp(tmp, "+=", 2) \
+		|| !ft_strncmp(tmp, "\0", 1));
+}
+
+int	is_in_env(char *var, t_ms *ms)
+{
+	int		i;
+	int		len;
+	char	*env;
+
+	i = 0;
+	while (ms->env[i])
+	{
+		len = ft_strlen_tr(ms->env[i], '=');
+		if (len != (int)ft_strlen(ms->env[i]))
+			env = ft_substr(ms->env[i], 0, len);
+		else
+			env = ft_strdup(ms->env[i]);
+		if (!ft_strncmp(env, var, ft_strlen(var)))
+		{
+			free(env);
+			return (1);
+		}
+		free(env);
+		i++;
+	}
+	return (0);
+}
+
 void	export(t_cmdlist *cmdlst, t_ms *ms)
 {
-	char	**new_env;
-	int		var_status;
 	int		i;
+	int		j;
+	char	*var;
 
 	i = 1;
-	var_status = 0;
 	if (!cmdlst->param[i])
 		print_export(ms);
 	while (cmdlst->param[i])
 	{
-		if (ft_strchr(cmdlst->param[i], '='))
+		if (!check_export(cmdlst->param[i]))
 		{
-			var_status = check_export(cmdlst->param[i]);
-			if (var_status < 1)
-				g_exit = var_status + 1 + (var_status * -2);
-			if (var_status < 1)
-				return ;
+			ft_dprintf(2, "minishell: export: `%s': not a valid identifier\n", \
+				cmdlst->param[i]);
+			g_exit = 1;
+			i++;
+			continue ;
 		}
-		new_env = feed_env_p(ms, var_status, cmdlst->param[i]);
-		if (new_env && ft_tablen(ms->env) != ft_tablen(new_env))
-			ft_free_tab(ms->env);
-		if (new_env)
-			ms->env = new_env;
+		j = ft_strlen_tr(cmdlst->param[i], '=');
+		if (j != (int)ft_strlen(cmdlst->param[i]))
+			var = ft_substr(cmdlst->param[i], 0, j);
+		else
+			var = ft_strdup(cmdlst->param[i]);
+		if (is_in_env(var, ms))
+		{
+			j = get_env_indice(ms, var);
+			if (var[ft_strlen(var) - 1] == '+')
+				ms->env[j] = ft_strjoin(ms->env[j], cmdlst->param[i] + \
+					ft_strlen(var), NULL, 0b001);
+			else
+			{
+				free(ms->env[j]);
+				ms->env[j] = ft_strdup(cmdlst->param[i]);
+			}
+		}
+		else
+			ms->env = ft_join_tab(ms->env, cmdlst->param[i]);
+		free(var);
 		i++;
 	}
 }
