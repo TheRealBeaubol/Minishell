@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:35:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/11 10:56:54 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/12 19:59:36 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,7 @@ void	exit_function(t_cmdlist *cmdlst, t_ms *ms)
 		i = arg_len(arg);
 		if (ft_strncmp(arg, "a", 2) && ft_strncmp(arg, "b", 2))
 			free(arg);
-		if (boolean == 1)
-			print_msg_and_exit(boolean, ms, cmdlst->param[1], 2);
-		if (boolean == 2)
+		if (boolean == 1 || boolean == 2)
 			print_msg_and_exit(boolean, ms, cmdlst->param[1], 2);
 		if (ft_longlonglen(nbr) != i)
 			print_msg_and_exit(boolean, ms, cmdlst->param[1], 2);

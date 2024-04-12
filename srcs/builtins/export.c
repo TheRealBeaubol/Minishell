@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/12 17:54:32 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:02:17 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,48 @@ int	check_export(char *var)
 		|| !ft_strncmp(tmp, "\0", 1));
 }
 
-void	add_to_env(char *var, t_ms *ms, char *param, int is_add)
+void	edit_env(t_ms *ms, char *var, char *param, int is_add)
 {
-	int		j;
+	int	j;
 
-	if (is_in_env(var, ms))
+	j = get_env_indice(ms, var);
+	if (is_add)
 	{
-		j = get_env_indice(ms, var);
-		if (is_add)
-		{
-			if (ms->env[j][ft_strlen(var)] != '=')
-				ms->env[j] = ft_strjoin(ms->env[j], "=", NULL, 0b001);
-			ms->env[j] = ft_strjoin(ms->env[j], param + \
-				ft_strlen(var) + 2, NULL, 0b001);
-		}
-		else
-		{
-			if (ms->env[j][ft_strlen(var)] != '=')
-			{
-				free(ms->env[j]);
-				ms->env[j] = ft_strdup(param);
-			}
-		}
+		if (ms->env[j][ft_strlen(var)] != '=')
+			ms->env[j] = ft_strjoin(ms->env[j], "=", NULL, 0b001);
+		ms->env[j] = ft_strjoin(ms->env[j], param + \
+			ft_strlen(var) + 2, NULL, 0b001);
 	}
 	else
-		ms->env = ft_join_tab(ms->env, param);
+	{
+		if (ft_strchr(param, '='))
+		{
+			free(ms->env[j]);
+			ms->env[j] = ft_strdup(param);
+		}
+	}
+}
+
+void	add_to_env(char *var, t_ms *ms, char *param, int is_add)
+{
+	char	*tmp;
+
+	if (is_in_env(var, ms))
+		edit_env(ms, var, param, is_add);
+	else
+	{
+		if (ft_strchr(param, '+'))
+		{
+			tmp = ft_calloc(ft_strlen(param) + 1, sizeof(char));
+			ft_strlcpy(tmp, param, ft_strlen_tr(param, '+') + 1);
+			ft_strlcpy(tmp + ft_strlen(tmp), param + ft_strlen(tmp) + 1, \
+				ft_strlen(param) - ft_strlen(tmp) + 1);
+			ms->env = ft_join_tab(ms->env, tmp);
+			free(tmp);
+		}
+		else
+			ms->env = ft_join_tab(ms->env, param);
+	}
 }
 
 char	*get_name(char *var, int *is_add)
