@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 10:16:04 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/12 12:28:14 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/12 17:51:11 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,31 @@ int	get_exit_code(int err_code)
 		return (130);
 	}
 	return (WEXITSTATUS(err_code));
+}
+
+int	is_in_env(char *var, t_ms *ms)
+{
+	int		i;
+	int		len;
+	char	*env;
+
+	i = 0;
+	while (ms->env[i])
+	{
+		len = ft_strlen_tr(ms->env[i], '=');
+		if (len != (int)ft_strlen(ms->env[i]))
+			env = ft_substr(ms->env[i], 0, len);
+		else
+			env = ft_strdup(ms->env[i]);
+		if (!ft_strncmp(env, var, ft_strlen(var)))
+		{
+			free(env);
+			return (1);
+		}
+		free(env);
+		i++;
+	}
+	return (0);
 }
 
 void	free_exec(t_ms *ms, int is_fork, int err_code)
