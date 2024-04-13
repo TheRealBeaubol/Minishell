@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/13 12:03:07 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/13 19:39:12 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data)
 	if (cmdlst->next)
 		dup2(data->pipe_fd[1], STDOUT_FILENO);
 	close(data->pipe_fd[1]);
-	execve(data->cmd, cmdlst->param, env);
+	if (execve(data->cmd, cmdlst->param, env))
+		g_exit = 127;
 	close (data->input_fd);
 }
 

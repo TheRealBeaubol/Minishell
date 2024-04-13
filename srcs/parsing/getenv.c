@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/11 11:02:29 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/13 20:10:35 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int	parse_env(t_ms *ms)
 	int		i;
 
 	i = 0;
+	handle_alone_var(ms);
 	while (ms->input[i] != '\0')
 	{
 		if (ms->input[i] == '"' && ms->input[i + 1] != '\0')

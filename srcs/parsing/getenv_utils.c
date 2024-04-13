@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 23:16:07 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/12 19:54:13 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/13 19:57:26 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,44 @@ int	handle_squote_envvar(t_ms *ms, int i)
 		i++;
 	}
 	return (i + 1);
+}
+
+int	handle_alone_var(t_ms *ms)
+{
+	int		i;
+	char	*var_name;
+
+	i = 0;
+	if (ms->input[i] == '$')
+	{
+		if (ms->input[i + 1] == '?' && ms->input[i + 2] == '\0')
+		{
+			free(ms->input);
+			ms->input = ft_itoa(g_exit);
+		}
+		else if (ms->input[i + 1] == '$' && ms->input[i + 2] == '\0')
+			free(ms->input);
+		else if (ms->input[i + 1] == '\0')
+		{
+			free(ms->input);
+			ms->input = ft_strdup("$");
+		}
+		else
+		{
+			while (ms->input[i] != '\0' && ms->input[i] != ' ')
+				i++;
+			if (ms->input[i] == ' ')
+				return (1);
+			else
+			{
+				var_name = get_var_name(ms, 0);
+				free(ms->input);
+				ms->input = NULL;
+				if (var_name)
+					ms->input = ft_strdup(var_name);
+			}
+		}
+		return (0);
+	}
+	return (1);
 }
