@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:39:17 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/13 21:26:25 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/13 21:37:24 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,6 @@ char	*get_cmd(char **path, char *cmd)
 	int		i;
 
 	i = -1;
-	if (access(cmd, 0) == 0)
-	{
-		ft_free_tab(path);
-		ft_printf("%s\n", cmd);
-		return(cmd);
-	}
 	while (path[++i])
 	{
 		path_cmd = ft_strjoin(path[i], cmd, "/", 0b000);
