@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/13 19:39:12 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/13 21:21:29 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,17 @@
 
 void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data)
 {
-	dup2(data->input_fd, STDIN_FILENO);
+	if (data->input_fd > 2)
+		dup2(data->input_fd, STDIN_FILENO);
 	close(data->pipe_fd[0]);
 	if (cmdlst->next)
 		dup2(data->pipe_fd[1], STDOUT_FILENO);
 	close(data->pipe_fd[1]);
-	if (execve(data->cmd, cmdlst->param, env))
+	if (execve(data->cmd, cmdlst->param, env) == -1)
+	{
 		g_exit = 127;
+		ft_dprintf(2, "Command not found\n");
+	}
 	close (data->input_fd);
 }
 
@@ -37,6 +41,10 @@ int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	{
 		if (is_builtin(cmdlst->cmd))
 		{
+			if (data->input_fd > 2)
+				dup2(data->input_fd, STDIN_FILENO);
+			if (cmdlst->next)
+				dup2(data->pipe_fd[1], STDOUT_FILENO);
 			exec_builtin(cmdlst, cmdlst->cmd, ms);
 			close(data->pipe_fd[1]);
 			close(data->input_fd);
@@ -90,7 +98,7 @@ void	do_cmd_list(t_ms *ms)
 	tmpcmdlist = cmd_list_init(ms);
 	while (tmp)
 	{
-		if (!is_cmd++)
+		if (!is_cmd)
 			tmpcmdlist->cmd = ft_strdup(tmp->content);
 		if (!is_cmd++)
 			tmpcmdlist->param[0] = ft_strdup(tmp->content);

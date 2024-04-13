@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/13 19:58:18 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/13 21:02:49 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ char	*get_cwd(int i);
 char	*get_env(char **env, char *var_name);
 int		get_env_indice(t_ms *ms, char *var);
 void	free_exec(t_ms *ms, int is_fork, int err_code);
-int		handle_alone_var(t_ms *ms);
 
 /* ********************* */
 /*	     get_input.c	 */
