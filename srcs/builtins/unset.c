@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:18:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/09 14:47:24 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/13 12:05:09 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,18 @@ static char	**feed_env(t_ms *ms, int unset)
 	}
 	unset_env[j] = NULL;
 	return (unset_env);
+}
+
+int	get_env_indice(t_ms *ms, char *var)
+{
+	int	i;
+
+	i = 0;
+	while (ms->env[i] && ft_strncmp(ms->env[i], var, ft_strlen(var)))
+		i++;
+	if (!ms->env[i])
+		return (-1);
+	return (i);
 }
 
 char	*get_env(char **env, char *var_name)
@@ -58,7 +70,7 @@ void	unset(t_cmdlist *cmdlst, char *var, t_ms *ms)
 		return ;
 	if (var[0] == '-')
 		g_exit = 2;
-	indice = get_env_indice(ms, var);
+	indice = get_env_indice(ms, cmdlst->param[1]);
 	if (indice == -1)
 		return ;
 	new_env = feed_env(ms, indice);

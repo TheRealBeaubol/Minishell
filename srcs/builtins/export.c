@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/12 20:02:17 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/13 12:05:19 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	check_export(char *var)
 
 	tmp = var;
 	if (!var)
+		return (0);
+	if (*var == '=')
 		return (0);
 	if (ft_isdigit(var[0]))
 		return (0);
@@ -72,26 +74,6 @@ void	add_to_env(char *var, t_ms *ms, char *param, int is_add)
 	}
 }
 
-char	*get_name(char *var, int *is_add)
-{
-	char	*name;
-	int		len;
-
-	len = ft_strlen_tr(var, '=');
-	if (len == (int)ft_strlen(var))
-		return (ft_strdup(var));
-	else
-	{
-		if (var[len - 1] == '+')
-		{
-			*is_add = 1;
-			len -= 1;
-		}
-		name = ft_substr(var, 0, len);
-	}
-	return (name);
-}
-
 static int	print_export(t_ms *ms)
 {
 	int		i;
@@ -105,10 +87,8 @@ static int	print_export(t_ms *ms)
 	{
 		if (ft_strchr(tab[i], '='))
 		{
-			tmp = ft_strrev(tab[i]);
-			str = ft_strjoin(ft_strrev(ft_strchr(tmp, '=')), \
-			ft_strchr(tab[i], '=') + 1, "\"", 0b001);
-			free(tmp);
+			str = ft_strjoin(ft_substr(tab[i], 0, ft_strlen_tr(tab[i], \
+		'=') + 1), tab[i] + ft_strlen_tr(tab[i], '=') + 1, "\"", 0b001);
 			tmp = ft_strjoin(str, "\"", NULL, 0b001);
 			ft_dprintf(1, "declare -x %s\n", tmp);
 			free(tmp);

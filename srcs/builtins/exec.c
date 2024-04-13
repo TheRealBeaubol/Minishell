@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/09 14:00:43 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/13 11:58:16 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	exec_builtin(t_cmdlist *cmdlst, char *cmd, t_ms *ms)
 		env(cmdlst, ms);
 	else if (!ft_strncmp(cmd, "echo", 5))
 		echo(cmdlst);
-	else if (!ft_strncmp(cmd, "export", 7))
+	else if (!ft_strncmp(cmd, "export", 7) && !cmdlst->next)
 		export(cmdlst, ms);
 	else if (!ft_strncmp(cmd, "exit", 5))
 		exit_function(cmdlst, ms);

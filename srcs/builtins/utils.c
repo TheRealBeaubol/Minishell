@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 10:16:04 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/12 17:51:11 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/13 12:05:26 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,24 @@ char	*get_cwd(int i)
 	return (NULL);
 }
 
-int	get_env_indice(t_ms *ms, char *var)
+char	*get_name(char *var, int *is_add)
 {
-	int	i;
+	char	*name;
+	int		len;
 
-	i = 0;
-	while (ms->env[i] && ft_strncmp(ms->env[i], var, ft_strlen(var)))
-		i++;
-	if (!ms->env[i])
-		return (-1);
-	return (i);
+	len = ft_strlen_tr(var, '=');
+	if (len == (int)ft_strlen(var))
+		return (ft_strdup(var));
+	else
+	{
+		if (var[len - 1] == '+')
+		{
+			*is_add = 1;
+			len -= 1;
+		}
+		name = ft_substr(var, 0, len);
+	}
+	return (name);
 }
 
 int	get_exit_code(int err_code)
