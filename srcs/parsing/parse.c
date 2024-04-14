@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/13 21:02:27 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:05:43 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,49 @@ int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
 			return (-1);
 	}
 	return (i);
+}
+
+t_cmdlist	*cmd_list_init(t_ms *ms)
+{
+	t_cmdlist	*cmdlist;
+
+	ms->cmdlist = ft_calloc(2, sizeof(t_cmdlist));
+	if (!ms->cmdlist)
+		return (NULL);
+	cmdlist = ms->cmdlist;
+	cmdlist->param = ft_calloc(2, sizeof(char *));
+	if (!cmdlist->param)
+		return (NULL);
+	cmdlist->next = NULL;
+	return (cmdlist);
+}
+
+void	do_cmd_list(t_ms *ms)
+{
+	t_cmdlist	*tmpcmdlist;
+	t_list		*tmp;
+	int			is_cmd;
+
+	is_cmd = 0;
+	tmp = ms->lst;
+	tmpcmdlist = cmd_list_init(ms);
+	while (tmp)
+	{
+		if (!is_cmd)
+			tmpcmdlist->cmd = ft_strdup(tmp->content);
+		if (!is_cmd++)
+			tmpcmdlist->param[0] = ft_strdup(tmp->content);
+		else if (ft_strncmp(tmp->content, "|", 2) == 0)
+		{
+			tmpcmdlist->next = ft_calloc(2, sizeof(t_cmdlist));
+			tmpcmdlist = tmpcmdlist->next;
+			tmpcmdlist->param = ft_calloc(2, sizeof(char *));
+			is_cmd = 0;
+		}
+		else
+			tmpcmdlist->param = ft_join_tab(tmpcmdlist->param, tmp->content);
+		tmp = tmp->next;
+	}
 }
 
 int	parse(t_ms *ms)

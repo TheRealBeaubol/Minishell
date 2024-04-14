@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:39:17 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/13 21:37:24 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:44:54 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	free_cmdlist(t_cmdlist *cmdlist)
 	}
 }
 
-char	*get_cmd(char **path, char *cmd)
+char	*get_cmd_path(char **path, char *cmd)
 {
 	char	*path_cmd;
 	int		i;
@@ -95,4 +95,32 @@ char	*get_cmd(char **path, char *cmd)
 	}
 	ft_free_tab(path);
 	return (path_cmd);
+}
+
+void	free_exec(t_ms *ms, t_pipe *data, int is_free_type)
+{
+	if (is_free_type == 1)
+	{
+		free_cmdlist(ms->cmdlist);
+		ft_free_tab(ms->env);
+		free(ms->input);
+		free(ms->prompt);
+		free(data->cmd);
+		data->cmd = NULL;
+		free(data);
+		rl_clear_history();
+		exit(g_exit);
+	}
+	else if (!is_free_type)
+	{
+		free(ms->prompt);
+		ms->prompt = get_prompt(ms);
+		free(data->cmd);
+	}
+	else if (is_free_type == 2)
+	{
+		free(ms->prompt);
+		ms->prompt = get_prompt(ms);
+		free(data);
+	}
 }

@@ -6,26 +6,30 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/13 21:21:29 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:56:24 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data)
+void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
-	if (data->input_fd > 2)
-		dup2(data->input_fd, STDIN_FILENO);
-	close(data->pipe_fd[0]);
-	if (cmdlst->next)
-		dup2(data->pipe_fd[1], STDOUT_FILENO);
-	close(data->pipe_fd[1]);
-	if (execve(data->cmd, cmdlst->param, env) == -1)
+	if (is_builtin(cmdlst->cmd))
 	{
+		dup2(data->pipe_fd[1], STDOUT_FILENO);
+		close(data->pipe_fd[0]);
+		close(data->pipe_fd[1]);
+		exec_builtin(cmdlst, cmdlst->cmd, ms);
+	}
+	else
+	{
+		dup2(data->pipe_fd[1], STDOUT_FILENO);
+		close(data->pipe_fd[0]);
+		close(data->pipe_fd[1]);
+		execve(data->cmd, cmdlst->param, env);
 		g_exit = 127;
 		ft_dprintf(2, "Command not found\n");
 	}
-	close (data->input_fd);
 }
 
 int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
@@ -33,86 +37,50 @@ int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	int		pid;
 
 	pipe(data->pipe_fd);
-	if (!data->input_fd)
-		data->input_fd = data->pipe_fd[0];
 	pid = fork();
-	data->cmd = get_cmd(grep(env), cmdlst->cmd);
+	if (ft_strchr(cmdlst->cmd, '/'))
+		data->cmd = ft_strdup(cmdlst->cmd);
+	else
+		data->cmd = get_cmd_path(grep(env), cmdlst->cmd);
 	if (pid == 0)
 	{
-		if (is_builtin(cmdlst->cmd))
-		{
-			if (data->input_fd > 2)
-				dup2(data->input_fd, STDIN_FILENO);
-			if (cmdlst->next)
-				dup2(data->pipe_fd[1], STDOUT_FILENO);
-			exec_builtin(cmdlst, cmdlst->cmd, ms);
-			close(data->pipe_fd[1]);
-			close(data->input_fd);
-		}
-		else
-			exec(env, cmdlst, data);
-		free_cmdlist(ms->cmdlist);
-		ft_free_tab(env);
-		free(ms->input);
-		free(ms->prompt);
-		free(data->cmd);
-		free(data);
-		rl_clear_history();
-		exit(g_exit);
+		exec(env, cmdlst, data, ms);
+		free_exec(ms, data, 1);
 	}
-	else
+	if (cmdlst->next)
 	{
 		close(data->pipe_fd[1]);
-		data->input_fd = dup(data->pipe_fd[0]);
+		dup2(data->pipe_fd[0], STDIN_FILENO);
 		close(data->pipe_fd[0]);
+	}
+	free_exec(ms, data, 0);
+	return (pid);
+}
+
+int	no_pipe_process(char **env, t_cmdlist *cmd, t_pipe *data, t_ms *ms)
+{
+	int		pid;
+
+	pid = fork();
+	if (ft_strchr(cmd->cmd, '/'))
+		data->cmd = ft_strdup(cmd->cmd);
+	else
+		data->cmd = get_cmd_path(grep(env), cmd->cmd);
+	if (pid == 0)
+	{
+		if (is_builtin(cmd->cmd))
+			exec_builtin(cmd, cmd->cmd, ms);
+		else
+		{
+			execve(data->cmd, cmd->param, env);
+			g_exit = 127;
+			ft_dprintf(2, "Command not found\n");
+		}
 	}
 	free(ms->prompt);
 	ms->prompt = get_prompt(ms);
 	free(data->cmd);
 	return (pid);
-}
-
-t_cmdlist	*cmd_list_init(t_ms *ms)
-{
-	t_cmdlist	*cmdlist;
-
-	ms->cmdlist = ft_calloc(2, sizeof(t_cmdlist));
-	if (!ms->cmdlist)
-		return (NULL);
-	cmdlist = ms->cmdlist;
-	cmdlist->param = ft_calloc(2, sizeof(char *));
-	if (!cmdlist->param)
-		return (NULL);
-	cmdlist->next = NULL;
-	return (cmdlist);
-}
-
-void	do_cmd_list(t_ms *ms)
-{
-	t_cmdlist	*tmpcmdlist;
-	t_list		*tmp;
-	int			is_cmd;
-
-	is_cmd = 0;
-	tmp = ms->lst;
-	tmpcmdlist = cmd_list_init(ms);
-	while (tmp)
-	{
-		if (!is_cmd)
-			tmpcmdlist->cmd = ft_strdup(tmp->content);
-		if (!is_cmd++)
-			tmpcmdlist->param[0] = ft_strdup(tmp->content);
-		else if (ft_strncmp(tmp->content, "|", 2) == 0)
-		{
-			tmpcmdlist->next = ft_calloc(2, sizeof(t_cmdlist));
-			tmpcmdlist = tmpcmdlist->next;
-			tmpcmdlist->param = ft_calloc(2, sizeof(char *));
-			is_cmd = 0;
-		}
-		else
-			tmpcmdlist->param = ft_join_tab(tmpcmdlist->param, tmp->content);
-		tmp = tmp->next;
-	}
 }
 
 void	do_pipe(t_ms *ms)
@@ -131,22 +99,19 @@ void	do_pipe(t_ms *ms)
 		return ;
 	}
 	data = ft_calloc(2, sizeof(t_pipe));
-	if (!data)
-		return ;
-	data->input_fd = 0;
 	while (tmp)
 	{
-		err_code = 0;
-		data->pid[i++] = process(ms->env, tmp, data, ms);
+		if (tmp->next)
+			data->pid[i++] = process(ms->env, tmp, data, ms);
+		else
+			data->pid[i++] = no_pipe_process(ms->env, tmp, data, ms);
 		tmp = tmp->next;
 	}
+	err_code = 0;
 	j = 0;
 	while (j < i)
 		waitpid(data->pid[j++], &err_code, 0);
 	g_exit = get_exit_code(err_code);
-	free(ms->prompt);
-	ms->prompt = get_prompt(ms);
-	close(data->input_fd);
-	free(data);
+	free_exec(ms, data, 2);
 	return ;
 }

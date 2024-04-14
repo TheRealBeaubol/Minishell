@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/13 21:02:49 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/14 13:02:55 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char	*get_name(char *var, int *is_add);
 char	*get_cwd(int i);
 char	*get_env(char **env, char *var_name);
 int		get_env_indice(t_ms *ms, char *var);
-void	free_exec(t_ms *ms, int is_fork, int err_code);
 
 /* ********************* */
 /*	     get_input.c	 */
@@ -88,8 +87,9 @@ void	do_cmd_list(t_ms *ms);
 void	do_pipe(t_ms *ms);
 int		get_exit_code(int err_code);
 int		is_builtin(char *cmd);
+void	free_exec(t_ms *ms, t_pipe *data, int is_free_type);
 int		check_pipeline(char *content);
 void	free_cmdlist(t_cmdlist *cmdlist);
-char	*get_cmd(char **path, char *cmd);
+char	*get_cmd_path(char **path, char *cmd);
 char	**grep(char **env);
 #endif
