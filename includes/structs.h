@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:15:46 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/09 14:37:13 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/14 16:00:36 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ typedef struct s_pipe
 	char	*cmd;
 	int		pipe_fd[2];
 	int		pid[1024];
-	int		input_fd;
+	int		stdin_dup;
 	int		output_fd;
 }	t_pipe;
 

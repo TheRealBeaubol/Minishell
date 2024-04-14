@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/14 13:56:24 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/14 16:06:52 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,13 @@ int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 		data->cmd = get_cmd_path(grep(env), cmdlst->cmd);
 	if (pid == 0)
 	{
+		close(data->stdin_dup);
 		exec(env, cmdlst, data, ms);
 		free_exec(ms, data, 1);
 	}
-	if (cmdlst->next)
-	{
-		close(data->pipe_fd[1]);
-		dup2(data->pipe_fd[0], STDIN_FILENO);
-		close(data->pipe_fd[0]);
-	}
+	close(data->pipe_fd[1]);
+	dup2(data->pipe_fd[0], STDIN_FILENO);
+	close(data->pipe_fd[0]);
 	free_exec(ms, data, 0);
 	return (pid);
 }
@@ -68,6 +66,7 @@ int	no_pipe_process(char **env, t_cmdlist *cmd, t_pipe *data, t_ms *ms)
 		data->cmd = get_cmd_path(grep(env), cmd->cmd);
 	if (pid == 0)
 	{
+		close(data->stdin_dup);
 		if (is_builtin(cmd->cmd))
 			exec_builtin(cmd, cmd->cmd, ms);
 		else
@@ -76,6 +75,7 @@ int	no_pipe_process(char **env, t_cmdlist *cmd, t_pipe *data, t_ms *ms)
 			g_exit = 127;
 			ft_dprintf(2, "Command not found\n");
 		}
+		exit(g_exit);
 	}
 	free(ms->prompt);
 	ms->prompt = get_prompt(ms);
@@ -99,6 +99,7 @@ void	do_pipe(t_ms *ms)
 		return ;
 	}
 	data = ft_calloc(2, sizeof(t_pipe));
+	data->stdin_dup = dup(STDIN_FILENO);
 	while (tmp)
 	{
 		if (tmp->next)
@@ -107,6 +108,8 @@ void	do_pipe(t_ms *ms)
 			data->pid[i++] = no_pipe_process(ms->env, tmp, data, ms);
 		tmp = tmp->next;
 	}
+	dup2(data->stdin_dup, STDIN_FILENO);
+	close(data->stdin_dup);
 	err_code = 0;
 	j = 0;
 	while (j < i)
