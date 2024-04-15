@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/14 16:09:49 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/15 22:26:10 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,33 @@ int	check_input(t_ms *ms)
 	return (0);
 }
 
+void	print_cmd_list(t_ms *ms)
+{
+	t_cmdlist	*tmpcmdlist;
+	t_redirlst	*tmpredir;
+	int			i;
+
+	tmpcmdlist = ms->cmdlist;
+	i = 1;
+	while (tmpcmdlist)
+	{
+		ft_printf("Command n°[%d] -> [%s]\n", i++, tmpcmdlist->cmd);
+		ft_printf("Param -> ");
+		i = 0;
+		while (tmpcmdlist->param[i])
+			ft_printf("[%s] ", tmpcmdlist->param[i++]);
+		ft_printf("\n");
+		tmpredir = tmpcmdlist->redir;
+		while (tmpredir)
+		{
+			ft_printf("Redir -> [%d] [%s]\n", tmpredir->type, tmpredir->file);
+			tmpredir = tmpredir->next;
+		}
+		tmpcmdlist = tmpcmdlist->next;
+	}
+
+}
+
 void	get_input(t_ms *ms)
 {
 	while (1)
@@ -50,10 +77,11 @@ void	get_input(t_ms *ms)
 			else if (ms->input[0] != '\0')
 			{
 				do_cmd_list(ms);
+				print_cmd_list(ms);
 				ft_free_list(&ms->lst);
 				ms->lst = NULL;
 				signal_state_manager(1);
-				do_pipe(ms);
+				// do_pipe(ms);
 				signal_state_manager(0);
 				free_cmdlist(ms->cmdlist);
 				ms->cmdlist = NULL;

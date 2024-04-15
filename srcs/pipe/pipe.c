@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/15 14:37:32 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/15 17:26:21 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int	check_file(char *cmd)
 		g_exit = 126;
 		return (0);
 	}
-    stat(cmd, &stats);
-    if (S_ISDIR(stats.st_mode))
-    {
+	stat(cmd, &stats);
+	if (S_ISDIR(stats.st_mode))
+	{
 		ft_dprintf(2, "minishell: %s: is a directory\n", cmd);
 		g_exit = 126;
-	    return (0);
+		return (0);
 	}
 	return (1);
 }
@@ -63,7 +63,7 @@ int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 
 
 	if (ft_strchr(cmdlst->cmd, '/'))
-	{	
+	{
 		if (!check_file(cmdlst->cmd))
 			return (-1);
 		data->cmd = ft_strdup(cmdlst->cmd);

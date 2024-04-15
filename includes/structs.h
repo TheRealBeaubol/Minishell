@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:15:46 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/15 14:45:41 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/15 21:47:01 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ typedef enum e_type
 
 typedef struct s_redirlst
 {
-	t_type		type;
-	char		*file;
-	t_redirlst	*prev;
-	t_redirlst	*next;
+	t_type				type;
+	char				*file;
+	struct s_redirlst	*prev;
+	struct s_redirlst	*next;
 }	t_redirlst;
 
 typedef struct s_cmdlist
