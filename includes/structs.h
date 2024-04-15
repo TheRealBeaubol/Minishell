@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:15:46 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/14 16:00:36 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:45:41 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,28 @@ typedef struct s_pipe
 	int		output_fd;
 }	t_pipe;
 
+typedef enum e_type
+{
+	REDIR_IN,
+	REDIR_OUT,
+	HERE_DOC,
+	APPEND,
+	EMPTY
+}	t_type;
+
+typedef struct s_redirlst
+{
+	t_type		type;
+	char		*file;
+	t_redirlst	*prev;
+	t_redirlst	*next;
+}	t_redirlst;
+
 typedef struct s_cmdlist
 {
 	char				*cmd;
 	char				**param;
+	t_redirlst			*redir;
 	struct s_cmdlist	*next;
 }	t_cmdlist;
 

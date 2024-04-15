@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:13:45 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/03 17:21:03 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:18:11 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <math.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <signal.h>
 # include <termios.h>
 # include "libft.h"
