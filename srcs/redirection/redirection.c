@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/16 19:11:48 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:31:38 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int	check_outfile(char *file, int fd)
+int	check_outfile(char *file, int fd, int b)
 {
 	if (fd == -1)
 	{
@@ -22,7 +22,13 @@ int	check_outfile(char *file, int fd)
 			g_exit = 126;
 			return (0);
 		}
-		if (errno == EDQUOT)
+		if (errno == ENOENT)
+		{
+			ft_dprintf(2, "minishell: %s: Permission denied\n", file);
+			g_exit = 126;
+			return (0);
+		}
+		if (errno == EDQUOT && b)
 		{
 			ft_dprintf(2, "minishell: %s: the user's quota of disk blocks \
 or inodes on the filesystem has been exhausted \n", file);
@@ -42,7 +48,7 @@ int	redirection(t_redirlst *redir, int fd_out)
 		if (redir->type == REDIR_IN)
 		{
 			fd_in = open(redir->file, O_RDONLY);
-			if (!check_outfile(redir->file, fd_in))
+			if (!check_outfile(redir->file, fd_in, 0))
 				return (0);
 			if (redir->next)
 			{
@@ -53,7 +59,7 @@ int	redirection(t_redirlst *redir, int fd_out)
 		if (redir->type == REDIR_OUT)
 		{
 			fd_out = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (!check_outfile(redir->file, fd_out))
+			if (!check_outfile(redir->file, fd_out, 1))
 				return (0);
 			if (redir->next)
 			{
