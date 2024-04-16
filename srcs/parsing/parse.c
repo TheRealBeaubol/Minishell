@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 14:52:54 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:07:03 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,6 @@ static int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
 	return (i);
 }
 
-void	print_list(t_list *lst)
-{
-	t_list	*tmp;
-	int		i = 1;
-
-	tmp = lst;
-	while (tmp)
-	{
-		ft_printf("Numéro : %d[%s]\n", i++, tmp->content);
-		tmp = tmp->next;
-	}
-}
-
 int	parse(t_ms *ms)
 {
 	int		i;
@@ -118,4 +105,3 @@ int	parse(t_ms *ms)
 	}
 	return (0);
 }
-

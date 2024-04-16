@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/16 17:59:45 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:08:23 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	check_outfile(char *file, int fd)
 		}
 		if (errno == EDQUOT)
 		{
-			ft_dprintf(2, "minishell: %s: the  user's  quota  of  disk blocks or inodes on the filesystem has been exhausted \n", file);
+			ft_dprintf(2, "minishell: %s: the user's quota of disk blocks \
+or inodes on the filesystem has been exhausted \n", file);
 			g_exit = 127;
 			return (0);
 		}
@@ -75,15 +76,15 @@ int	redirection(t_redirlst *redir, int fd_out)
 	return (1);
 }
 
-int	here_doc(t_cmdlist *cmdlst)
-{
-	char *line;
+// int	here_doc(t_cmdlist *cmdlst)
+// {
+// 	char *line;
 
-	while (!strncmp(cmdlst->redir->file, line, ft_strlen(cmdlst->redir->file)))
-	{
-		line = readline(">");
-	}
-}
+// 	while (!strncmp(cmdlst->redir->file, line, ft_strlen(cmdlst->redir->file)))
+// 	{
+// 		line = readline(">");
+// 	}
+// }
 
 int	append(t_redirlst *redir, int fd_out)
 {
