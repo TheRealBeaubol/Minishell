@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:13:45 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/15 14:18:11 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:46:17 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <signal.h>
 # include <termios.h>
 # include "libft.h"
+# include <errno.h>
 
 # define PROMPT "\001\033[4;0m\002\001\033[1;37m\002 >"
 # define EXIT_MSG_1 "minishell: exit: %s: numeric argument required\n"

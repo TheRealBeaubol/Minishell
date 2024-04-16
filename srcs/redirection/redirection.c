@@ -6,11 +6,31 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/16 15:50:25 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:10:21 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+int	check_outfile(char *file, int fd)
+{
+	if (fd == -1)
+	{
+		if (errno == EACCES)
+		{
+			ft_dprintf(2, "minishell: %s: Permission denied\n", file);
+			g_exit = 126;
+			return (0);
+		}
+		if (errno == EDQUOT)
+		{
+			ft_dprintf(2, "minishell: %s: the  user's  quota  of  disk blocks or inodes on the filesystem has been exhausted \n", file);
+			g_exit = 127;
+			return (0);
+		}
+	}
+	return (1);
+}
 
 int	redirection(t_redirlst *redir, int fd_out)
 {
@@ -20,7 +40,8 @@ int	redirection(t_redirlst *redir, int fd_out)
 	{
 		if (redir->type == REDIR_IN)
 		{
-			check_file(redir->file);
+			if (!check_file(redir->file) && !redir->next)
+				return (0);
 			fd_in = open(redir->file, O_RDONLY);
 			if (redir->next)
 			{
@@ -30,8 +51,9 @@ int	redirection(t_redirlst *redir, int fd_out)
 		}
 		if (redir->type == REDIR_OUT)
 		{
-			check_file(redir->file);
 			fd_out = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			if (!check_outfile(redir->file, fd_out))
+				return (0);
 			if (redir->next)
 			{
 				if (redir->next->type == REDIR_OUT)
@@ -64,8 +86,14 @@ int	append(t_cmdlist *cmdlist, int fd_out)
 int	display(t_cmdlist *cmdlst, int fd_out)
 {
 	if (cmdlst->redir->type == REDIR_IN || cmdlst->redir->type == REDIR_OUT)
-		redirection(cmdlst->redir, fd_out);
+	{
+		if (!redirection(cmdlst->redir, fd_out))
+			return (0);
+	}
 	if (cmdlst->redir->type == APPEND)
-		append(cmdlst, fd_out);
+	{
+		if (!append(cmdlst, fd_out))
+			return (0);
+	}
 	return (1);
 }

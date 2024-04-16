@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 15:44:02 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:15:18 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,12 @@ void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 		if (cmdlst->redir)
 		{
 			if (cmdlst->redir->type != EMPTY)
-				display(cmdlst, data->pipe_fd[1]);
+			{
+				if (!display(cmdlst, data->pipe_fd[1]))
+				{
+					exit(g_exit);
+				}
+			}
 		}
 		if (!cmdlst->redir || cmdlst->redir->type == EMPTY)
 			close(data->pipe_fd[1]);
@@ -57,7 +62,12 @@ void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 		if (cmdlst->redir)
 		{
 			if (cmdlst->redir->type != EMPTY)
-				display(cmdlst, data->pipe_fd[1]);
+			{
+				if (!display(cmdlst, data->pipe_fd[1]))
+				{
+					exit(g_exit);
+				}
+			}
 		}
 		if (!cmdlst->redir || cmdlst->redir->type == EMPTY)
 			close(data->pipe_fd[1]);
@@ -123,7 +133,12 @@ int	no_pipe_process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 			if (cmdlst->redir)
 			{
 				if (cmdlst->redir->type != EMPTY)
-					display(cmdlst, data->pipe_fd[1]);
+				{
+					if (!display(cmdlst, data->pipe_fd[1]))
+					{
+						exit(g_exit);
+					}
+				}
 			}
 			execve(data->cmd, cmdlst->param, env);
 			g_exit = 127;
