@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 14:47:44 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:39:27 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,26 @@ void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
 	if (is_builtin(cmdlst->cmd))
 	{
-		dup2(data->pipe_fd[1], STDOUT_FILENO);
+		if (cmdlst->redir)
+		{
+			if (cmdlst->redir->type != EMPTY)
+				display(cmdlst, data->pipe_fd[1]);
+		}
+		if (!cmdlst->redir || cmdlst->redir->type == EMPTY)
+			close(data->pipe_fd[1]);
 		close(data->pipe_fd[0]);
-		close(data->pipe_fd[1]);
 		exec_builtin(cmdlst, cmdlst->cmd, ms);
 	}
 	else
 	{
-		dup2(data->pipe_fd[1], STDOUT_FILENO);
+		if (cmdlst->redir)
+		{
+			if (cmdlst->redir->type != EMPTY)
+				display(cmdlst, data->pipe_fd[1]);
+		}
+		if (!cmdlst->redir || cmdlst->redir->type == EMPTY)
+			close(data->pipe_fd[1]);
 		close(data->pipe_fd[0]);
-		close(data->pipe_fd[1]);
 		execve(data->cmd, cmdlst->param, env);
 		g_exit = 127;
 		ft_dprintf(2, "Command not found\n");
@@ -110,6 +120,11 @@ int	no_pipe_process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 			exec_builtin(cmdlst, cmdlst->cmd, ms);
 		else
 		{
+			if (cmdlst->redir)
+			{
+				if (cmdlst->redir->type == REDIR_OUT)
+					display(cmdlst, data->pipe_fd[1]);
+			}
 			execve(data->cmd, cmdlst->param, env);
 			g_exit = 127;
 			ft_dprintf(2, "Command not found\n");

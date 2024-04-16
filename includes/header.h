@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 14:48:23 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:34:20 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,8 @@ int		check_pipeline(char *content);
 void	free_cmdlist(t_cmdlist *cmdlist);
 char	*get_cmd_path(char **path, char *cmd);
 char	**grep(char **env);
+int		check_file(char *cmd);
+
+int		display(t_cmdlist *cmdlst, int fd_out);
 
 #endif

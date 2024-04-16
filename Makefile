@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/04/16 02:01:20 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/04/16 14:57:16 by mhervoch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ SRCS	= 	srcs/main.c \
 			srcs/parsing/getenv_utils.c \
 			srcs/parsing/getenv.c \
 			srcs/prompt.c \
+			srcs/redirection/redirection.c \
 			srcs/pipe/pipe.c \
 			srcs/pipe/utils.c
 # OBJECTS

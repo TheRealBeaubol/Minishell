@@ -1,0 +1,117 @@
+# **************************************************************************** #
+#                                                                              #
+#    ::::::::      :::                                                         #
+#    :+:    :+:      :+:                                           elifekaM    #
+#      +:+         +:+ +:+                                                     #
+#         +#+       +:+  +#+          >rf.24.tneduts@xuetiobl< xuetiobl :yB    #
+#            +#+   +#+#+#+#+#+                                                 #
+#              #+#    #+#          xuetiobl yb 22:00:31 51/11/3202 :detaerC    #
+#        rf.########   ###         hcovrehm yb 61:75:41 61/40/4202 :detadpU    #
+#                                                                              #
+# **************************************************************************** #
+
+# **************************************************************************** #
+#   								TCEJORP EMAN								 #
+# **************************************************************************** #
+
+llehsinim	=	EMAN
+
+# **************************************************************************** #
+#   									SDNAMMOC  								 #
+# **************************************************************************** #
+
+tfbil/.	=			RID_TFBIL
+a.tfbil/)RID_TFBIL($	 =			EMAN_TFBIL
+
+ccg@	=					CC
+g- rorreW- artxeW- llaW-	=				SGALFC
+sedulcni/)RID_TFBIL($ I- sedulcni/. I-	=				SGALFI
+p- ridkm@	=					KM
+)l- cw | c. F- perg | scrs Rl- sl llehs($	=					TPC
+)cb | ")TPC($" ohce llehs($	=				ELIF
+1	=			PMC_JORP
+fr- mr@	 =					MR
+
+
+# **************************************************************************** #
+#                                     SROLOC                                   #
+# **************************************************************************** #
+m82;5;83;1[330\ =	1_ROLOC
+m021;5;83;1[330\ =	2_ROLOC
+m042;5;83;1[330\ =	3_ROLOC
+m552;5;83;1[330\ =	4_ROLOC
+m842;5;83;1[330\ =	5_ROLOC
+m0[330\ =	TESER
+
+# **************************************************************************** #
+#                                     STNIRP                                   #
+# **************************************************************************** #
+
+# **************************************************************************** #
+#   									SECRUOS   								 #
+# **************************************************************************** #
+
+SECRUOS#
+\ c.niam/scrs	 =	SCRS
+\ c.slitu_niam/scrs			
+\ c.tupni_teg/scrs			
+\ c.slangis/scrs			
+\ c.slitu/snitliub/scrs			
+\ c.tixe/snitliub/scrs			
+\ c.dc/snitliub/scrs			
+\ c.ohce/snitliub/scrs			
+\ c.vne/snitliub/scrs			
+\ c.cexe/snitliub/scrs			
+\ c.tropxe/snitliub/scrs			
+\ c.tesnu/snitliub/scrs			
+\ c.esrap/gnisrap/scrs			
+\ c.slitu_esrap/gnisrap/scrs			
+\ c.tsl_dmc_esrap/gnisrap/scrs			
+\ c.slitu_vneteg/gnisrap/scrs			
+\ c.vneteg/gnisrap/scrs			
+\ c.tpmorp/scrs			
+\ c.noitcerider/noitcerider/scrs			
+\ c.epip/epip/scrs			
+c.slitu/epip/scrs			
+STCEJBO #
+
+sjbo.	=:	RID_SJBO
+))o.%=c.%:SCRS($ ,/)RID_SJBO($ xiferpdda($	=:		SJBO
+
+)EMAN($ :lla
+
+c.% :o.%/)RID_SJBO($
+)D@($ )KM($	
+@$ o- <$ c- )SGALFI($ )SGALFC($ )CC($	
+\ neht ;] ")ELIF($" en- ")PMC_JORP($" [ fi@	
+\ ;"r\                     <$)TESER($t\])1_ROLOC($)ELIF($)TESER($/)1_ROLOC($)PMC_JORP($)TESER($[ )1_ROLOC($ " ftnirp		
+\ esle	
+\ ;"n\n\                 <$)TESER($t\])1_ROLOC($)ELIF($)TESER($/)1_ROLOC($)PMC_JORP($)TESER($[ )1_ROLOC($ " ftnirp		
+if	
+))))1+)PMC_JORP($(($$ ohce llehs($=PMC_JORP lave($@	
+
+)SJBO($ )EMAN_TFBIL($ : )EMAN($
+)EMAN($ o- enildaerl- )EMAN_TFBIL($ )SJBO($ )SGALFI($ )SGALFC($ )CC($		
+"n\)TESER($delipmoc yllufsseccus )EMAN($)2_ROLOC($ ✅  n\n\" ftnirp@		
+"n\n\ )TESER($nur ot ydaer si )EMAN($)3_ROLOC($ 🔄  " ftnirp@		
+
+:)EMAN_TFBIL($
+"n\📖 )TESER($)EMAN_TFBIL($ gnilipmoC)3_ROLOC($ 📖  " ftnirp@		
+yrotcerid-tnirp-on-- j- )RID_TFBIL($ C- ekam@		
+"n\️🖥 )TESER($)EMAN($ gnilipmoC)3_ROLOC($  ️🖥  " ftnirp@		
+
+:naelc
+"n\)TESER($deteled neeb evah)5_ROLOC($ o.)4_ROLOC($    ️🗑 >──└)3_ROLOC($  n\   )TESER($)EMAN($m042;5;83;4;1[330\ 👾  " ftnirp@		
+)RID_SJBO($ )MR($		
+
+naelc :naelcf
+)EMAN($ )MR($		
+"n\n\)TESER($deteled neeb sah)5_ROLOC($ yranib )EMAN($)4_ROLOC($    ️🗑 >──└)3_ROLOC($  " ftnirp@		
+j- yrotcerid-tnirp-on-- )RID_TFBIL($ C- naelcf ekam@		
+
+:raelc
+raelc@	
+
+lla naelcf raelc	:er
+
+naelc lla naelcf er	:YNOHP.

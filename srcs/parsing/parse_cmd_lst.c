@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 01:01:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 14:51:49 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:17:43 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	do_cmd_list(t_ms *ms)
 			tmpcmdlist = tmpcmdlist->next;
 			tmpcmdlist->param = ft_calloc(2, sizeof(char *));
 			is_cmd = 0;
+			tmpcmdlist->redir = NULL;
 		}
 		else
 			tmpcmdlist->param = ft_join_tab(tmpcmdlist->param, tmp->content);
