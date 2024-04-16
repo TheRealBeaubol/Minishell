@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 01:01:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 15:17:43 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:36:35 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,7 @@ void	do_cmd_list(t_ms *ms)
 			tmp = tmp->next;
 		}
 		else if (!is_cmd++)
-		{
-			tmpcmdlist->cmd = ft_strdup(tmp->content);
 			tmpcmdlist->param[0] = ft_strdup(tmp->content);
-		}
 		else if (ft_strncmp(tmp->content, "|", 2) == 0)
 		{
 			tmpcmdlist->next = ft_calloc(2, sizeof(t_cmdlist));

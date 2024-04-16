@@ -6,11 +6,42 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 16:58:02 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/11 10:13:46 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:20:57 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+void	ft_free_redir_list(t_redirlst *redir)
+{
+	t_redirlst	*tmp;
+	t_redirlst	*next;
+
+	tmp = redir;
+	while (tmp)
+	{
+		free(tmp->file);
+		next = tmp->next;
+		free(tmp);
+		tmp = next;
+	}
+}
+
+void	free_cmdlist(t_cmdlist *cmdlist)
+{
+	t_cmdlist	*tmp;
+	t_cmdlist	*next;
+
+	tmp = cmdlist;
+	while (tmp)
+	{
+		ft_free_redir_list(tmp->redir);
+		ft_free_tab(tmp->param);
+		next = tmp->next;
+		free(tmp);
+		tmp = next;
+	}
+}
 
 void	free_and_exit(t_ms *ms)
 {

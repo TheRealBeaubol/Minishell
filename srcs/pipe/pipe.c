@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 17:15:18 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:47:40 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,35 +40,21 @@ int	check_file(char *cmd)
 
 void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
-	if (is_builtin(cmdlst->cmd))
+	if (is_builtin(cmdlst->param[0]))
 	{
-		if (cmdlst->redir)
-		{
-			if (cmdlst->redir->type != EMPTY)
-			{
-				if (!display(cmdlst, data->pipe_fd[1]))
-				{
-					exit(g_exit);
-				}
-			}
-		}
+		if (cmdlst->redir && cmdlst->redir->type != EMPTY \
+			&& !display(cmdlst, data->pipe_fd[1]))
+			free_exec(ms, data, 1);
 		if (!cmdlst->redir || cmdlst->redir->type == EMPTY)
 			close(data->pipe_fd[1]);
 		close(data->pipe_fd[0]);
-		exec_builtin(cmdlst, cmdlst->cmd, ms);
+		exec_builtin(cmdlst, cmdlst->param[0], ms);
 	}
 	else
 	{
-		if (cmdlst->redir)
-		{
-			if (cmdlst->redir->type != EMPTY)
-			{
-				if (!display(cmdlst, data->pipe_fd[1]))
-				{
-					exit(g_exit);
-				}
-			}
-		}
+		if (cmdlst->redir && cmdlst->redir->type != EMPTY \
+			&& !display(cmdlst, data->pipe_fd[1]))
+			free_exec(ms, data, 1);
 		if (!cmdlst->redir || cmdlst->redir->type == EMPTY)
 			close(data->pipe_fd[1]);
 		close(data->pipe_fd[0]);
@@ -82,14 +68,14 @@ int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
 	int		pid;
 
-	if (ft_strchr(cmdlst->cmd, '/'))
+	if (ft_strchr(cmdlst->param[0], '/'))
 	{
-		if (!check_file(cmdlst->cmd))
+		if (!check_file(cmdlst->param[0]))
 			return (-1);
-		data->cmd = ft_strdup(cmdlst->cmd);
+		data->cmd = ft_strdup(cmdlst->param[0]);
 	}
 	else
-		data->cmd = get_cmd_path(grep(env), cmdlst->cmd);
+		data->cmd = get_cmd_path(grep(env), cmdlst->param[0]);
 	pipe(data->pipe_fd);
 	pid = fork();
 	if (pid == 0)
@@ -109,37 +95,30 @@ int	no_pipe_process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
 	int		pid;
 
-	if (cmdlst->cmd[0] == '\0')
+	if (cmdlst->param[0][0] == '\0')
 	{
 		g_exit = 0;
 		return (-1);
 	}
-	if (ft_strchr(cmdlst->cmd, '/'))
+	if (ft_strchr(cmdlst->param[0], '/'))
 	{
-		if (!check_file(cmdlst->cmd))
+		if (!check_file(cmdlst->param[0]))
 			return (-1);
-		data->cmd = ft_strdup(cmdlst->cmd);
+		data->cmd = ft_strdup(cmdlst->param[0]);
 	}
 	else
-		data->cmd = get_cmd_path(grep(env), cmdlst->cmd);
+		data->cmd = get_cmd_path(grep(env), cmdlst->param[0]);
 	pid = fork();
 	if (pid == 0)
 	{
 		close(data->stdin_dup);
-		if (is_builtin(cmdlst->cmd))
-			exec_builtin(cmdlst, cmdlst->cmd, ms);
+		if (is_builtin(cmdlst->param[0]))
+			exec_builtin(cmdlst, cmdlst->param[0], ms);
 		else
 		{
-			if (cmdlst->redir)
-			{
-				if (cmdlst->redir->type != EMPTY)
-				{
-					if (!display(cmdlst, data->pipe_fd[1]))
-					{
-						exit(g_exit);
-					}
-				}
-			}
+			if (cmdlst->redir && cmdlst->redir->type != EMPTY \
+				&& !display(cmdlst, data->pipe_fd[1]))
+				free_exec(ms, data, 1);
 			execve(data->cmd, cmdlst->param, env);
 			g_exit = 127;
 			ft_dprintf(2, "Command not found\n");
@@ -162,9 +141,9 @@ void	do_pipe(t_ms *ms)
 
 	i = 0;
 	tmp = ms->cmdlist;
-	if (!tmp->next && is_builtin(tmp->cmd))
+	if (!tmp->next && is_builtin(tmp->param[0]))
 	{
-		exec_builtin(tmp, tmp->cmd, ms);
+		exec_builtin(tmp, tmp->param[0], ms);
 		return ;
 	}
 	data = ft_calloc(2, sizeof(t_pipe));
