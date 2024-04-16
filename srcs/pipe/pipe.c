@@ -6,19 +6,20 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/15 17:26:21 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:47:44 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
 int	check_file(char *cmd)
 {
-	struct stat stats;
+	struct stat	stats;
 
 	if (access(cmd, F_OK) == -1)
 	{
 		ft_dprintf(2, "minishell: %s: No such file or directory\n", cmd);
-		g_exit = 127	;
+		g_exit = 127;
 		return (0);
 	}
 	if (access(cmd, X_OK) == -1)
@@ -61,7 +62,6 @@ int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
 	int		pid;
 
-
 	if (ft_strchr(cmdlst->cmd, '/'))
 	{
 		if (!check_file(cmdlst->cmd))
@@ -88,7 +88,6 @@ int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 int	no_pipe_process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
 	int		pid;
-
 
 	if (cmdlst->cmd[0] == '\0')
 	{

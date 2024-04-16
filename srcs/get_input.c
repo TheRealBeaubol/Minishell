@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 14:32:49 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:48:20 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,7 @@ void	get_input(t_ms *ms)
 				ft_dprintf(2, "Parsing Error\n");
 			}
 			else if (ms->input[0] != '\0')
-			{
-				do_cmd_list(ms);
-				ft_free_list(&ms->lst);
-				ms->lst = NULL;
-				signal_state_manager(1);
-				do_pipe(ms);
-				signal_state_manager(0);
-				free_cmdlist(ms->cmdlist);
-				ms->cmdlist = NULL;
-			}
+				init_and_launch_exec(ms);
 		}
 		free(ms->input);
 		ms->input = NULL;

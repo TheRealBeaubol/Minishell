@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 02:17:01 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:48:23 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	exit_function(t_cmdlist *cmdlst, t_ms *ms);
 int		check_export(char *var);
 int		is_in_env(char *var, t_ms *ms);
 char	*get_name(char *var, int *is_add);
+void	init_and_launch_exec(t_ms *ms);
 
 /* ********************* */
 /*		  utils.c		 */

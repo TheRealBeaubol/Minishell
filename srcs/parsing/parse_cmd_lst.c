@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 01:01:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 01:04:32 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:51:49 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,14 @@ static t_redirlst	*ft_redir_list(t_redirlst *redir, char *type, char *file)
 	return (redir);
 }
 
+int	is_redir(char *content)
+{
+	return (!ft_strncmp(content, "<", 2) || \
+	!ft_strncmp(content, ">", 2) || \
+	!ft_strncmp(content, "<<", 3) || \
+	!ft_strncmp(content, ">>", 3));
+}
+
 void	do_cmd_list(t_ms *ms)
 {
 	t_cmdlist	*tmpcmdlist;
@@ -76,21 +84,23 @@ void	do_cmd_list(t_ms *ms)
 	tmpcmdlist = cmd_list_init(ms);
 	while (tmp)
 	{
-		if (!is_cmd)
+		if (is_redir(tmp->content))
+		{
+			tmpcmdlist->redir = ft_redir_list(tmpcmdlist->redir, tmp->content, \
+				tmp->next->content);
+			tmp = tmp->next;
+		}
+		else if (!is_cmd++)
+		{
 			tmpcmdlist->cmd = ft_strdup(tmp->content);
-		if (!is_cmd++)
 			tmpcmdlist->param[0] = ft_strdup(tmp->content);
+		}
 		else if (ft_strncmp(tmp->content, "|", 2) == 0)
 		{
 			tmpcmdlist->next = ft_calloc(2, sizeof(t_cmdlist));
 			tmpcmdlist = tmpcmdlist->next;
 			tmpcmdlist->param = ft_calloc(2, sizeof(char *));
 			is_cmd = 0;
-		}
-		else if (ft_strncmp(tmp->content, "<", 2) == 0 || ft_strncmp(tmp->content, ">", 2) == 0 || ft_strncmp(tmp->content, ">>", 3) == 0 || ft_strncmp(tmp->content, "<<", 3) == 0)
-		{
-			tmpcmdlist->redir = ft_redir_list(tmpcmdlist->redir, tmp->content, tmp->next->content);
-			tmp = tmp->next;
 		}
 		else
 			tmpcmdlist->param = ft_join_tab(tmpcmdlist->param, tmp->content);

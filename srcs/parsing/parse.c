@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 14:37:17 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:52:54 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ int	parse(t_ms *ms)
 		else
 			fill_list(ms->input, &(ms->lst), i, old_i);
 	}
-	// print_list(ms->lst);
 	return (0);
 }
 
