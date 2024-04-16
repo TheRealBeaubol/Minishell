@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 15:39:27 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:44:02 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	no_pipe_process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 		{
 			if (cmdlst->redir)
 			{
-				if (cmdlst->redir->type == REDIR_OUT)
+				if (cmdlst->redir->type != EMPTY)
 					display(cmdlst, data->pipe_fd[1]);
 			}
 			execve(data->cmd, cmdlst->param, env);

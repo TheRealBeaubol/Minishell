@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/16 15:35:12 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:50:25 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,21 @@ int	redirection(t_redirlst *redir, int fd_out)
 		{
 			check_file(redir->file);
 			fd_in = open(redir->file, O_RDONLY);
-			if (redir->next->type == REDIR_IN)
-				close(fd_in);
+			if (redir->next)
+			{
+				if (redir->next->type == REDIR_IN)
+					close(fd_in);
+			}
 		}
 		if (redir->type == REDIR_OUT)
 		{
 			check_file(redir->file);
 			fd_out = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (redir->next->type == REDIR_OUT)
-				close(fd_out);
+			if (redir->next)
+			{
+				if (redir->next->type == REDIR_OUT)
+					close(fd_out);
+			}
 		}
 		redir = redir->next;
 	}
