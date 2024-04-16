@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/16 19:31:38 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:45:39 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	check_outfile(char *file, int fd, int b)
 		}
 		if (errno == ENOENT)
 		{
-			ft_dprintf(2, "minishell: %s: Permission denied\n", file);
-			g_exit = 126;
+			ft_dprintf(2, "minishell: %s: No such file or directory\n", file);
+			g_exit = 1;
 			return (0);
 		}
 		if (errno == EDQUOT && b)
@@ -95,7 +95,7 @@ int	redirection(t_redirlst *redir, int fd_out)
 int	append(t_redirlst *redir, int fd_out)
 {
 	fd_out = open(redir->file, O_APPEND | O_WRONLY | O_CREAT, 0644);
-	if (!check_outfile(redir->file, fd_out))
+	if (!check_outfile(redir->file, fd_out, 1))
 		return (0);
 	if (fd_out)
 		dup2(fd_out, STDOUT_FILENO);
