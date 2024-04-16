@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/14 13:02:55 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 02:17:01 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ char	**my_env(char **env);
 /*		  parse.c		 */
 /* ********************* */
 int		parse(t_ms *ms);
+void	add_pipe(t_ms *ms, int *i, int *old_i, int *is_pipe);
+int		add_redir_in_and_heredoc(t_ms *ms, int *i, int *old_i, int *is_pipe);
+int		add_redir_out_and_append(t_ms *ms, int *i, int *old_i, int *is_pipe);
+void	fill_list(char *input, t_list **lst, int i, int old_i);
 
 /* ********************* */
 /*		  signal.c		 */
@@ -92,4 +96,5 @@ int		check_pipeline(char *content);
 void	free_cmdlist(t_cmdlist *cmdlist);
 char	*get_cmd_path(char **path, char *cmd);
 char	**grep(char **env);
+
 #endif

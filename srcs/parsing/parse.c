@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/15 22:30:28 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 02:35:04 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	parse_quote(t_ms *ms, int i, char c)
 	return (j - 1);
 }
 
-static void	fill_list(char *input, t_list **lst, int i, int old_i)
+void	fill_list(char *input, t_list **lst, int i, int old_i)
 {
 	char	*str;
 
@@ -54,70 +54,24 @@ static void	fill_list(char *input, t_list **lst, int i, int old_i)
 	ft_lstadd_back(lst, ft_lstnew(str));
 }
 
-int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
+static int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
 {
-	int	is_double;
-
 	while (ft_iswhitespace(ms->input[i]))
 		i++;
 	*old_i = i;
-	is_double = 0;
 	while ((ms->input[i] != ' ') && ms->input[i] != '\0')
 	{
-		is_double = 0;
 		if (ms->input[i] == '"' || ms->input[i] == '\'')
 			i = parse_quote(ms, i + 1, ms->input[i]);
-		else if (ms->input[i] == '|')
+		if (ms->input[i] == '|' || ms->input[i] == '<' || ms->input[i] == '>')
 		{
-			*is_pipe = 1;
-			if (*old_i != i)
-			{
-				fill_list(ms->input, &(ms->lst), i, *old_i);
-				*old_i = i + 1;
-			}
-			ft_lstadd_back(&(ms->lst), ft_lstnew(ft_strdup("|")));
-			i++;
-			break ;
-		}
-		else if (ms->input[i] == '<')
-		{
-			*is_pipe = 1;
-			if (ms->input[i + 1] == '<')
-				is_double = 1;
-			if (*old_i != i)
-			{
-				fill_list(ms->input, &(ms->lst), i, *old_i);
-				*old_i = i + 1;
-			}
-			if (is_double == 1)
-			{
-				ft_lstadd_back(&(ms->lst), ft_lstnew(ft_strdup("<<")));
-				i++;
-			}
-			else
-				ft_lstadd_back(&(ms->lst), ft_lstnew(ft_strdup("<")));
-			i++;
-			break ;
-		}
-		else if (ms->input[i] == '>')
-		{
-			*is_pipe = 1;
-			if (ms->input[i + 1] == '>')
-				is_double = 1;
-			if (*old_i != i)
-			{
-				fill_list(ms->input, &(ms->lst), i, *old_i);
-				*old_i = i + 1;
-			}
-			if (is_double == 1)
-			{
-				ft_lstadd_back(&(ms->lst), ft_lstnew(ft_strdup(">>")));
-				i++;
-			}
-			else
-				ft_lstadd_back(&(ms->lst), ft_lstnew(ft_strdup(">")));
-			i++;
-			break ;
+			if (ms->input[i] == '|')
+				add_pipe(ms, &i, old_i, is_pipe);
+			else if (ms->input[i] == '<')
+				add_redir_in_and_heredoc(ms, &i, old_i, is_pipe);
+			else if (ms->input[i] == '>')
+				add_redir_out_and_append(ms, &i, old_i, is_pipe);
+			break;
 		}
 		else
 			i++;
@@ -127,103 +81,15 @@ int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
 	return (i);
 }
 
-t_cmdlist	*cmd_list_init(t_ms *ms)
-{
-	t_cmdlist	*cmdlist;
-
-	ms->cmdlist = ft_calloc(2, sizeof(t_cmdlist));
-	if (!ms->cmdlist)
-		return (NULL);
-	cmdlist = ms->cmdlist;
-	cmdlist->param = ft_calloc(2, sizeof(char *));
-	if (!cmdlist->param)
-		return (NULL);
-	cmdlist->next = NULL;
-	return (cmdlist);
-}
-
-int	get_redir_type(char *content)
-{
-	if (!ft_strncmp(content, "<", 2))
-		return (REDIR_IN);
-	else if (!ft_strncmp(content, ">", 2))
-		return (REDIR_OUT);
-	else if (!ft_strncmp(content, "<<", 3))
-		return (HERE_DOC);
-	else if (!ft_strncmp(content, ">>", 3))
-		return (APPEND);
-	return (EMPTY);
-}
-
-t_redirlst	*ft_redir_list(t_redirlst *redir, char *type, char *file)
-{
-	t_redirlst	*tmp;
-	t_redirlst	*new;
-
-	if (!redir)
-	{
-		redir = ft_calloc(2, sizeof(t_redirlst));
-		redir->type = get_redir_type(type);
-		redir->file = ft_strdup(file);
-		redir->next = NULL;
-		redir->prev = NULL;
-		return (redir);
-	}
-	new = ft_calloc(2, sizeof(t_redirlst));
-	new->type = get_redir_type(type);
-	new->file = ft_strdup(file);
-	tmp = redir;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
-	new->prev = tmp;
-	return (redir);
-}
-
-void	do_cmd_list(t_ms *ms)
-{
-	t_cmdlist	*tmpcmdlist;
-	t_list		*tmp;
-	int			is_cmd;
-
-	is_cmd = 0;
-	tmp = ms->lst;
-	tmpcmdlist = cmd_list_init(ms);
-	while (tmp)
-	{
-		if (!is_cmd)
-			tmpcmdlist->cmd = ft_strdup(tmp->content);
-		if (!is_cmd++)
-			tmpcmdlist->param[0] = ft_strdup(tmp->content);
-		else if (ft_strncmp(tmp->content, "|", 2) == 0)
-		{
-			tmpcmdlist->next = ft_calloc(2, sizeof(t_cmdlist));
-			tmpcmdlist = tmpcmdlist->next;
-			tmpcmdlist->param = ft_calloc(2, sizeof(char *));
-			is_cmd = 0;
-		}
-		else if (ft_strncmp(tmp->content, "<", 2) == 0 || ft_strncmp(tmp->content, ">", 2) == 0 || ft_strncmp(tmp->content, ">>", 3) == 0 || ft_strncmp(tmp->content, "<<", 3) == 0)
-		{
-			tmpcmdlist->redir = ft_redir_list(tmpcmdlist->redir, tmp->content, tmp->next->content);
-			tmp = tmp->next;
-		}
-		else
-			tmpcmdlist->param = ft_join_tab(tmpcmdlist->param, tmp->content);
-		tmp = tmp->next;
-	}
-}
-
 void	print_list(t_list *lst)
 {
 	t_list	*tmp;
-	int		i;
+	int		i = 1;
 
-	i = 1;
 	tmp = lst;
-	while (tmp != NULL)
+	while (tmp)
 	{
-		ft_printf("Element n°[%d]", i++);
-		ft_printf("	->[%s]\n", tmp->content);
+		ft_printf("Numéro : %d[%s]\n", i++, tmp->content);
 		tmp = tmp->next;
 	}
 }
@@ -248,5 +114,7 @@ int	parse(t_ms *ms)
 		else
 			fill_list(ms->input, &(ms->lst), i, old_i);
 	}
+	print_list(ms->lst);
 	return (0);
 }
+
