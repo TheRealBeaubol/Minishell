@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 02:35:04 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:37:17 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,14 @@ static int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
 				add_redir_in_and_heredoc(ms, &i, old_i, is_pipe);
 			else if (ms->input[i] == '>')
 				add_redir_out_and_append(ms, &i, old_i, is_pipe);
-			break;
+			break ;
 		}
 		else
 			i++;
 		if (i == -1)
 			return (-1);
+		if (i >= (int)ft_strlen(ms->input))
+			return ((int)ft_strlen(ms->input));
 	}
 	return (i);
 }
@@ -114,7 +116,7 @@ int	parse(t_ms *ms)
 		else
 			fill_list(ms->input, &(ms->lst), i, old_i);
 	}
-	print_list(ms->lst);
+	// print_list(ms->lst);
 	return (0);
 }
 
