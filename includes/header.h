@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 15:34:20 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:54:33 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ char	**grep(char **env);
 int		check_file(char *cmd);
 
 int		display(t_cmdlist *cmdlst, int fd_out);
+int		append(t_redirlst *redir, int fd_out);
 
 #endif
