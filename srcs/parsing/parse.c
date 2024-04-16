@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 18:07:03 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:18:05 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
 	{
 		if (ms->input[i] == '"' || ms->input[i] == '\'')
 			i = parse_quote(ms, i + 1, ms->input[i]);
-		if (ms->input[i] == '|' || ms->input[i] == '<' || ms->input[i] == '>')
+		else if (ms->input[i] == '|' || ms->input[i] == '<' || ms->input[i] == '>')
 		{
 			if (ms->input[i] == '|')
 				add_pipe(ms, &i, old_i, is_pipe);

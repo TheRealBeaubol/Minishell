@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 01:01:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 18:13:24 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:29:00 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,23 +72,6 @@ int	is_redir(char *content)
 	!ft_strncmp(content, "<<", 3) || \
 	!ft_strncmp(content, ">>", 3));
 }
-void	print_redir_list(t_cmdlist *cmdlist)
-{
-	t_redirlst	*tmp;
-
-	while (cmdlist)
-	{
-		ft_printf("cmd: %s\n", cmdlist->param[0]);
-		tmp = cmdlist->redir;
-		while (tmp)
-		{
-			ft_printf("type: %d\n", tmp->type);
-			ft_printf("file: %s\n", tmp->file);
-			tmp = tmp->next;
-		}
-		cmdlist = cmdlist->next;
-	}
-}
 
 void	do_cmd_list(t_ms *ms)
 {
@@ -121,5 +104,4 @@ void	do_cmd_list(t_ms *ms)
 			tmpcmdlist->param = ft_join_tab(tmpcmdlist->param, tmp->content);
 		tmp = tmp->next;
 	}
-	print_redir_list(ms->cmdlist);
 }

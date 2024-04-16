@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/16 18:08:23 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:11:48 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	redirection(t_redirlst *redir, int fd_out)
 	{
 		if (redir->type == REDIR_IN)
 		{
-			if (!check_file(redir->file))
-				return (0);
 			fd_in = open(redir->file, O_RDONLY);
+			if (!check_outfile(redir->file, fd_in))
+				return (0);
 			if (redir->next)
 			{
 				if (redir->next->type == REDIR_IN)

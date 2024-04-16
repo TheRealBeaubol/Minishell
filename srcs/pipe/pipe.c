@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 17:47:40 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:08:06 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int	check_file(char *cmd)
 	}
 	if (access(cmd, X_OK) == -1)
 	{
+		// ft_dprintf(2, "minishell: %s: Permission denied\n", cmd);
 		ft_dprintf(2, "minishell: %s: Permission denied\n", cmd);
+		g_exit = 126;
 		g_exit = 126;
 		return (0);
 	}
