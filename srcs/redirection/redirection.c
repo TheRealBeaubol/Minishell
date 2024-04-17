@@ -6,11 +6,25 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/16 19:45:39 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/17 20:30:15 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+int	is_last_redir(t_redirlst *redir, unsigned int type)
+{
+	t_redirlst	*tmp;
+
+	tmp = redir;
+	while (tmp)
+	{
+		if (tmp->type == type)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
 
 int	check_outfile(char *file, int fd, int b)
 {
@@ -39,46 +53,43 @@ or inodes on the filesystem has been exhausted \n", file);
 	return (1);
 }
 
-int	redirection(t_redirlst *redir, int fd_out)
+int	redirection(t_cmdlist *cmdlst)
 {
-	int	fd_in;
+	t_cmdlist	*tmp;
 
-	while (redir)
+	tmp = cmdlst;
+	while (tmp)
 	{
-		if (redir->type == REDIR_IN)
+		while (tmp->redir)
 		{
-			fd_in = open(redir->file, O_RDONLY);
-			if (!check_outfile(redir->file, fd_in, 0))
-				return (0);
-			if (redir->next)
+			if (tmp->redir->type == REDIR_IN)
 			{
-				if (redir->next->type == REDIR_IN)
-					close(fd_in);
+				tmp->fd_in = open(tmp->redir->file, O_RDONLY);
+				if (!check_outfile(tmp->redir->file, tmp->fd_in, 0))
+				{
+					tmp->fd_in = -1;
+					return (0);
+				}
+				if (tmp->redir->next && is_last_redir(tmp->redir, REDIR_IN))
+					close(tmp->fd_in);
 			}
-		}
-		if (redir->type == REDIR_OUT)
-		{
-			fd_out = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (!check_outfile(redir->file, fd_out, 1))
-				return (0);
-			if (redir->next)
+			if (tmp->redir->type == REDIR_OUT)
 			{
-				if (redir->next->type == REDIR_OUT)
-					close(fd_out);
+				tmp->fd_out = open(tmp->redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				if (!check_outfile(tmp->redir->file, tmp->fd_out, 1))
+				{
+					tmp->fd_in = 1;
+					return (0);
+				}
+				if (tmp->redir->next && is_last_redir(tmp->redir, REDIR_OUT))
+					close(tmp->fd_out);
 			}
+			if (tmp->redir->type == APPEND)
+				append(tmp->redir, tmp->fd_out);
+			tmp->redir = tmp->redir->next;
 		}
-		if (redir->type == APPEND)
-			append(redir, fd_out);
-		redir = redir->next;
+		tmp = tmp->next;
 	}
-	if (fd_in)
-		dup2(fd_in, STDIN_FILENO);
-	if (fd_in > 2)
-		close(fd_in);
-	if (fd_out)
-		dup2(fd_out, STDOUT_FILENO);
-	if (fd_out > 2)
-		close(fd_out);
 	return (1);
 }
 
@@ -96,7 +107,10 @@ int	append(t_redirlst *redir, int fd_out)
 {
 	fd_out = open(redir->file, O_APPEND | O_WRONLY | O_CREAT, 0644);
 	if (!check_outfile(redir->file, fd_out, 1))
+	{
+		fd_out = -1;
 		return (0);
+	}
 	if (fd_out)
 		dup2(fd_out, STDOUT_FILENO);
 	if (fd_out > 2)
@@ -104,17 +118,4 @@ int	append(t_redirlst *redir, int fd_out)
 	return (1);
 }
 
-int	display(t_cmdlist *cmdlst, int fd_out)
-{
-	if (cmdlst->redir->type == REDIR_IN || cmdlst->redir->type == REDIR_OUT)
-	{
-		if (!redirection(cmdlst->redir, fd_out))
-			return (0);
-	}
-	if (cmdlst->redir->type == APPEND)
-	{
-		if (!append(cmdlst->redir, fd_out))
-			return (0);
-	}
-	return (1);
-}
+

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:15:46 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 17:37:09 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/17 20:19:08 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct s_redirlst
 
 typedef struct s_cmdlist
 {
+	int					fd_in;
+	int					fd_out;
 	char				**param;
 	t_redirlst			*redir;
 	struct s_cmdlist	*next;
