@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/17 20:30:15 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:07:00 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_last_redir(t_redirlst *redir, unsigned int type)
 {
 	t_redirlst	*tmp;
 
-	tmp = redir;
+	tmp = redir->next;
 	while (tmp)
 	{
 		if (tmp->type == type)
@@ -60,6 +60,8 @@ int	redirection(t_cmdlist *cmdlst)
 	tmp = cmdlst;
 	while (tmp)
 	{
+		tmp->fd_in = -1;
+		tmp->fd_out = -1;
 		while (tmp->redir)
 		{
 			if (tmp->redir->type == REDIR_IN)
@@ -70,7 +72,7 @@ int	redirection(t_cmdlist *cmdlst)
 					tmp->fd_in = -1;
 					return (0);
 				}
-				if (tmp->redir->next && is_last_redir(tmp->redir, REDIR_IN))
+				if (is_last_redir(tmp->redir, REDIR_IN))
 					close(tmp->fd_in);
 			}
 			if (tmp->redir->type == REDIR_OUT)
@@ -81,7 +83,7 @@ int	redirection(t_cmdlist *cmdlst)
 					tmp->fd_in = 1;
 					return (0);
 				}
-				if (tmp->redir->next && is_last_redir(tmp->redir, REDIR_OUT))
+				if (is_last_redir(tmp->redir, REDIR_OUT))
 					close(tmp->fd_out);
 			}
 			if (tmp->redir->type == APPEND)
