@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/18 15:07:00 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:21:03 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int	redirection(t_cmdlist *cmdlst)
 	tmp = cmdlst;
 	while (tmp)
 	{
-		tmp->fd_in = -1;
-		tmp->fd_out = -1;
+		tmp->fd_in = -2;
+		tmp->fd_out = -2;
 		while (tmp->redir)
 		{
 			if (tmp->redir->type == REDIR_IN)

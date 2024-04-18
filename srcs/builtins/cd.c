@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/12 12:24:46 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:39:05 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	handle_wrong_args(t_cmdlist *cmdlst, t_ms *ms)
 	i = handle_no_args(cmdlst, ms);
 	if (i == 0)
 		return (0);
-	if (cmdlst->param[2])
+	if (cmdlst->param[2] && cmdlst->param[2][0] != '\0')
 	{
 		g_exit = 1;
 		ft_dprintf(2, "minishell: cd: too many arguments\n");
