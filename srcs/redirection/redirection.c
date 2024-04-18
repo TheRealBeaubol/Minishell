@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/18 15:21:03 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:52:15 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ int	redirection(t_cmdlist *cmdlst)
 			{
 				tmp->fd_in = open(tmp->redir->file, O_RDONLY);
 				if (!check_outfile(tmp->redir->file, tmp->fd_in, 0))
-				{
 					tmp->fd_in = -1;
-					return (0);
-				}
 				if (is_last_redir(tmp->redir, REDIR_IN))
 					close(tmp->fd_in);
 			}
@@ -79,15 +76,15 @@ int	redirection(t_cmdlist *cmdlst)
 			{
 				tmp->fd_out = open(tmp->redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 				if (!check_outfile(tmp->redir->file, tmp->fd_out, 1))
-				{
-					tmp->fd_in = 1;
-					return (0);
-				}
+					tmp->fd_out = 1;
 				if (is_last_redir(tmp->redir, REDIR_OUT))
 					close(tmp->fd_out);
 			}
 			if (tmp->redir->type == APPEND)
-				append(tmp->redir, tmp->fd_out);
+			{
+				if (!append(tmp->redir, tmp->fd_out))
+					return (0);
+			}
 			tmp->redir = tmp->redir->next;
 		}
 		tmp = tmp->next;
@@ -113,10 +110,6 @@ int	append(t_redirlst *redir, int fd_out)
 		fd_out = -1;
 		return (0);
 	}
-	if (fd_out)
-		dup2(fd_out, STDOUT_FILENO);
-	if (fd_out > 2)
-		close(fd_out);
 	return (1);
 }
 
