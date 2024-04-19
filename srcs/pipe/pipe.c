@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 20:05:40 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 20:22:08 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,12 @@ static void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
 	if (is_builtin(cmdlst->param[0]))
 	{
-		if (cmdlst->fd_out == -1)
+		if (cmdlst->fd_out == -1 || cmdlst->fd_in == -1)
 			exit(g_exit);
 		if (cmdlst->fd_out == -2)
 			dup2(data->pipe_fd[1], STDOUT_FILENO);
 		else
 			dup2(cmdlst->fd_out, STDOUT_FILENO);
-		if (cmdlst->fd_in == -1)
-			exit(g_exit);
 		if (cmdlst->fd_in != -2)
 			dup2(cmdlst->fd_in, STDIN_FILENO);
 		if (cmdlst->fd_in > 2)
@@ -62,14 +60,12 @@ static void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	}
 	else
 	{
-		if (cmdlst->fd_out == -1)
+		if (cmdlst->fd_out == -1 || cmdlst->fd_in == -1)
 			exit(g_exit);
 		if (cmdlst->fd_out == -2)
 			dup2(data->pipe_fd[1], STDOUT_FILENO);
 		else
 			dup2(cmdlst->fd_out, STDOUT_FILENO);
-		if (cmdlst->fd_in == -1)
-			exit(g_exit);
 		if (cmdlst->fd_in != -2)
 			dup2(cmdlst->fd_in, STDIN_FILENO);
 		if (cmdlst->fd_in > 2)
