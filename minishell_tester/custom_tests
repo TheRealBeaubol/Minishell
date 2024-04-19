@@ -1,0 +1,7 @@
+$PWD
+./test_files/invalid_permission
+./test_files
+cd $PWD hi
+echo "exit_code ->$? user ->$USER home -> $HOME"
+echo 'exit_code ->$? user ->$USER home -> $HOME'
+export HELLO=123 A- WORLD=456
