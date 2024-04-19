@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_list.c                                     :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 17:45:49 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 15:29:18 by lboiteux         ###   ########.fr       */
+/*   Created: 2022/06/22 17:32:45 by lalex-ku          #+#    #+#             */
+/*   Updated: 2022/06/22 17:32:50 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <fcntl.h>
+#include <stdio.h>
+#include <unistd.h>
 
-void	ft_free_list(t_list *stack)
+int	main(int argc, char const *argv[])
 {
-	t_list	*current;
-	t_list	*next;
+	int	pid;
 
-	current = stack;
-	while (current)
+	pid = fork();
+	open("infile", O_RDONLY);
+	while (1)
 	{
-		next = current->next;
-		free(current->content);
-		free(current);
-		current = next;
+		printf("Helloo miniHELL %i\n", pid);
+		sleep(1);
 	}
+	return (0);
 }

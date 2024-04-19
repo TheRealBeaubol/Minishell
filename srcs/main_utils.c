@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 16:58:02 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 17:20:57 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:29:33 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	free_and_exit(t_ms *ms)
 	rl_clear_history();
 	free(ms->input);
 	free(ms->prompt);
-	ft_free_list(&(ms->lst));
+	ft_free_list(ms->lst);
 	free_cmdlist(ms->cmdlist);
 	ft_free_tab(ms->env);
 	ft_free_tab(ms->data->cmd);

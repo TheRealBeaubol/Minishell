@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 12:58:00 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 14:53:49 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ int		check_file(char *cmd);
 
 void	append(t_cmdlist *cmdlst);
 int		redirection(t_cmdlist *cmdlst);
+t_list	*new_token(t_type type, char *content);
+void	token_addback(t_list **lst, t_type type, char *content);
 int	    check_outfile(char *file, int fd, int b);
 
 

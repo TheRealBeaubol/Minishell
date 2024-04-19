@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:46:19 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 18:01:20 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:29:38 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,11 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
+# include "../includes/structs.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 420
 # endif
-
-typedef struct s_list
-{
-	char			*content;
-	struct s_list	*next;
-}	t_list;
 
 char		**ft_join_tab(char **tab, char *str);
 long long	ft_atoll(char *nbr);
@@ -44,7 +39,7 @@ int			ft_isalnum(int c);
 char		*ft_str_lower(char *str);
 char		*ft_strcut(char *str, char *cut);
 int			ft_count_words(char *str, char charset);
-void		ft_free_list(t_list **stack);
+void		ft_free_list(t_list *stack);
 size_t		ft_strlen(char *s);
 void		*ft_memset(void *s, int c, size_t n);
 void		*ft_memcpy(void *dest, const void *src, size_t n);

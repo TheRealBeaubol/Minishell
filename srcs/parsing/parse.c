@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 14:12:52 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:24:03 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	fill_list(char *input, t_list **lst, int i, int old_i)
 	str = ft_strdup_range(input, old_i, i);
 	if (*lst == NULL)
 	{
-		*lst = ft_lstnew(str);
+		*lst = new_token(EMPTY, str);
 		return ;
 	}
-	ft_lstadd_back(lst, ft_lstnew(str));
+	token_addback(lst, EMPTY, str);
 }
 
 static int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
@@ -92,7 +92,8 @@ void	print_list(t_list *lst)
 	tmp = lst;
 	while (tmp)
 	{
-		printf("[%d] -> {%s}\n", i++, tmp->content);
+		printf("[%d] -> {%s}", i++, tmp->content);
+		printf(" %d\n", tmp->type);
 		tmp = tmp->next;
 	}
 }
@@ -117,6 +118,6 @@ int	parse(t_ms *ms)
 		else
 			fill_list(ms->input, &(ms->lst), i, old_i);
 	}
-	print_list(ms->lst);
+	// print_list(ms->lst);
 	return (0);
 }

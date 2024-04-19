@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:15:46 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/17 20:19:08 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 14:39:01 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ typedef enum e_type
 	REDIR_OUT,
 	HERE_DOC,
 	APPEND,
-	EMPTY
+	EMPTY,
+	PIPE
 }	t_type;
 
 typedef struct s_redirlst
@@ -47,6 +48,13 @@ typedef struct s_cmdlist
 	t_redirlst			*redir;
 	struct s_cmdlist	*next;
 }	t_cmdlist;
+
+typedef struct s_list
+{
+	t_type			type;
+	char			*content;
+	struct s_list	*next;
+}	t_list;
 
 typedef struct s_data
 {

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/19 12:44:26 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:00:53 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	exec_builtin(t_cmdlist *cmdlst, char *cmd, t_ms *ms)
 		env(cmdlst, ms);
 	else if (!ft_strncmp(cmd, "echo", 5))
 		echo(cmdlst);
-	else if (!ft_strncmp(cmd, "export", 7) && !cmdlst->next)
+	else if (!ft_strncmp(cmd, "export", 7))
 		export(cmdlst, ms);
 	else if (!ft_strncmp(cmd, "exit", 5))
 		exit_function(cmdlst, ms);
@@ -44,7 +44,7 @@ void	exec_builtin(t_cmdlist *cmdlst, char *cmd, t_ms *ms)
 void	init_and_launch_exec(t_ms *ms)
 {
 	do_cmd_list(ms);
-	ft_free_list(&ms->lst);
+	ft_free_list(ms->lst);
 	ms->lst = NULL;
 	signal_state_manager(1);
 	do_pipe(ms);

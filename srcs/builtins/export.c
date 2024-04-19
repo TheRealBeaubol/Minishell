@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/19 13:42:02 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:49:24 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	add_to_env(char *var, t_ms *ms, char *param, int is_add)
 	}
 }
 
-static int	print_export(t_ms *ms)
+static void	print_export(t_ms *ms)
 {
 	int		i;
 	char	*tmp;
@@ -98,7 +98,6 @@ static int	print_export(t_ms *ms)
 		i++;
 	}
 	ft_free_tab(tab);
-	return (1);
 }
 
 void	export(t_cmdlist *cmdlst, t_ms *ms)

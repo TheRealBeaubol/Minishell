@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 20:48:18 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/19 12:50:47 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:48:05 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,19 @@ static void	echo_printing(t_cmdlist *cmdlst, int n, int i)
 	while (cmdlst->param[i + 1])
 	{
 		if (cpt++ == 0)
-			ft_printf("%s", cmdlst->param[i]);
+			ft_dprintf(1, "%s", cmdlst->param[i]);
 		else
 		{
-			ft_printf(" ");
-			ft_printf("%s", cmdlst->param[i]);
+			ft_dprintf(1, " ");
+			ft_dprintf(1, "%s", cmdlst->param[i]);
 		}
 		i++;
 	}
 	if (cpt != 0)
-		ft_printf(" ");
+		ft_dprintf(1, " ");
 	ft_dprintf(1, "%s", cmdlst->param[i]);
 	if (n == 1)
-		ft_printf("\n");
+		ft_dprintf(1, "\n");
 }
 
 void	echo(t_cmdlist *cmdlst)
@@ -64,7 +64,7 @@ void	echo(t_cmdlist *cmdlst)
 	i = 1;
 	if (!cmdlst->param[i])
 	{
-		ft_printf("\n");
+		ft_dprintf(1, "\n");
 		g_exit = 0;
 		return ;
 	}
