@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 01:40:35 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/18 14:43:39 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:45:54 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	env(t_cmdlist *cmdlst, t_ms *ms)
 				ft_printf("%s\n", ms->env[i]);
 			i++;
 		}
+		g_exit = 0;
 		return ;
 	}
 	if (cmdlst->param[1][0] == '-')

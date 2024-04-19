@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/18 15:52:15 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:39:03 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	check_outfile(char *file, int fd, int b)
 		if (errno == EACCES)
 		{
 			ft_dprintf(2, "minishell: %s: Permission denied\n", file);
-			g_exit = 126;
+			g_exit = 1;
 			return (0);
 		}
 		if (errno == ENOENT)
@@ -62,29 +62,26 @@ int	redirection(t_cmdlist *cmdlst)
 	{
 		tmp->fd_in = -2;
 		tmp->fd_out = -2;
-		while (tmp->redir)
+		while (tmp->redir && tmp->fd_in != -1 && tmp->fd_out != -1)
 		{
 			if (tmp->redir->type == REDIR_IN)
 			{
 				tmp->fd_in = open(tmp->redir->file, O_RDONLY);
 				if (!check_outfile(tmp->redir->file, tmp->fd_in, 0))
 					tmp->fd_in = -1;
-				if (is_last_redir(tmp->redir, REDIR_IN))
+				if (is_last_redir(tmp->redir, REDIR_IN) && tmp->fd_in != -1)
 					close(tmp->fd_in);
 			}
 			if (tmp->redir->type == REDIR_OUT)
 			{
 				tmp->fd_out = open(tmp->redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 				if (!check_outfile(tmp->redir->file, tmp->fd_out, 1))
-					tmp->fd_out = 1;
-				if (is_last_redir(tmp->redir, REDIR_OUT))
+					tmp->fd_out = -1;
+				if (is_last_redir(tmp->redir, REDIR_OUT) && tmp->fd_out != -1)
 					close(tmp->fd_out);
 			}
 			if (tmp->redir->type == APPEND)
-			{
-				if (!append(tmp->redir, tmp->fd_out))
-					return (0);
-			}
+				append(tmp);
 			tmp->redir = tmp->redir->next;
 		}
 		tmp = tmp->next;
@@ -102,15 +99,11 @@ int	redirection(t_cmdlist *cmdlst)
 // 	}
 // }
 
-int	append(t_redirlst *redir, int fd_out)
+void	append(t_cmdlist *cmdlst)
 {
-	fd_out = open(redir->file, O_APPEND | O_WRONLY | O_CREAT, 0644);
-	if (!check_outfile(redir->file, fd_out, 1))
-	{
-		fd_out = -1;
-		return (0);
-	}
-	return (1);
+	cmdlst->fd_out = open(cmdlst->redir->file, O_APPEND | O_WRONLY | O_CREAT, 0644);
+	if (!check_outfile(cmdlst->redir->file, cmdlst->fd_out, 1))
+		cmdlst->fd_out = -1;
 }
 
 

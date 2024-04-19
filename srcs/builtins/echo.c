@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 20:48:18 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/18 14:43:29 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:50:47 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ static int	is_valid_flag(char *str)
 {
 	if (*str == '-')
 	{
+		str++;
+		if (*str == '\0')
+			return (1);
 		str++;
 		while (*str != '\0')
 		{
@@ -62,6 +65,7 @@ void	echo(t_cmdlist *cmdlst)
 	if (!cmdlst->param[i])
 	{
 		ft_printf("\n");
+		g_exit = 0;
 		return ;
 	}
 	n = 1;
@@ -74,4 +78,5 @@ void	echo(t_cmdlist *cmdlst)
 			return ;
 	}
 	echo_printing(cmdlst, n, i);
+	g_exit = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/17 20:20:15 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:58:00 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ char	*get_cmd_path(char **path, char *cmd);
 char	**grep(char **env);
 int		check_file(char *cmd);
 
+void	append(t_cmdlist *cmdlst);
 int		redirection(t_cmdlist *cmdlst);
-int		append(t_redirlst *redir, int fd_out);
 int	    check_outfile(char *file, int fd, int b);
 
 

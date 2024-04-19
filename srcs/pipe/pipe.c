@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/18 15:39:38 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:52:52 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
 	if (is_builtin(cmdlst->param[0]))
 	{
+		if (cmdlst->fd_out == -1)
+			exit(g_exit);
 		if (cmdlst->fd_out == -2)
 			dup2(data->pipe_fd[1], STDOUT_FILENO);
 		else
@@ -60,6 +62,8 @@ void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	}
 	else
 	{
+		if (cmdlst->fd_out == -1)
+			exit(g_exit);	
 		if (cmdlst->fd_out == -2)
 			dup2(data->pipe_fd[1], STDOUT_FILENO);
 		else
@@ -127,15 +131,15 @@ int	no_pipe_process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (cmdlst->fd_out != -1)
+		if (cmdlst->fd_out == -1 || cmdlst->fd_in == -1)
+			exit(g_exit); 
+		if (cmdlst->fd_out != -2)
 			dup2(cmdlst->fd_out, STDOUT_FILENO);
-		if (cmdlst->fd_in == -1)
-			exit(g_exit);
 		if (cmdlst->fd_in != -2)
 			dup2(cmdlst->fd_in, STDIN_FILENO);
 		if (is_builtin(cmdlst->param[0]))
 			exec_builtin(cmdlst, cmdlst->param[0], ms);
-		else
+		else if (cmdlst->fd_in != -1)
 		{
 			execve(data->cmd, cmdlst->param, env);
 			g_exit = 127;
@@ -160,11 +164,6 @@ void	do_pipe(t_ms *ms)
 	i = 0;
 	tmp = ms->cmdlist;
 	redirection(tmp);
-	if (!tmp->next && is_builtin(tmp->param[0]))
-	{
-		exec_builtin(tmp, tmp->param[0], ms);
-		return ;
-	}
 	data = ft_calloc(2, sizeof(t_pipe));
 	data->stdin_dup = dup(STDIN_FILENO);
 	while (tmp)
@@ -175,6 +174,7 @@ void	do_pipe(t_ms *ms)
 			data->pid[i++] = no_pipe_process(ms->env, tmp, data, ms);
 		if (data->pid[i - 1] == -1)
 		{
+			dup2(data->stdin_dup, STDIN_FILENO);
 			close(data->stdin_dup);
 			free_exec(ms, data, 2);
 			return ;

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:18:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/13 12:05:09 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:45:01 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	unset(t_cmdlist *cmdlst, char *var, t_ms *ms)
 	{
 		ft_free_tab(ms->env);
 		ms->env = new_env;
+		g_exit = 0;
 	}
 	else
 	{

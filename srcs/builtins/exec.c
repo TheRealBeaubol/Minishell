@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/18 15:36:53 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:44:26 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	exec_builtin(t_cmdlist *cmdlst, char *cmd, t_ms *ms)
 	if (!ft_strncmp(cmd, "cd", 3))
 		change_directory(cmdlst, ms);
 	else if (!ft_strncmp(cmd, "pwd", 4))
+	{
+		g_exit = 0;
 		get_cwd(1);
+	}
 	else if (!ft_strncmp(cmd, "unset", 6))
 		unset(cmdlst, cmd, ms);
 	else if (!ft_strncmp(cmd, "env", 4))
