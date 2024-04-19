@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 10:16:04 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/14 13:19:28 by lboiteux         ###   ########.fr       */
+/*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
+/*   Updated: 2024/04/19 20:04:37 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-
-char	*get_cwd(int i)
-{
-	char	cwd[65538];
-
-	if (getcwd(cwd, sizeof(cwd)))
-	{
-		if (i == 1)
-		{
-			ft_dprintf(1, "%s\n", cwd);
-			return (NULL);
-		}
-		return (ft_strdup(cwd));
-	}
-	return (NULL);
-}
 
 char	*get_name(char *var, int *is_add)
 {
@@ -46,21 +30,6 @@ char	*get_name(char *var, int *is_add)
 		name = ft_substr(var, 0, len);
 	}
 	return (name);
-}
-
-int	get_exit_code(int err_code)
-{
-	if (!WIFEXITED(err_code) && WCOREDUMP(err_code))
-	{
-		ft_dprintf(2, "Quit (core dumped)\n");
-		return (131);
-	}
-	if (WTERMSIG(err_code) == 2)
-	{
-		ft_dprintf(2, "\n");
-		return (130);
-	}
-	return (WEXITSTATUS(err_code));
 }
 
 int	is_in_env(char *var, t_ms *ms)
@@ -86,4 +55,49 @@ int	is_in_env(char *var, t_ms *ms)
 		i++;
 	}
 	return (0);
+}
+
+char	*get_cwd(int i)
+{
+	char	cwd[65538];
+
+	if (getcwd(cwd, sizeof(cwd)))
+	{
+		if (i == 1)
+		{
+			ft_dprintf(1, "%s\n", cwd);
+			return (NULL);
+		}
+		return (ft_strdup(cwd));
+	}
+	return (NULL);
+}
+
+int	is_builtin(char *cmd)
+{
+	return (!ft_strncmp(cmd, "cd", 3) || !ft_strncmp(cmd, "pwd", 4) || \
+		!ft_strncmp(cmd, "unset", 6) || !ft_strncmp(cmd, "env", 4) || \
+		!ft_strncmp(cmd, "echo", 5) || !ft_strncmp(cmd, "export", 7) || \
+		!ft_strncmp(cmd, "exit", 5));
+}
+
+void	exec_builtin(t_cmdlist *cmdlst, char *cmd, t_ms *ms)
+{
+	if (!ft_strncmp(cmd, "cd", 3))
+		change_directory(cmdlst, ms);
+	else if (!ft_strncmp(cmd, "pwd", 4))
+	{
+		g_exit = 0;
+		get_cwd(1);
+	}
+	else if (!ft_strncmp(cmd, "unset", 6))
+		unset(cmdlst, cmd, ms);
+	else if (!ft_strncmp(cmd, "env", 4))
+		env(cmdlst, ms);
+	else if (!ft_strncmp(cmd, "echo", 5))
+		echo(cmdlst);
+	else if (!ft_strncmp(cmd, "export", 7))
+		export(cmdlst, ms);
+	else if (!ft_strncmp(cmd, "exit", 5))
+		exit_function(cmdlst, ms);
 }

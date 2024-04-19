@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 01:01:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 15:33:59 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 20:05:55 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,6 @@ static t_redirlst	*ft_redir_list(t_redirlst *redir, char *type, char *file)
 	return (redir);
 }
 
-int	is_redir(t_list *tmp)
-{
-	return ((!ft_strncmp(tmp->content, "<", 2) && tmp->type == REDIR_IN ) || \
-	(!ft_strncmp(tmp->content, ">", 2) && tmp->type == REDIR_OUT ) || \
-	(!ft_strncmp(tmp->content, "<<", 3) && tmp->type == HERE_DOC ) || \
-	(!ft_strncmp(tmp->content, ">>", 3) && tmp->type == APPEND));
-}
-
 void	do_cmd_list(t_ms *ms)
 {
 	t_cmdlist	*tmpcmdlist;
@@ -84,7 +76,10 @@ void	do_cmd_list(t_ms *ms)
 	tmpcmdlist = cmd_list_init(ms);
 	while (tmp)
 	{
-		if (is_redir(tmp))
+		if ((!ft_strncmp(tmp->content, "<", 2) && tmp->type == REDIR_IN) \
+	|| (!ft_strncmp(tmp->content, ">", 2) && tmp->type == REDIR_OUT) || \
+	(!ft_strncmp(tmp->content, "<<", 3) && tmp->type == HERE_DOC) || \
+	(!ft_strncmp(tmp->content, ">>", 3) && tmp->type == APPEND))
 		{
 			tmpcmdlist->redir = ft_redir_list(tmpcmdlist->redir, tmp->content, \
 				tmp->next->content);

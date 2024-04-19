@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:29:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/19 15:49:24 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 19:28:48 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int	check_export(char *var)
+static int	check_export(char *var)
 {
 	char	*tmp;
 
@@ -30,7 +30,7 @@ int	check_export(char *var)
 		|| !ft_strncmp(tmp, "\0", 1));
 }
 
-void	edit_env(t_ms *ms, char *var, char *param, int is_add)
+static void	edit_env(t_ms *ms, char *var, char *param, int is_add)
 {
 	int	j;
 
@@ -52,7 +52,7 @@ void	edit_env(t_ms *ms, char *var, char *param, int is_add)
 	}
 }
 
-void	add_to_env(char *var, t_ms *ms, char *param, int is_add)
+static void	add_to_env(char *var, t_ms *ms, char *param, int is_add)
 {
 	char	*tmp;
 

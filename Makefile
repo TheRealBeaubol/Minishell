@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/04/19 13:49:50 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/04/19 19:58:23 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,26 +53,25 @@ RESET	= \033[0m
 
 #SOURCES
 SRCS	= 	srcs/main.c \
-			srcs/main_utils.c \
-			srcs/get_input.c \
+			srcs/free.c \
+			srcs/utils.c \
 			srcs/signals.c \
-			srcs/builtins/utils.c \
-			srcs/builtins/exit.c \
+			srcs/get_input.c \
+			srcs/redirection/redirection.c \
+			srcs/pipe/pipe.c \
+			srcs/pipe/utils.c \
+			srcs/parsing/parse_cmd_lst.c \
+			srcs/parsing/parse_lst.c \
+			srcs/parsing/utils.c \
+			srcs/env_var/getenv_utils.c \
+			srcs/env_var/getenv.c \
 			srcs/builtins/cd.c \
 			srcs/builtins/echo.c \
 			srcs/builtins/env.c \
-			srcs/builtins/exec.c \
+			srcs/builtins/exec_builtins.c \
+			srcs/builtins/exit.c \
 			srcs/builtins/export.c \
-			srcs/builtins/unset.c \
-			srcs/parsing/parse.c \
-			srcs/parsing/parse_utils.c \
-			srcs/parsing/parse_cmd_lst.c \
-			srcs/parsing/getenv_utils.c \
-			srcs/parsing/getenv.c \
-			srcs/prompt.c \
-			srcs/redirection/redirection.c \
-			srcs/pipe/pipe.c \
-			srcs/pipe/utils.c
+			srcs/builtins/unset.c
 # OBJECTS
 
 OBJS_DIR	:=	.objs

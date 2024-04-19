@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 10:18:04 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/03/19 17:27:12 by lboiteux         ###   ########.fr       */
+/*   Created: 2024/04/19 18:34:04 by lboiteux          #+#    #+#             */
+/*   Updated: 2024/04/19 19:32:52 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,24 @@ char	*get_prompt(t_ms *ms)
 	free(prompt);
 	prompt = join_custom_prompt(str, ms);
 	return (prompt);
+}
+
+char	**my_env(char **env)
+{
+	int		i;
+	char	**envp;
+
+	i = 0;
+	while (env[i])
+		i++;
+	envp = ft_calloc(i + 1, sizeof(char *));
+	if (!envp)
+	{
+		ft_dprintf(2, "ENV EMPTY ERROR\n");
+		return (NULL);
+	}
+	i = -1;
+	while (env[++i])
+		envp[i] = ft_strdup(env[i]);
+	return (envp);
 }

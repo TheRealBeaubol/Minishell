@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/19 13:39:03 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 20:05:46 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int	is_last_redir(t_redirlst *redir, unsigned int type)
+static int	is_last_redir(t_redirlst *redir, unsigned int type)
 {
 	t_redirlst	*tmp;
 
@@ -26,7 +26,7 @@ int	is_last_redir(t_redirlst *redir, unsigned int type)
 	return (0);
 }
 
-int	check_outfile(char *file, int fd, int b)
+static int	check_outfile(char *file, int fd, int b)
 {
 	if (fd == -1)
 	{
@@ -53,6 +53,14 @@ or inodes on the filesystem has been exhausted \n", file);
 	return (1);
 }
 
+static void	append(t_cmdlist *cmdlst)
+{
+	cmdlst->fd_out = open(cmdlst->redir->file, \
+		O_APPEND | O_WRONLY | O_CREAT, 0644);
+	if (!check_outfile(cmdlst->redir->file, cmdlst->fd_out, 1))
+		cmdlst->fd_out = -1;
+}
+
 int	redirection(t_cmdlist *cmdlst)
 {
 	t_cmdlist	*tmp;
@@ -74,7 +82,8 @@ int	redirection(t_cmdlist *cmdlst)
 			}
 			if (tmp->redir->type == REDIR_OUT)
 			{
-				tmp->fd_out = open(tmp->redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				tmp->fd_out = open(tmp->redir->file, \
+					O_WRONLY | O_CREAT | O_TRUNC, 0644);
 				if (!check_outfile(tmp->redir->file, tmp->fd_out, 1))
 					tmp->fd_out = -1;
 				if (is_last_redir(tmp->redir, REDIR_OUT) && tmp->fd_out != -1)
@@ -88,22 +97,3 @@ int	redirection(t_cmdlist *cmdlst)
 	}
 	return (1);
 }
-
-// int	here_doc(t_cmdlist *cmdlst)
-// {
-// 	char *line;
-
-// 	while (!strncmp(cmdlst->redir->file, line, ft_strlen(cmdlst->redir->file)))
-// 	{
-// 		line = readline(">");
-// 	}
-// }
-
-void	append(t_cmdlist *cmdlst)
-{
-	cmdlst->fd_out = open(cmdlst->redir->file, O_APPEND | O_WRONLY | O_CREAT, 0644);
-	if (!check_outfile(cmdlst->redir->file, cmdlst->fd_out, 1))
-		cmdlst->fd_out = -1;
-}
-
-

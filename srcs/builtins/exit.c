@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:35:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/12 19:59:36 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 20:04:52 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-char	*format_arg(char *arg)
+static char	*format_arg(char *arg)
 {
 	char	*new_arg;
 	int		i;
@@ -35,7 +35,7 @@ char	*format_arg(char *arg)
 	return ("b");
 }
 
-int	get_boolean(char *arg)
+static int	get_boolean(char *arg)
 {
 	if (arg[0] == 'a')
 		return (1);
@@ -44,7 +44,7 @@ int	get_boolean(char *arg)
 	return (0);
 }
 
-int	arg_len(char *arg)
+static int	arg_len(char *arg)
 {
 	int	i;
 	int	j;
@@ -66,7 +66,8 @@ int	arg_len(char *arg)
 	return (j);
 }
 
-void	print_msg_and_exit(int boolean, t_ms *ms, char *param, int exit_code)
+static void	print_msg_and_exit(\
+	int boolean, t_ms *ms, char *param, int exit_code)
 {
 	char	*arg;
 

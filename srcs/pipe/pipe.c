@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 15:46:04 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 20:05:40 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int	check_file(char *cmd)
+static int	check_file(char *cmd)
 {
 	struct stat	stats;
 
@@ -38,7 +38,7 @@ int	check_file(char *cmd)
 	return (1);
 }
 
-void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
+static void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
 	if (is_builtin(cmdlst->param[0]))
 	{
@@ -63,7 +63,7 @@ void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	else
 	{
 		if (cmdlst->fd_out == -1)
-			exit(g_exit);	
+			exit(g_exit);
 		if (cmdlst->fd_out == -2)
 			dup2(data->pipe_fd[1], STDOUT_FILENO);
 		else
@@ -84,7 +84,7 @@ void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	}
 }
 
-int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
+static int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
 	int		pid;
 
@@ -111,7 +111,8 @@ int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	return (pid);
 }
 
-int	no_pipe_process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
+static int	no_pipe_process(\
+	char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
 	int		pid;
 
@@ -132,7 +133,7 @@ int	no_pipe_process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	if (pid == 0)
 	{
 		if (cmdlst->fd_out == -1 || cmdlst->fd_in == -1)
-			exit(g_exit); 
+			exit(g_exit);
 		if (cmdlst->fd_out != -2)
 			dup2(cmdlst->fd_out, STDOUT_FILENO);
 		if (cmdlst->fd_in != -2)

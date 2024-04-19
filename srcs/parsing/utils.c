@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 01:09:41 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 14:52:28 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 19:49:07 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"	
 
-t_list	*new_token(t_type type, char *content)
+t_list	*new_element(t_type type, char *content)
 {
 	t_list	*new;
 
@@ -25,12 +25,12 @@ t_list	*new_token(t_type type, char *content)
 	return (new);
 }
 
-void	token_addback(t_list **lst, t_type type, char *content)
+void	addback_element(t_list **lst, t_type type, char *content)
 {
 	t_list	*new;
 	t_list	*tmp;
 
-	new = new_token(type, content);
+	new = new_element(type, content);
 	if (!new)
 		return ;
 	if (!*lst)
@@ -44,52 +44,17 @@ void	token_addback(t_list **lst, t_type type, char *content)
 	tmp->next = new;
 }
 
-int	add_redir_out_and_append(t_ms *ms, int *i, int *old_i, int *is_pipe)
+void	fill_list(char *input, t_list **lst, int i, int old_i)
 {
-	int	is_double;
+	char	*str;
 
-	is_double = 0;
-	*is_pipe = 1;
-	if (ms->input[*i + 1] == '>')
-		is_double = 1;
-	if (*old_i != *i)
+	str = ft_strdup_range(input, old_i, i);
+	if (*lst == NULL)
 	{
-		fill_list(ms->input, &(ms->lst), *i, *old_i);
-		*old_i = *i + 1;
+		*lst = new_element(EMPTY, str);
+		return ;
 	}
-	if (is_double == 1)
-	{
-		token_addback(&(ms->lst), APPEND, ft_strdup(">>"));
-		(*i)++;
-	}
-	else
-		token_addback(&(ms->lst), REDIR_OUT, ft_strdup(">"));
-	(*i)++;
-	return (is_double);
-}
-
-int	add_redir_in_and_heredoc(t_ms *ms, int *i, int *old_i, int *is_pipe)
-{
-	int	is_double;
-
-	is_double = 0;
-	*is_pipe = 1;
-	if (ms->input[*i + 1] == '<')
-		is_double = 1;
-	if (*old_i != *i)
-	{
-		fill_list(ms->input, &(ms->lst), *i, *old_i);
-		*old_i = *i + 1;
-	}
-	if (is_double == 1)
-	{
-		token_addback(&(ms->lst), HERE_DOC, ft_strdup("<<"));
-		(*i)++;
-	}
-	else
-		token_addback(&(ms->lst), REDIR_IN, ft_strdup("<"));
-	(*i)++;
-	return (is_double);
+	addback_element(lst, EMPTY, str);
 }
 
 void	add_pipe(t_ms *ms, int *i, int *old_i, int *is_pipe)
@@ -100,6 +65,6 @@ void	add_pipe(t_ms *ms, int *i, int *old_i, int *is_pipe)
 		fill_list(ms->input, &(ms->lst), *i, *old_i);
 		*old_i = *i + 1;
 	}
-	token_addback(&(ms->lst), PIPE, ft_strdup("|"));
+	addback_element(&(ms->lst), PIPE, ft_strdup("|"));
 	(*i)++;
 }

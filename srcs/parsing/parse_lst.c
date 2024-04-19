@@ -1,16 +1,64 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 15:24:03 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 20:05:50 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+static int	add_redir_out_and_append(t_ms *ms, int *i, int *old_i, int *is_pipe)
+{
+	int	is_double;
+
+	is_double = 0;
+	*is_pipe = 1;
+	if (ms->input[*i + 1] == '>')
+		is_double = 1;
+	if (*old_i != *i)
+	{
+		fill_list(ms->input, &(ms->lst), *i, *old_i);
+		*old_i = *i + 1;
+	}
+	if (is_double == 1)
+	{
+		addback_element(&(ms->lst), APPEND, ft_strdup(">>"));
+		(*i)++;
+	}
+	else
+		addback_element(&(ms->lst), REDIR_OUT, ft_strdup(">"));
+	(*i)++;
+	return (is_double);
+}
+
+static int	add_redir_in_and_heredoc(t_ms *ms, int *i, int *old_i, int *is_pipe)
+{
+	int	is_double;
+
+	is_double = 0;
+	*is_pipe = 1;
+	if (ms->input[*i + 1] == '<')
+		is_double = 1;
+	if (*old_i != *i)
+	{
+		fill_list(ms->input, &(ms->lst), *i, *old_i);
+		*old_i = *i + 1;
+	}
+	if (is_double == 1)
+	{
+		addback_element(&(ms->lst), HERE_DOC, ft_strdup("<<"));
+		(*i)++;
+	}
+	else
+		addback_element(&(ms->lst), REDIR_IN, ft_strdup("<"));
+	(*i)++;
+	return (is_double);
+}
 
 static int	parse_quote(t_ms *ms, int i, char c)
 {
@@ -41,19 +89,6 @@ static int	parse_quote(t_ms *ms, int i, char c)
 	return (j - 1);
 }
 
-void	fill_list(char *input, t_list **lst, int i, int old_i)
-{
-	char	*str;
-
-	str = ft_strdup_range(input, old_i, i);
-	if (*lst == NULL)
-	{
-		*lst = new_token(EMPTY, str);
-		return ;
-	}
-	token_addback(lst, EMPTY, str);
-}
-
 static int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
 {
 	while (ft_iswhitespace(ms->input[i]))
@@ -63,7 +98,8 @@ static int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
 	{
 		if (ms->input[i] == '"' || ms->input[i] == '\'')
 			i = parse_quote(ms, i + 1, ms->input[i]);
-		else if (ms->input[i] == '|' || ms->input[i] == '<' || ms->input[i] == '>')
+		else if (ms->input[i] == '|' || ms->input[i] == '<' || \
+	ms->input[i] == '>')
 		{
 			if (ms->input[i] == '|')
 				add_pipe(ms, &i, old_i, is_pipe);
@@ -81,21 +117,6 @@ static int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
 			return ((int)ft_strlen(ms->input));
 	}
 	return (i);
-}
-
-void	print_list(t_list *lst)
-{
-	t_list	*tmp;
-	int		i;
-
-	i = 1;
-	tmp = lst;
-	while (tmp)
-	{
-		printf("[%d] -> {%s}", i++, tmp->content);
-		printf(" %d\n", tmp->type);
-		tmp = tmp->next;
-	}
 }
 
 int	parse(t_ms *ms)
@@ -118,6 +139,5 @@ int	parse(t_ms *ms)
 		else
 			fill_list(ms->input, &(ms->lst), i, old_i);
 	}
-	// print_list(ms->lst);
 	return (0);
 }

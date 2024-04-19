@@ -6,11 +6,26 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:39:17 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 17:21:21 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/19 20:05:06 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+int	get_exit_code(int err_code)
+{
+	if (!WIFEXITED(err_code) && WCOREDUMP(err_code))
+	{
+		ft_dprintf(2, "Quit (core dumped)\n");
+		return (131);
+	}
+	if (WTERMSIG(err_code) == 2)
+	{
+		ft_dprintf(2, "\n");
+		return (130);
+	}
+	return (WEXITSTATUS(err_code));
+}
 
 char	**grep(char **env)
 {
@@ -29,35 +44,6 @@ char	**grep(char **env)
 	splited_path = ft_char_split(cut_split, ':');
 	free(cut_split);
 	return (splited_path);
-}
-
-int	check_pipeline(char *content)
-{
-	int		i;
-	char	c;
-
-	i = 0;
-	while (content[i])
-	{
-		if (content[i] == '"' || content[i] == '\'')
-		{
-			c = content[i++];
-			while (content[i] && content[i] != c)
-				i++;
-			if (content[i] == '\0')
-				return (1);
-		}
-		if (content[i] == '|')
-		{
-			i++;
-			while (ft_iswhitespace(content[i]))
-				i++;
-			if (content[i] == '|')
-				return (0);
-		}
-		i++;
-	}
-	return (1);
 }
 
 char	*get_cmd_path(char **path, char *cmd)
