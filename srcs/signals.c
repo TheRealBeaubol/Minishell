@@ -6,11 +6,21 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 17:24:28 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/11 10:18:38 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/20 14:54:33 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+void    heredoc_handler(int sig)
+{
+	if (sig == 2)
+	{
+		g_exit = 130;
+		ft_dprintf (1, "^C\n");
+        exit(g_exit);
+    }
+}
 
 static void	sig_ignore(int sig)
 {
@@ -33,7 +43,7 @@ static void	handle_sigint(int sig)
 void	signal_state_manager(int state)
 {
 	static struct termios	termios_data;
-	static void				(*handlers[2])(int) = {handle_sigint, sig_ignore};
+	static void				(*handlers[3])(int) = {handle_sigint, sig_ignore, heredoc_handler};
 
 	if (!state)
 		tcgetattr(0, &termios_data);

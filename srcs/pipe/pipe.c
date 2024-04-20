@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 21:26:26 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/20 14:15:30 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,8 @@ void	do_pipe(t_ms *ms)
 	i = 0;
 	tmp = ms->cmdlist;
 	redirection(tmp);
+	if (tmp->param[0] == NULL)
+		return ;
 	data = ft_calloc(2, sizeof(t_pipe));
 	data->stdin_dup = dup(STDIN_FILENO);
 	data->stdout_dup = dup(STDOUT_FILENO);

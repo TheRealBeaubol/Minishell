@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 20:06:19 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/20 14:34:39 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,15 @@ static char	check_pipeline(char *content)
 				return (1);
 			i++;
 		}
-		else if (content[i] == '|' || content[i] == '>' || content[i] == '<')
+		else if (content[i] == '|')
+		{
+			i++;
+			while (ft_iswhitespace(content[i]))
+				i++;
+			if (content[i] == '|' || !content[i])
+				return (content[i]);
+		}
+		else if (content[i] == '>' || content[i] == '<')
 		{
 			i++;
 			if ((content[i - 1] == '<' && content[i] == '<') || \
@@ -66,7 +74,8 @@ static char	check_pipeline(char *content)
 				i++;
 			while (ft_iswhitespace(content[i]))
 				i++;
-			if (content[i] == '|' || !content[i])
+			if (content[i] == '|' || content[i] == '>' || content[i] == '<'\
+				|| !content[i])
 				return (content[i]);
 		}
 		else
@@ -94,7 +103,7 @@ static int	check_input(t_ms *ms)
 			ft_dprintf(2, "bash: syntax error near unexpected token \
 `newline'\n");
 		else
-			ft_dprintf(2, "bash: syntax error near unexpected token `|'\n");
+			ft_dprintf(2, "bash: syntax error near unexpected token `%c'\n", c);
 		return (1);
 	}
 	if (is_skip(ms) == 1)
@@ -105,8 +114,6 @@ static int	check_input(t_ms *ms)
 static void	init_and_launch_exec(t_ms *ms)
 {
 	do_cmd_list(ms);
-	if (ms->cmdlist->param[0] == NULL)
-		return ;
 	ft_free_list(ms->lst);
 	ms->lst = NULL;
 	signal_state_manager(1);

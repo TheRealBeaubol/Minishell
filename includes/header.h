@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 20:03:56 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/20 13:38:18 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ void	free_exec(t_ms *ms, t_pipe *data, int is_free_type);
 /* ********************* */
 /*     redirection.c     */
 /* ********************* */
-int		redirection(t_cmdlist *cmdlst);
+void    redirection(t_cmdlist *cmdlst);
+int	    here_doc(t_cmdlist *cmdlst, t_redirlst *redir);
 #endif
