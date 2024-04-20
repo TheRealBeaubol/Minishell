@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/20 14:15:30 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/20 21:55:01 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,45 +37,63 @@ static int	check_file(char *cmd)
 	}
 	return (1);
 }
+static void	close_fds(t_cmdlist *cmdlst)
+{
+	t_cmdlist *tmp;
 
+	tmp = cmdlst;
+	while (tmp)
+	{
+		if (tmp->fd_in > 2)
+			close(tmp->fd_in);
+		if (tmp->fd_out > 2)
+			close(tmp->fd_out);
+		tmp = tmp->next;
+	}
+}
 static void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
 	if (is_builtin(cmdlst->param[0]))
 	{
-		if (cmdlst->fd_out == -1)
-			exit(g_exit);
+		close(data->pipe_fd[0]);
+		if (cmdlst->fd_out == -1 || cmdlst->fd_in == -1)
+		{
+			close(data->pipe_fd[1]);
+			close(data->stdin_dup);
+			close(data->stdout_dup);
+			free_exec(ms, data, 1);
+		}
 		if (cmdlst->fd_out == -2)
 			dup2(data->pipe_fd[1], STDOUT_FILENO);
 		else
 			dup2(cmdlst->fd_out, STDOUT_FILENO);
-		if (cmdlst->fd_in == -1)
-			exit(g_exit);
 		if (cmdlst->fd_in != -2)
 			dup2(cmdlst->fd_in, STDIN_FILENO);
-		if (cmdlst->fd_in > 2)
-			close(cmdlst->fd_in);
-		if (cmdlst->fd_out > 2)
-			close(cmdlst->fd_out);
 		close(data->pipe_fd[1]);
-		close(data->pipe_fd[0]);
+		close_fds(ms->cmdlist);
 		exec_builtin(cmdlst, cmdlst->param[0], ms);
 	}
 	else
 	{
+		ft_dprintf(2, "[%s]\n", data->cmd);
+		close(data->pipe_fd[0]);
 		if (cmdlst->fd_out == -1 || cmdlst->fd_in == -1)
-			exit(g_exit);
+		{
+			close(data->pipe_fd[1]);
+			close(data->stdin_dup);
+			close(data->stdout_dup);
+			free_exec(ms, data, 1);
+		}
 		if (cmdlst->fd_out == -2)
 			dup2(data->pipe_fd[1], STDOUT_FILENO);
 		else
 			dup2(cmdlst->fd_out, STDOUT_FILENO);
 		if (cmdlst->fd_in != -2)
 			dup2(cmdlst->fd_in, STDIN_FILENO);
-		if (cmdlst->fd_in > 2)
-			close(cmdlst->fd_in);
-		if (cmdlst->fd_out > 2)
-			close(cmdlst->fd_out);
 		close(data->pipe_fd[1]);
-		close(data->pipe_fd[0]);
+		close_fds(ms->cmdlist);
+		if (!ft_strncmp(data->cmd, "|", 1))
+			free_exec(ms, data, 1);
 		execve(data->cmd, cmdlst->param, env);
 		g_exit = 127;
 		ft_dprintf(2, "Command not found\n");
@@ -100,6 +118,8 @@ static int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	{
 		close(data->stdin_dup);
 		exec(env, cmdlst, data, ms);
+		close(data->stdin_dup);
+		close(data->stdout_dup);
 		free_exec(ms, data, 1);
 	}
 	close(data->pipe_fd[1]);
@@ -131,15 +151,24 @@ static int	no_pipe_process(\
 	if (pid == 0)
 	{
 		if (cmdlst->fd_out == -1 || cmdlst->fd_in == -1)
-			exit(g_exit);
+		{
+			close(data->stdin_dup);
+			close(data->stdout_dup);
+			free_exec(ms, data, 1);
+		}
 		if (cmdlst->fd_out != -2)
 			dup2(cmdlst->fd_out, STDOUT_FILENO);
 		if (cmdlst->fd_in != -2)
 			dup2(cmdlst->fd_in, STDIN_FILENO);
+		close_fds(ms->cmdlist);
+		close(data->stdin_dup);
+		close(data->stdout_dup);
 		if (is_builtin(cmdlst->param[0]))
 			exec_builtin(cmdlst, cmdlst->param[0], ms);
 		else if (cmdlst->fd_in != -1)
 		{
+			if (!ft_strncmp(data->cmd, "|", 1))
+				free_exec(ms, data, 1);
 			execve(data->cmd, cmdlst->param, env);
 			g_exit = 127;
 			ft_dprintf(2, "Command not found\n");
@@ -162,7 +191,7 @@ void	do_pipe(t_ms *ms)
 
 	i = 0;
 	tmp = ms->cmdlist;
-	redirection(tmp);
+	redirection(tmp, ms);
 	if (tmp->param[0] == NULL)
 		return ;
 	data = ft_calloc(2, sizeof(t_pipe));
@@ -185,6 +214,7 @@ void	do_pipe(t_ms *ms)
 		dup2(data->stdout_dup, STDOUT_FILENO);
 		close(data->stdin_dup);
 		close(data->stdout_dup);
+		free(data);
 		return ;
 	}
 	while (tmp)
@@ -196,12 +226,15 @@ void	do_pipe(t_ms *ms)
 		if (data->pid[i - 1] == -1)
 		{
 			dup2(data->stdin_dup, STDIN_FILENO);
+			dup2(data->stdin_dup, STDOUT_FILENO);
 			close(data->stdin_dup);
+			close(data->stdout_dup);
 			free_exec(ms, data, 2);
 			return ;
 		}
 		tmp = tmp->next;
 	}
+	close_fds(ms->cmdlist);
 	dup2(data->stdin_dup, STDIN_FILENO);
 	close(data->stdin_dup);
 	close(data->stdout_dup);

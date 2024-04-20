@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 19:24:08 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 20:06:02 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/20 19:34:22 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ void	free_cmdlist(t_cmdlist *cmdlist)
 	tmp = cmdlist;
 	while (tmp)
 	{
+		if (tmp->fd_in > 2)
+			close(tmp->fd_in);
+		if (tmp->fd_out > 2)
+			close(tmp->fd_out);
 		ft_free_redir_list(tmp->redir);
 		ft_free_tab(tmp->param);
 		next = tmp->next;

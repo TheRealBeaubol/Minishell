@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/19 20:45:55 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:44:59 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ static int	handle_no_args(t_cmdlist *cmdlst, t_ms *ms)
 			free(home);
 			g_exit = 1;
 			if (!home)
-				perror("minishell: cd: HOME not set\n");
+				ft_dprintf(2, "minishell: cd: HOME not set\n");
 			else
-				perror("minishell: cd: permission denied\n");
+				ft_dprintf(2, "minishell: cd: permission denied\n");
 			return (0);
 		}
 		free(home);

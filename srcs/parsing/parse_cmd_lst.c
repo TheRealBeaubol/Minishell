@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 01:01:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 21:15:14 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/20 22:07:49 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static t_redirlst	*ft_redir_list(t_redirlst *redir, char *type, char *file)
 		redir->type = get_redir_type(type);
 		redir->file = ft_strdup(file);
 		redir->next = NULL;
-		redir->prev = NULL;
 		return (redir);
 	}
 	new = ft_calloc(2, sizeof(t_redirlst));
@@ -61,7 +60,6 @@ static t_redirlst	*ft_redir_list(t_redirlst *redir, char *type, char *file)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
-	new->prev = tmp;
 	return (redir);
 }
 

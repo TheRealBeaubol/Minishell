@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:15:46 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 21:22:04 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/20 19:35:32 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_redirlst
 {
 	t_type				type;
 	char				*file;
-	struct s_redirlst	*prev;
 	struct s_redirlst	*next;
 }	t_redirlst;
 

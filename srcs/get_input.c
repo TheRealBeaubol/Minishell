@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/20 14:34:39 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/20 21:17:17 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ static int	is_skip(t_ms *ms)
 		else
 			break ;
 	}
-	i = -1;
 	if ((ms->input[0] == '!' || ms->input[0] == ':') \
 		&& ms->input[1] == '\0')
 		return (1);
-	while (ft_iswhitespace(ms->input[i]) || ms->input[i] == '|' || \
-ms->input[i] == '>' || ms->input[i] == '<' || ms->input[i] == '$')
+	i = -1;
+	while (ft_iswhitespace(ms->input[++i]) || ms->input[i] == '|' || \
+ms->input[i] == '>' || ms->input[i] == '<')
 		if (ms->input[i + 1] == '\0')
 			return (1);
 	return (0);
@@ -84,6 +84,35 @@ static char	check_pipeline(char *content)
 	return ('a');
 }
 
+static int	is_too_much_heredoc(t_ms *ms)
+{
+	int	i;
+	int	count;
+
+	count = 0;
+	i = 0;
+	while (ms->input[i])
+	{
+		if (ms->input[i] == '<')
+		{
+			i++;
+			if (ms->input[i] == '<')
+			{
+				count++;
+				i++;
+			}
+		}
+		else
+			i++;
+	}
+	if (count > 16)
+	{
+		ft_dprintf(2, "minishell: maximum here-document count exceeded\n");
+		return (1);
+	}
+	return (0);
+}
+
 static int	check_input(t_ms *ms)
 {
 	char	c;
@@ -100,12 +129,14 @@ static int	check_input(t_ms *ms)
 	{
 		g_exit = 2;
 		if (c == '\0')
-			ft_dprintf(2, "bash: syntax error near unexpected token \
+			ft_dprintf(2, "minishell: syntax error near unexpected token \
 `newline'\n");
 		else
-			ft_dprintf(2, "bash: syntax error near unexpected token `%c'\n", c);
+			ft_dprintf(2, "minishell: syntax error near unexpected token `%c'\n", c);
 		return (1);
 	}
+	if (is_too_much_heredoc(ms))
+		return (1);
 	if (is_skip(ms) == 1)
 		return (1);
 	return (0);
