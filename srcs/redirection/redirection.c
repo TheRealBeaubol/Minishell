@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/21 04:25:30 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 06:25:04 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ or inodes on the filesystem has been exhausted \n", file);
 	return (1);
 }
 
+void	init_fd(t_cmdlist *cmdlst)
+{
+	cmdlst->fd_in = -2;
+	cmdlst->fd_out = -2;
+}
+
 void	redirection(t_cmdlist *cmdlst, t_ms *ms)
 {
 	t_cmdlist	*tmp;
@@ -61,45 +67,19 @@ void	redirection(t_cmdlist *cmdlst, t_ms *ms)
 	tmp = cmdlst;
 	while (tmp)
 	{
-		tmp->fd_in = -2;
-		tmp->fd_out = -2;
+		init_fd(tmp);
 		tmpr = tmp->redir;
-		while (tmpr && tmp->fd_in != -1 && tmp->fd_out != -1 && tmp->fd_in != -3)
+		while (tmpr && tmp->fd_in != -1 && tmp->fd_out != -1 \
+				&& tmp->fd_in != -3)
 		{
 			if (tmpr->type == REDIR_IN)
-			{
-				tmp->fd_in = open(tmpr->file, O_RDONLY);
-				if (!check_outfile(tmpr->file, tmp->fd_in, 0))
-					tmp->fd_in = -1;
-				if ((is_last_redir(tmpr, REDIR_IN) || is_last_redir(tmpr, HERE_DOC)) && tmp->fd_in != -1)
-					close(tmp->fd_in);
-			}
+				do_redir_in(tmp, tmpr);
 			if (tmpr->type == HERE_DOC)
-			{
-				if (!here_doc(tmp, tmpr, ms))
-					tmp->fd_in = -3;
-				if (!check_outfile(tmpr->file, tmp->fd_in, 0))
-					tmp->fd_in = -1;
-				if ((is_last_redir(tmpr, REDIR_IN) || is_last_redir(tmpr, HERE_DOC)) && tmp->fd_in != -1)
-					close(tmp->fd_in);
-			}
+				do_here_doc(tmp, tmpr, ms);
 			if (tmpr->type == REDIR_OUT)
-			{
-				tmp->fd_out = open(tmpr->file, O_WRONLY \
-					| O_CREAT | O_TRUNC, 0644);
-				if (!check_outfile(tmpr->file, tmp->fd_out, 1))
-					tmp->fd_out = -1;
-				if ((is_last_redir(tmpr, REDIR_OUT) || is_last_redir(tmpr, APPEND)) && tmp->fd_out != -1)
-					close(tmp->fd_out);
-			}
+				do_redir_out(tmp, tmpr);
 			if (tmpr->type == APPEND)
-			{
-				tmp->fd_out = open(tmpr->file, O_APPEND | O_WRONLY | O_CREAT, 0644);
-				if (!check_outfile(tmpr->file, tmp->fd_out, 1))
-					tmp->fd_out = -1;
-				if ((is_last_redir(tmpr, REDIR_OUT) || is_last_redir(tmpr, APPEND)) && tmp->fd_out != -1)
-					close(tmp->fd_out);
-			}
+				do_append(tmp, tmpr);
 			tmpr = tmpr->next;
 		}
 		if (tmp->fd_in == -3)

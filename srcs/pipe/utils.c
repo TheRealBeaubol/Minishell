@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:39:17 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/21 05:01:14 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 06:13:34 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,24 @@ void	free_exec(t_ms *ms, t_pipe *data, int is_free_type)
 		ms->prompt = get_prompt(ms);
 		free(data);
 	}
+}
+
+void	alone_builtin(t_cmdlist *tmp, t_ms *ms, t_pipe *data)
+{
+	if (tmp->fd_out == -1 || tmp->fd_in == -1)
+		return ;
+	if (tmp->fd_out != -2)
+		dup2(tmp->fd_out, STDOUT_FILENO);
+	if (tmp->fd_in != -2)
+		dup2(tmp->fd_in, STDIN_FILENO);
+	if (tmp->fd_in > 2)
+		close(tmp->fd_in);
+	if (tmp->fd_out > 2)
+		close(tmp->fd_out);
+	exec_builtin(tmp, tmp->param[0], ms);
+	dup2(data->stdin_dup, STDIN_FILENO);
+	dup2(data->stdout_dup, STDOUT_FILENO);
+	close(data->stdin_dup);
+	close(data->stdout_dup);
+	free(data);
 }

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/21 06:08:21 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 06:29:51 by mhervoch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,26 @@ void	free_exec(t_ms *ms, t_pipe *data, int is_free_type);
 /* ********************* */
 void	redirection(t_cmdlist *cmdlst, t_ms *ms);
 int		here_doc(t_cmdlist *cmdlst, t_redirlst *redir, t_ms *ms);
+int		exec_pipe(t_ms *ms, t_cmdlist *tmp, t_pipe *data);
+void	check_pid(t_pipe *data, t_ms *ms, int i);
+int		check_redir(t_cmdlist *tmp, t_ms *ms);
+void	child_no_pipe_process(char **env, \
+		t_cmdlist *cmdlst, t_pipe *data, t_ms *ms);
+void	do_pipe_process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms);
+void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms);
+void	format_exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms);
+void	format_builtin(t_cmdlist *cmdlst, t_pipe *data, t_ms *ms);
+void	close_fds(t_cmdlist *cmdlst);
+int		no_pipe_process(\
+	char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms);
+int		process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms);
+void	alone_builtin(t_cmdlist *tmp, t_ms *ms, t_pipe *data);
+void	do_redir_out(t_cmdlist *tmp, t_redirlst *tmpr);
+void	do_here_doc(t_cmdlist *tmp, t_redirlst *tmpr, t_ms *ms);
+void	do_append(t_cmdlist *tmp, t_redirlst *tmpr);
+void	init_fd(t_cmdlist *cmdlst);
+void	do_redir_in(t_cmdlist *tmp, t_redirlst *tmpr);
+int		check_outfile(char *file, int fd, int b);
+int		is_last_redir(t_redirlst *redir, unsigned int type);
+
 #endif
