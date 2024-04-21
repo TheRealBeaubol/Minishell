@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:18:12 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/20 20:33:44 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 04:06:41 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,23 @@ char	*ft_random(void)
 	return (file);
 }
 
-void	exit_heredoc(int err_code, char *heredoc_name, t_cmdlist *cmdlst)
+int	exit_heredoc(int err_code, char *heredoc_name, t_cmdlist *cmdlst)
 {
 	int	fd;
 	int	status;
 
 	status = WEXITSTATUS(err_code);
-	if (status == 0)
-	{
-		ft_dprintf (2, "bash: warning: here-document at line 1 delimited\
- by end-of-file (wanted `%s')\n", cmdlst->redir->file);
-	}
-	if (status == 127)
+	if (status == 130)
 	{
 		unlink(heredoc_name);
 		free(heredoc_name);
-		g_exit = status;
-		return ;
+		return (0);
 	}
 	fd = open(heredoc_name, O_RDONLY);
 	unlink(heredoc_name);
 	free(heredoc_name);
 	cmdlst->fd_in = fd;
+	return (1);
 }
 
 int	here_doc(t_cmdlist *cmdlst, t_redirlst *redir, t_ms *ms)
@@ -74,7 +69,7 @@ int	here_doc(t_cmdlist *cmdlst, t_redirlst *redir, t_ms *ms)
 		rl_catch_signals = 1;
 		signal_state_manager(2);
 		line = NULL;
-		fd = open(heredoc_name, O_EXCL | O_CREAT, 0600);
+		fd = open(heredoc_name, O_EXCL | O_CREAT | O_WRONLY, 0600);
 		while (1)
 		{
 			free(line);
@@ -83,17 +78,20 @@ int	here_doc(t_cmdlist *cmdlst, t_redirlst *redir, t_ms *ms)
 				break ;
 			ft_putendl_fd(line, fd);
 		}
+		if (!line && g_exit != 130)
+			ft_dprintf (2, "bash: warning: here-document at line 1 delimited\
+ by end-of-file (wanted `%s')\n", cmdlst->redir->file);
 		free(line);
 		free(heredoc_name);
 		rl_clear_history();
-		free_cmdlist(cmdlst);
+		free_cmdlist(ms->cmdlist);
 		free(ms->prompt);
 		ft_free_tab(ms->env);
 		close(fd);
 		exit(g_exit);
 	}
 	waitpid(pid, &err_code, 0);
-	exit_heredoc(err_code, heredoc_name, cmdlst);
+	err_code = exit_heredoc(err_code, heredoc_name, cmdlst);
 	signal_state_manager(0);
-	return (1);
+	return (err_code);
 }

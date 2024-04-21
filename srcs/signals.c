@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 17:24:28 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/20 17:24:35 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 03:29:43 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void    heredoc_handler(int sig)
 		rl_replace_line("", 0);
 		close (0);
 	}
-	else
-		(void)sig;
 }
 
 static void	sig_ignore(int sig)
@@ -35,7 +33,7 @@ static void	handle_sigint(int sig)
 	if (sig == 2)
 	{
 		g_exit = 130;
-		ft_dprintf (1, "C\n");
+		ft_dprintf (1, "^C\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -48,9 +46,9 @@ void	signal_state_manager(int state)
 	static void				(*handlers[3])(int) = \
 		{handle_sigint, sig_ignore, heredoc_handler};
 
-	if (!state)
+	if (state != 1)
 		tcgetattr(0, &termios_data);
-	if (!state)
+	if (state == 1)
 		termios_data.c_lflag = termios_data.c_lflag & (~ECHOCTL);
 	else
 		termios_data.c_lflag = termios_data.c_lflag | ECHOCTL;

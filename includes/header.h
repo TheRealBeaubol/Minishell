@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/20 19:26:25 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/20 23:09:15 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,11 @@ char	*get_cwd(int i);
 /* ********************* */
 /*	      envvar.c		 */
 /* ********************* */
-int		parse_env(t_ms *ms);
-char	*get_var_name(t_ms *ms, int i);
-char	*get_new_input(t_ms *ms, int i, char *end_str, char *var_name);
-int		handle_squote_envvar(t_ms *ms, int i);
+int		parse_env(char **str, char **env);
+char	*get_var_name(char **str, int i);
+char	*get_new_input(char **str, char **env, int i, char *var_name);
+int		handle_squote_envvar(char **str, int i);
+char	*get_end_str(char **str, char *var_name, int i);
 
 /* ********************* */
 /*	     parsing.c		 */
@@ -63,6 +64,7 @@ void	add_pipe(t_ms *ms, int *i, int *old_i, int *is_pipe);
 void	fill_list(char *input, t_list **lst, int i, int old_i);
 void	addback_element(t_list **lst, t_type type, char *content);
 t_list	*new_element(t_type type, char *content);
+int 	clean_cmdlist(t_ms *ms);
 
 /* ********************* */
 /*	       pipe.c		 */

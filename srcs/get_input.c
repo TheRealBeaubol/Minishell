@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/20 21:17:17 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/20 23:16:11 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	check_pipeline(char *content)
 			while (content[i] && content[i] != c)
 				i++;
 			if (content[i] == '\0')
-				return (1);
+				return (c);
 			i++;
 		}
 		else if (content[i] == '|')
@@ -125,6 +125,11 @@ static int	check_input(t_ms *ms)
 	if (ms->input[0] != '\0')
 		add_history(ms->input);
 	c = check_pipeline(ms->input);
+	if (c == '"' || c == '\'')
+	{
+		ft_dprintf(2, "minishell: unclosed quote %c\n", c);
+		return (1);
+	}
 	if (c == '|' || c == '>' || c == '<' || c == '\0')
 	{
 		g_exit = 2;
@@ -147,9 +152,12 @@ static void	init_and_launch_exec(t_ms *ms)
 	do_cmd_list(ms);
 	ft_free_list(ms->lst);
 	ms->lst = NULL;
-	signal_state_manager(1);
-	do_pipe(ms);
-	signal_state_manager(0);
+	if (!clean_cmdlist(ms))
+	{
+		signal_state_manager(1);
+		do_pipe(ms);
+		signal_state_manager(0);
+	}
 	free_cmdlist(ms->cmdlist);
 	ms->cmdlist = NULL;
 }

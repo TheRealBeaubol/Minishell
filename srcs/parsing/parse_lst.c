@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 20:05:50 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 01:19:05 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,33 +60,12 @@ static int	add_redir_in_and_heredoc(t_ms *ms, int *i, int *old_i, int *is_pipe)
 	return (is_double);
 }
 
-static int	parse_quote(t_ms *ms, int i, char c)
+void	skip_quote(t_ms *ms, int *i, char c)
 {
-	char	*tmp;
-	char	*unquote_str;
-	int		j;
-	int		k;
-
-	tmp = ft_calloc(ft_strlen(ms->input) - 1, sizeof(char));
-	if (!tmp)
-		return (-1);
-	unquote_str = tmp;
-	j = 0;
-	k = 0;
-	while (j != i - 1)
-		tmp[k++] = ms->input[j++];
-	while (ms->input[i] != c)
-	{
-		if (ms->input[i] == '\0')
-			return (-1);
-		tmp[k++] = ms->input[i++];
-	}
-	j = i++;
-	while (ms->input[i] != '\0')
-		tmp[k++] = ms->input[i++];
-	free(ms->input);
-	ms->input = unquote_str;
-	return (j - 1);
+	(*i)++;
+	while (ms->input[*i] != c)
+		(*i)++;
+	(*i)++;
 }
 
 static int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
@@ -97,7 +76,7 @@ static int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
 	while ((ms->input[i] != ' ') && ms->input[i] != '\0')
 	{
 		if (ms->input[i] == '"' || ms->input[i] == '\'')
-			i = parse_quote(ms, i + 1, ms->input[i]);
+			skip_quote(ms, &i, ms->input[i]);
 		else if (ms->input[i] == '|' || ms->input[i] == '<' || \
 	ms->input[i] == '>')
 		{
@@ -127,8 +106,8 @@ int	parse(t_ms *ms)
 
 	is_pipe = 0;
 	i = 0;
-	if (parse_env(ms) == 1)
-		return (-1);
+	// if (parse_env(&(ms->input), ms->env) == 1)
+	// 	return (-1);
 	while (ms->input[i] != '\0')
 	{
 		i = parse_element(ms, i, &old_i, &is_pipe);

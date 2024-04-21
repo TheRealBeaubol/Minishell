@@ -6,36 +6,43 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 23:16:07 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 20:00:33 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 02:27:09 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-char	*get_new_input(t_ms *ms, int i, char *end_str, char *var_name)
+char	*get_new_input(char **str, char **env, int i, char *var_name)
 {
 	char	*input;
 	char	*var_env;
+	char	*end_str;
 	int		j;
 
+	end_str = get_end_str(str, var_name, i);
 	j = -1;
-	var_env = get_env(ms->env, var_name);
+	var_env = get_env(env, var_name);
 	input = ft_calloc((ft_strlen(end_str) + ft_strlen(var_env) + i + 1), \
 sizeof(char));
 	while (++j != i)
-		input[j] = ms->input[j];
+		input[j] = (*str)[j];
 	input = ft_strjoin(input, var_env, NULL, 0b011);
 	if (end_str)
 		input = ft_strjoin(input, end_str, NULL, 0b001);
-	free(ms->input);
-	if (input[i] == '\0')
+	free(*str);
+	free(end_str);
+	if (!*input)
+	{
 		free(var_name);
+		free(input);
+		return (ft_strdup("\026"));
+	}
 	return (input);
 }
 
-char	*get_var_name(t_ms *ms, int i)
+char	*get_var_name(char **str, int i)
 {
-	char	*str;
+	char	*var_name;
 	int		stock_i;
 	int		malloc_count;
 	int		j;
@@ -44,30 +51,30 @@ char	*get_var_name(t_ms *ms, int i)
 	malloc_count = 0;
 	stock_i = i;
 	i++;
-	if (ms->input[i] == '?')
+	if ((*str)[i] == '?')
 		return (ft_strdup("$?"));
-	if (ft_isdigit(ms->input[i]))
+	if (ft_isdigit((*str)[i]))
 		return (NULL);
-	if (!ft_isalpha(ms->input[i]) && ms->input[i] != '_')
+	if (!ft_isalpha((*str)[i]) && (*str)[i] != '_')
 		return (NULL);
-	while (ms->input[stock_i++] && (ft_isalnum(ms->input[stock_i]) || \
-ms->input[stock_i] == '_'))
+	while ((*str)[stock_i++] && (ft_isalnum((*str)[stock_i]) || \
+		(*str)[stock_i] == '_'))
 		malloc_count++;
-	str = ft_calloc((malloc_count + 3), sizeof(char));
-	if (!str)
+	var_name = ft_calloc((malloc_count + 3), sizeof(char));
+	if (!var_name)
 		return (NULL);
-	while (ft_isalnum(ms->input[i]) || ms->input[i] == '_')
-		str[j++] = ms->input[i++];
-	str[j] = '=';
-	return (str);
+	while (ft_isalnum((*str)[i]) || (*str)[i] == '_')
+		var_name[j++] = (*str)[i++];
+	var_name[j] = '=';
+	return (var_name);
 }
 
-int	handle_squote_envvar(t_ms *ms, int i)
+int	handle_squote_envvar(char **str, int i)
 {
 	i++;
-	while (ms->input[i] != '\'')
+	while ((*str)[i] != '\'')
 	{
-		if (ms->input[i] == '\0')
+		if ((*str)[i] == '\0')
 			return (-1);
 		i++;
 	}

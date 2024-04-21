@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/20 21:26:13 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 04:25:30 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	redirection(t_cmdlist *cmdlst, t_ms *ms)
 		tmp->fd_in = -2;
 		tmp->fd_out = -2;
 		tmpr = tmp->redir;
-		while (tmpr && tmp->fd_in != -1 && tmp->fd_out != -1)
+		while (tmpr && tmp->fd_in != -1 && tmp->fd_out != -1 && tmp->fd_in != -3)
 		{
 			if (tmpr->type == REDIR_IN)
 			{
@@ -76,7 +76,8 @@ void	redirection(t_cmdlist *cmdlst, t_ms *ms)
 			}
 			if (tmpr->type == HERE_DOC)
 			{
-				here_doc(tmp, tmpr, ms);
+				if (!here_doc(tmp, tmpr, ms))
+					tmp->fd_in = -3;
 				if (!check_outfile(tmpr->file, tmp->fd_in, 0))
 					tmp->fd_in = -1;
 				if ((is_last_redir(tmpr, REDIR_IN) || is_last_redir(tmpr, HERE_DOC)) && tmp->fd_in != -1)
@@ -101,6 +102,8 @@ void	redirection(t_cmdlist *cmdlst, t_ms *ms)
 			}
 			tmpr = tmpr->next;
 		}
+		if (tmp->fd_in == -3)
+			break ;
 		tmp = tmp->next;
 	}
 }

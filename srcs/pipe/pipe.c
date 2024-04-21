@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/20 21:55:01 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 04:58:36 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	close_fds(t_cmdlist *cmdlst)
 		tmp = tmp->next;
 	}
 }
+
 static void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
 	if (is_builtin(cmdlst->param[0]))
@@ -75,7 +76,6 @@ static void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	}
 	else
 	{
-		ft_dprintf(2, "[%s]\n", data->cmd);
 		close(data->pipe_fd[0]);
 		if (cmdlst->fd_out == -1 || cmdlst->fd_in == -1)
 		{
@@ -104,6 +104,11 @@ static int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
 	int		pid;
 
+	if (!cmdlst->param[0])
+	{
+		g_exit = 0;
+		return (-1);
+	}
 	if (ft_strchr(cmdlst->param[0], '/'))
 	{
 		if (!check_file(cmdlst->param[0]))
@@ -117,9 +122,8 @@ static int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	if (pid == 0)
 	{
 		close(data->stdin_dup);
-		exec(env, cmdlst, data, ms);
-		close(data->stdin_dup);
 		close(data->stdout_dup);
+		exec(env, cmdlst, data, ms);
 		free_exec(ms, data, 1);
 	}
 	close(data->pipe_fd[1]);
@@ -134,7 +138,7 @@ static int	no_pipe_process(\
 {
 	int		pid;
 
-	if (cmdlst->param[0][0] == '\0')
+	if (!cmdlst->param[0])
 	{
 		g_exit = 0;
 		return (-1);
@@ -192,6 +196,13 @@ void	do_pipe(t_ms *ms)
 	i = 0;
 	tmp = ms->cmdlist;
 	redirection(tmp, ms);
+	while (tmp)
+	{
+		if (tmp->fd_in == -3)
+			return ;
+		tmp = tmp->next;
+	}
+	tmp = ms->cmdlist;
 	if (tmp->param[0] == NULL)
 		return ;
 	data = ft_calloc(2, sizeof(t_pipe));
@@ -226,7 +237,7 @@ void	do_pipe(t_ms *ms)
 		if (data->pid[i - 1] == -1)
 		{
 			dup2(data->stdin_dup, STDIN_FILENO);
-			dup2(data->stdin_dup, STDOUT_FILENO);
+			dup2(data->stdout_dup, STDOUT_FILENO);
 			close(data->stdin_dup);
 			close(data->stdout_dup);
 			free_exec(ms, data, 2);
