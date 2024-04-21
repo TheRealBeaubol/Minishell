@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:13:45 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/16 16:46:17 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/21 05:57:39 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@
 # define EXIT_MSG_2 "minishell: exit: %s: too many arguments\n"
 # define ENV_EXIT_MSG_1 "env: invalid option -- %c\n"
 # define ENV_EXIT_MSG_2 "env: %s: No such file or directory\n"
-
+# define SYNTAX_ERROR_1 "minishell: syntax error near unexpected \
+token `newline'\n"
+# define SYNTAX_ERROR_2 "minishell: syntax error near unexpected token `%c'\n"
 #endif

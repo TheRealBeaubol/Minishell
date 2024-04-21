@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/21 05:22:05 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 05:35:08 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,14 @@ static int	add_redir_in_and_heredoc(t_ms *ms, int *i, int *old_i, int *is_pipe)
 	return (is_double);
 }
 
-void	skip_quote(t_ms *ms, int *i, char c)
+void	add_element(t_ms *ms, int *i, int *old_i, int *is_pipe)
 {
-	(*i)++;
-	while (ms->input[*i] != c)
-		(*i)++;
-	(*i)++;
+	if (ms->input[*i] == '|')
+		add_pipe(ms, i, old_i, is_pipe);
+	else if (ms->input[*i] == '<')
+		add_redir_in_and_heredoc(ms, i, old_i, is_pipe);
+	else if (ms->input[*i] == '>')
+		add_redir_out_and_append(ms, i, old_i, is_pipe);
 }
 
 static int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
@@ -80,12 +82,7 @@ static int	parse_element(t_ms *ms, int i, int *old_i, int *is_pipe)
 		else if (ms->input[i] == '|' || ms->input[i] == '<' || \
 	ms->input[i] == '>')
 		{
-			if (ms->input[i] == '|')
-				add_pipe(ms, &i, old_i, is_pipe);
-			else if (ms->input[i] == '<')
-				add_redir_in_and_heredoc(ms, &i, old_i, is_pipe);
-			else if (ms->input[i] == '>')
-				add_redir_out_and_append(ms, &i, old_i, is_pipe);
+			add_element(ms, &i, old_i, is_pipe);
 			break ;
 		}
 		else

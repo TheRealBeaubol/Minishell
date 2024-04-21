@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 01:09:41 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 19:49:07 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 05:35:11 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,13 @@ void	add_pipe(t_ms *ms, int *i, int *old_i, int *is_pipe)
 		*old_i = *i + 1;
 	}
 	addback_element(&(ms->lst), PIPE, ft_strdup("|"));
+	(*i)++;
+}
+
+void	skip_quote(t_ms *ms, int *i, char c)
+{
+	(*i)++;
+	while (ms->input[*i] != c)
+		(*i)++;
 	(*i)++;
 }

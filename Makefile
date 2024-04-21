@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/04/20 12:46:41 by lboiteux         ###   ########.fr        #
+#    Updated: 2024/04/21 06:05:42 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRCS	= 	srcs/main.c \
 			srcs/utils.c \
 			srcs/signals.c \
 			srcs/get_input.c \
+			srcs/get_input_utils.c \
 			srcs/redirection/redirection.c \
 			srcs/redirection/here_doc.c \
 			srcs/pipe/pipe.c \

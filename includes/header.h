@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/21 05:23:48 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 06:08:21 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ extern int	g_exit;
 /*	       main.c		 */
 /* ********************* */
 void	get_input(t_ms *ms);
+int		is_skip(t_ms *ms);
 char	**my_env(char **env);
+char	is_valid_pipeline(char *content);
 char	*get_prompt(t_ms *ms);
+int		is_too_much_heredoc(t_ms *ms);
 void	free_cmdlist(t_cmdlist *cmdlist);
 void	free_and_exit(t_ms *ms);
 void	signal_state_manager(int state);
@@ -64,6 +67,8 @@ void	add_pipe(t_ms *ms, int *i, int *old_i, int *is_pipe);
 void	fill_list(char *input, t_list **lst, int i, int old_i);
 void	addback_element(t_list **lst, t_type type, char *content);
 t_list	*new_element(t_type type, char *content);
+void	skip_quote(t_ms *ms, int *i, char c);
+int		clean_cmdlist(t_ms *ms);
 int		clean_cmdlist(t_ms *ms);
 
 /* ********************* */
