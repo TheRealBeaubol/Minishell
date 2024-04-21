@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/20 23:16:11 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 05:21:32 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,8 @@ static int	check_input(t_ms *ms)
 			ft_dprintf(2, "minishell: syntax error near unexpected token \
 `newline'\n");
 		else
-			ft_dprintf(2, "minishell: syntax error near unexpected token `%c'\n", c);
+			ft_dprintf(2, "minishell: syntax error near \
+unexpected token `%c'\n", c);
 		return (1);
 	}
 	if (is_too_much_heredoc(ms))

@@ -6,13 +6,13 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 17:24:28 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/21 03:29:43 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 05:21:23 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void    heredoc_handler(int sig)
+void	heredoc_handler(int sig)
 {
 	if (sig == 2)
 	{

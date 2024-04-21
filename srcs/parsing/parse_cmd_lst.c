@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 01:01:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/21 04:48:30 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 05:21:56 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int	clean_redirlist(t_redirlst *redir, char **env)
 	return (1);
 }
 
-char **ft_remove_tab(char **tab, char c)
+char	**ft_remove_tab(char **tab, char c)
 {
 	char	**new;
 	int		i;
@@ -216,4 +216,3 @@ int	clean_cmdlist(t_ms *ms)
 	}
 	return (0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 23:09:25 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/21 01:19:05 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 05:22:05 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,6 @@ int	parse(t_ms *ms)
 
 	is_pipe = 0;
 	i = 0;
-	// if (parse_env(&(ms->input), ms->env) == 1)
-	// 	return (-1);
 	while (ms->input[i] != '\0')
 	{
 		i = parse_element(ms, i, &old_i, &is_pipe);

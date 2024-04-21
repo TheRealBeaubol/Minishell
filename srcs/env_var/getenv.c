@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 00:10:52 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/21 03:11:48 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 05:23:12 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ static int	replace_var(char **str, char **env, int i)
 	end_str = get_end_str(str, var_name, i);
 	if (var_name && var_name[0] == '$' && var_name[1] == '?')
 		handle_exit_envvar(str, &i);
-	else if (var_name && var_name[ft_strlen(var_name) - !!ft_strlen(var_name)] != '=')
+	else if (var_name && var_name[ft_strlen(var_name) - \
+!!ft_strlen(var_name)] != '=')
 		*str = ft_strjoin(var_name, end_str, NULL, 0b001);
 	else
 	{

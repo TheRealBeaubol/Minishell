@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/20 23:09:15 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 05:23:48 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	add_pipe(t_ms *ms, int *i, int *old_i, int *is_pipe);
 void	fill_list(char *input, t_list **lst, int i, int old_i);
 void	addback_element(t_list **lst, t_type type, char *content);
 t_list	*new_element(t_type type, char *content);
-int 	clean_cmdlist(t_ms *ms);
+int		clean_cmdlist(t_ms *ms);
 
 /* ********************* */
 /*	       pipe.c		 */
@@ -78,6 +78,6 @@ void	free_exec(t_ms *ms, t_pipe *data, int is_free_type);
 /* ********************* */
 /*     redirection.c     */
 /* ********************* */
-void    redirection(t_cmdlist *cmdlst, t_ms *ms);
-int	    here_doc(t_cmdlist *cmdlst, t_redirlst *redir, t_ms *ms);
+void	redirection(t_cmdlist *cmdlst, t_ms *ms);
+int		here_doc(t_cmdlist *cmdlst, t_redirlst *redir, t_ms *ms);
 #endif

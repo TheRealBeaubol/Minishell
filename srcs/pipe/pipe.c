@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/21 04:58:36 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 05:23:01 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ static int	check_file(char *cmd)
 	}
 	return (1);
 }
+
 static void	close_fds(t_cmdlist *cmdlst)
 {
-	t_cmdlist *tmp;
+	t_cmdlist	*tmp;
 
 	tmp = cmdlst;
 	while (tmp)

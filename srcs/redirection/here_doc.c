@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:18:12 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/21 04:06:41 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/21 05:22:27 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int	here_doc(t_cmdlist *cmdlst, t_redirlst *redir, t_ms *ms)
 		{
 			free(line);
 			line = readline(">");
-			if (!line || (!ft_strncmp(redir->file, line, ft_strlen(redir->file) + 1)))
+			if (!line || (!ft_strncmp(redir->file, line, \
+ft_strlen(redir->file) + 1)))
 				break ;
 			ft_putendl_fd(line, fd);
 		}
