@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/21 06:21:10 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:38:54 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,9 @@ int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	int		pid;
 
 	if (!cmdlst->param[0])
-	{
 		g_exit = 0;
+	if (!cmdlst->param[0])
 		return (-1);
-	}
 	if (ft_strchr(cmdlst->param[0], '/'))
 	{
 		if (!check_file(cmdlst->param[0]))
@@ -87,10 +86,9 @@ int	no_pipe_process(\
 	int		pid;
 
 	if (!cmdlst->param[0])
-	{
 		g_exit = 0;
+	if (!cmdlst->param[0])
 		return (-1);
-	}
 	if (ft_strchr(cmdlst->param[0], '/'))
 	{
 		if (!check_file(cmdlst->param[0]))
@@ -99,6 +97,8 @@ int	no_pipe_process(\
 	}
 	else
 		data->cmd = get_cmd_path(grep(env), cmdlst->param[0]);
+	if (!data->cmd)
+		close(data->pipe_fd[0]);
 	pid = fork();
 	if (pid == 0)
 		child_no_pipe_process(env, cmdlst, data, ms);

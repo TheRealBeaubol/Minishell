@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 06:13:52 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/21 06:16:38 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:38:16 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ void	child_no_pipe_process(char **env, \
 	}
 	if (cmdlst->fd_out != -2)
 		dup2(cmdlst->fd_out, STDOUT_FILENO);
+	if (!data->cmd && !is_builtin(cmdlst->param[0]))
+	{
+		close(data->stdin_dup);
+		close(data->stdout_dup);
+		ft_dprintf(2, "minishell: %s: command not found\n", cmdlst->param[0]);
+		g_exit = 127;
+		free_exec(ms, data, 1);
+	}
 	if (cmdlst->fd_in != -2)
 		dup2(cmdlst->fd_in, STDIN_FILENO);
 	close_fds(ms->cmdlist);
@@ -92,7 +100,7 @@ void	child_no_pipe_process(char **env, \
 			free_exec(ms, data, 1);
 		execve(data->cmd, cmdlst->param, env);
 		g_exit = 127;
-		ft_dprintf(2, "Command not found\n");
+		ft_dprintf(2, "Command not found : %s\n", cmdlst->param[0]);
 	}
 	free_exec(ms, data, 1);
 }

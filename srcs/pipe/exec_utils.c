@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 06:11:36 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/21 06:19:16 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:38:02 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ void	format_exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 		dup2(data->pipe_fd[1], STDOUT_FILENO);
 	else
 		dup2(cmdlst->fd_out, STDOUT_FILENO);
+	if (!data->cmd && !is_builtin(cmdlst->param[0]))
+	{
+		ft_dprintf(2, "minishell: %s: command not found\n", cmdlst->param[0]);
+		g_exit = 127;
+		close(data->pipe_fd[1]);
+		close(data->stdin_dup);
+		close(data->stdout_dup);
+		free_exec(ms, data, 1);
+	}
 	if (cmdlst->fd_in != -2)
 		dup2(cmdlst->fd_in, STDIN_FILENO);
 	close(data->pipe_fd[1]);

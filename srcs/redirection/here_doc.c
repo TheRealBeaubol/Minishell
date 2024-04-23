@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:18:12 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/21 05:30:12 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:27:06 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ void	here_doc_process(t_cmdlist *cmdlst, t_redirlst \
 	int		fd;
 
 	rl_catch_signals = 1;
-	signal_state_manager(2);
 	line = NULL;
 	fd = open(heredoc_name, O_EXCL | O_CREAT | O_WRONLY, 0600);
 	while (1)
 	{
+		signal_state_manager(2);
 		free(line);
 		line = readline(">");
 		if (!line || (!ft_strncmp(redir->file, line, \
@@ -96,13 +96,13 @@ int	here_doc(t_cmdlist *cmdlst, t_redirlst *redir, t_ms *ms)
 	char	*heredoc_name;
 	int		err_code;
 
-	signal_state_manager(1);
 	heredoc_name = ft_random();
+	// signal_state_manager(0);
 	pid = fork();
 	if (pid == 0)
 		here_doc_process(cmdlst, redir, ms, heredoc_name);
 	waitpid(pid, &err_code, 0);
+	signal_state_manager(1);
 	err_code = exit_heredoc(err_code, heredoc_name, cmdlst);
-	signal_state_manager(0);
 	return (err_code);
 }

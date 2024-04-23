@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:18:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/19 20:04:32 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:09:19 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	unset(t_cmdlist *cmdlst, char *var, t_ms *ms)
 	int		indice;
 	char	**new_env;
 
-	if (!cmdlst->param[1])
+	if (!cmdlst->param[1] || cmdlst->next)
 		return ;
 	if (var[0] == '-')
 		g_exit = 2;

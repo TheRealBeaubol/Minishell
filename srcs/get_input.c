@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 00:20:30 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/21 06:02:40 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:56:55 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ static void	init_and_launch_exec(t_ms *ms)
 	status = clean_cmdlist(ms);
 	if (!status)
 	{
-		signal_state_manager(1);
-		do_pipe(ms);
 		signal_state_manager(0);
+		do_pipe(ms);
+		signal_state_manager(1);
 	}
 	else if (status == -1)
 		ft_dprintf(2, "minishell: env parsing error\n");
@@ -76,7 +76,7 @@ void	get_input(t_ms *ms)
 {
 	while (1)
 	{
-		signal_state_manager(0);
+		signal_state_manager(1);
 		ms->lst = NULL;
 		ms->cmdlist = NULL;
 		ms->input = readline(ms->prompt);

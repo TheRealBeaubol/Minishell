@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:39:17 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/21 06:13:34 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:01:30 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	**grep(char **env)
 		i++;
 	if (!env || !env[i])
 		return (NULL);
+	if (!ft_strncmp(env[i], "PATH=", 6))
+		return (NULL);
 	cut_split = ft_strcut(env[i], "PATH=");
 	splited_path = ft_char_split(cut_split, ':');
 	free(cut_split);
@@ -52,6 +54,8 @@ char	*get_cmd_path(char **path, char *cmd)
 	int		i;
 
 	i = -1;
+	if (!path || !path[0])
+		return (NULL);
 	while (path[++i])
 	{
 		path_cmd = ft_strjoin(path[i], cmd, "/", 0b000);
