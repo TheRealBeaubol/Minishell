@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 06:13:52 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/23 15:38:16 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:40:08 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	child_no_pipe_process(char **env, \
 	close(data->stdin_dup);
 	close(data->stdout_dup);
 	if (is_builtin(cmdlst->param[0]))
-		exec_builtin(cmdlst, cmdlst->param[0], ms);
+		exec_builtin(cmdlst, cmdlst->param[0], ms, 1);
 	else if (cmdlst->fd_in != -1)
 	{
 		if (!ft_strncmp(data->cmd, "|", 1))

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:39:17 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/23 17:01:30 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:53:09 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	alone_builtin(t_cmdlist *tmp, t_ms *ms, t_pipe *data)
 		close(tmp->fd_in);
 	if (tmp->fd_out > 2)
 		close(tmp->fd_out);
-	exec_builtin(tmp, tmp->param[0], ms);
+	exec_builtin(tmp, tmp->param[0], ms, 0);
 	dup2(data->stdin_dup, STDIN_FILENO);
 	dup2(data->stdout_dup, STDOUT_FILENO);
 	close(data->stdin_dup);

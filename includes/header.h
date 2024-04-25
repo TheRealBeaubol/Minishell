@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/21 06:29:51 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:39:44 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ int		change_directory(t_cmdlist *cmdlst, t_ms *ms);
 void	echo(t_cmdlist *cmdlst);
 void	env(t_cmdlist *cmdlst, t_ms *ms);
 int		is_builtin(char *cmd);
-void	exec_builtin(t_cmdlist *cmdlist, char *cmd, t_ms *ms);
+void	exec_builtin(t_cmdlist *cmdlist, char *cmd, t_ms *ms, int status);
 int		is_in_env(char *var, t_ms *ms);
 char	*get_name(char *var, int *is_add);
-void	exit_function(t_cmdlist *cmdlst, t_ms *ms);
+void	exit_function(t_cmdlist *cmdlst, t_ms *ms, int status);
 void	export(t_cmdlist *cmdlst, t_ms *ms);
 int		get_env_indice(t_ms *ms, char *var);
 char	*get_env(char **env, char *var_name);
@@ -103,6 +103,8 @@ void	do_redir_out(t_cmdlist *tmp, t_redirlst *tmpr);
 void	do_here_doc(t_cmdlist *tmp, t_redirlst *tmpr, t_ms *ms);
 void	do_append(t_cmdlist *tmp, t_redirlst *tmpr);
 void	init_fd(t_cmdlist *cmdlst);
+void	heredoc_handler(int sig);
+void	sig_ignore(int sig);
 void	do_redir_in(t_cmdlist *tmp, t_redirlst *tmpr);
 int		check_outfile(char *file, int fd, int b);
 int		is_last_redir(t_redirlst *redir, unsigned int type);

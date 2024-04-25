@@ -6,24 +6,24 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 17:24:28 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/23 17:27:29 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:41:33 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-static void	heredoc_handler(int sig)
+void	heredoc_handler(int sig)
 {
 	if (sig == 2)
 	{
-		ft_dprintf (1, "\n");
+		ft_dprintf (1, "> ^C\n");
 		rl_replace_line("", 0);
 		g_exit = 130;
 		close (0);
 	}
 }
 
-static void	sig_ignore(int sig)
+void	sig_ignore(int sig)
 {
 	(void)sig;
 }
@@ -50,7 +50,7 @@ void	signal_state_manager(int state)
 		tcgetattr(0, &termios_data);
 	if (!state)
 		termios_data.c_lflag = termios_data.c_lflag & (~ECHOCTL);
-	else
+	else if (state)
 		termios_data.c_lflag = termios_data.c_lflag | ECHOCTL;
 	tcsetattr(0, 0, &termios_data);
 	signal(SIGINT, handlers[state]);

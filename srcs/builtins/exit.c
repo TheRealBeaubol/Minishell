@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:35:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/23 17:29:38 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:16:00 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,16 @@ static void	print_msg_and_exit(\
 	free_and_exit(ms);
 }
 
-void	exit_function(t_cmdlist *cmdlst, t_ms *ms)
+void	exit_function(t_cmdlist *cmdlst, t_ms *ms, int status)
 {
 	long long	nbr;
 	char		*arg;
 	int			boolean;
 	int			i;
 
-	ft_dprintf(2, "exit\n");
-	if (!cmdlst->param[1])
-		free_and_exit(ms);
-	else
+	if (!status)
+		ft_dprintf(2, "exit\n");
+	if ((!status || status == 1) && cmdlst->param[1])
 	{
 		arg = format_arg(cmdlst->param[1]);
 		boolean = get_boolean(arg);
@@ -113,6 +112,13 @@ void	exit_function(t_cmdlist *cmdlst, t_ms *ms)
 		if (cmdlst->param[2])
 			print_msg_and_exit(boolean, ms, cmdlst->param[1], 1);
 		g_exit = nbr % 256;
+	}
+	if (status != 2)
+	{
+		free(ms->pipe->cmd);
+		close(ms->pipe->stdin_dup);
+		close(ms->pipe->stdout_dup);
+		free(ms->pipe);
 		free_and_exit(ms);
 	}
 }

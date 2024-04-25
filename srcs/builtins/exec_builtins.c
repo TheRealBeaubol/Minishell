@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/19 20:53:46 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:39:04 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	is_builtin(char *cmd)
 		!ft_strncmp(cmd, "exit", 5));
 }
 
-void	exec_builtin(t_cmdlist *cmdlst, char *cmd, t_ms *ms)
+void	exec_builtin(t_cmdlist *cmdlst, char *cmd, t_ms *ms, int status)
 {
 	if (!ft_strncmp(cmd, "cd", 3))
 		change_directory(cmdlst, ms);
@@ -99,5 +99,5 @@ void	exec_builtin(t_cmdlist *cmdlst, char *cmd, t_ms *ms)
 	else if (!ft_strncmp(cmd, "export", 7))
 		export(cmdlst, ms);
 	else if (!ft_strncmp(cmd, "exit", 5))
-		exit_function(cmdlst, ms);
+		exit_function(cmdlst, ms, status);
 }

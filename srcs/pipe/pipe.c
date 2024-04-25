@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/23 15:38:54 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:14:49 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void	do_pipe(t_ms *ms)
 	data = ft_calloc(2, sizeof(t_pipe));
 	data->stdin_dup = dup(STDIN_FILENO);
 	data->stdout_dup = dup(STDOUT_FILENO);
+	ms->pipe = data;
 	if (!tmp->next && is_builtin(tmp->param[0]))
 	{
 		alone_builtin(tmp, ms, data);

@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:15:46 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/20 19:35:32 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:26:55 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef enum e_type
 	EMPTY,
 	PIPE
 }	t_type;
-
+`
 typedef struct s_redirlst
 {
 	t_type				type;
@@ -80,6 +80,7 @@ typedef struct s_ms
 	t_list		*lst;
 	t_data		*data;
 	t_path		*path;
+	t_pipe		*pipe;
 }	t_ms;
 
 #endif
