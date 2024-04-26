@@ -1,39 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_extend_tab.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/13 22:35:59 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/26 13:25:05 by lboiteux         ###   ########.fr       */
+/*   Created: 2024/04/26 14:14:42 by lboiteux          #+#    #+#             */
+/*   Updated: 2024/04/26 14:16:46 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "libft.h"
 
-int	g_exit;
-
-int	main(int ac, char **av, char **env)
+char	**ft_extend_tab(char **dest, char **src, int *i)
 {
-	t_ms	ms;
-	t_data	data;
-	t_path	path;
+	int		j;
+	int		k;
+	char	**new;
 
-	g_exit = 0;
-	(void)ac;
-	(void)av;
-	ms.env = my_env(env);
-	if (!ms.env)
-		exit(42);
-	ms.data = &data;
-	ms.data->fd_in = 0;
-	ms.data->fd_out = 0;
-	ms.data->cmd = NULL;
-	ms.path = &path;
-	ms.lst = NULL;
-	ms.prompt = get_prompt(&ms);
-	rl_catch_signals = 0;
-	get_input(&ms);
-	return (0);
+	j = 0;
+	k = 0;
+	new = ft_calloc(ft_tablen(dest) + ft_tablen(src) + 1, sizeof(char *));
+	if (!new)
+		return (NULL);
+	while (j < *i)
+	{
+		new[j] = ft_strdup(dest[j]);
+		j++;
+	}
+	while (src[k])
+	{
+		new[j] = ft_strdup(src[k]);
+		j++;
+		k++;
+	}
+	*i = j;
+	ft_free_tab(src);
+	ft_free_tab(dest);
+	return (new);
 }

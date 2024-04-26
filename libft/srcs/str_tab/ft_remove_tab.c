@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_remove_tab.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/13 22:35:59 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/26 13:25:05 by lboiteux         ###   ########.fr       */
+/*   Created: 2024/04/26 14:14:44 by lboiteux          #+#    #+#             */
+/*   Updated: 2024/04/26 14:15:27 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "libft.h"
 
-int	g_exit;
-
-int	main(int ac, char **av, char **env)
+char	**ft_remove_tab(char **tab, char c)
 {
-	t_ms	ms;
-	t_data	data;
-	t_path	path;
+	char	**new;
+	int		i;
 
-	g_exit = 0;
-	(void)ac;
-	(void)av;
-	ms.env = my_env(env);
-	if (!ms.env)
-		exit(42);
-	ms.data = &data;
-	ms.data->fd_in = 0;
-	ms.data->fd_out = 0;
-	ms.data->cmd = NULL;
-	ms.path = &path;
-	ms.lst = NULL;
-	ms.prompt = get_prompt(&ms);
-	rl_catch_signals = 0;
-	get_input(&ms);
-	return (0);
+	i = 0;
+	new = ft_calloc(2, sizeof(char *));
+	while (tab[i])
+	{
+		if (*tab[i] != c)
+			new = ft_join_tab(new, tab[i]);
+		i++;
+	}
+	ft_free_tab(tab);
+	return (new);
 }

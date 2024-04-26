@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 06:07:04 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/21 06:07:56 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:15:21 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,43 +70,49 @@ static int	clean_redirlist(t_redirlst *redir, char **env)
 	return (1);
 }
 
-static char	**ft_remove_tab(char **tab, char c)
+int	replace_var(t_cmdlist *tmp, char **env, int *j, int *i)
 {
-	char	**new;
-	int		i;
+	char	**tab;
+	int		is_var;
 
-	i = 0;
-	new = ft_calloc(2, sizeof(char *));
-	while (tab[i])
+	is_var = 0;
+	if (tmp->param[*i][is_var] != '\'' && tmp->param[*i][is_var] != '"'\
+		&& ft_strchr(tmp->param[*i], '$'))
+		is_var = 1;
+	*j = parse_env(&(tmp->param[*i]), env);
+	if (*j == 1)
+		return (0);
+	if (is_var && ft_strchr(tmp->param[*i], ' '))
 	{
-		if (*tab[i] != c)
-			new = ft_join_tab(new, tab[i]);
-		i++;
+		tab = ft_char_split(tmp->param[*i], ' ');
+		tmp->param = ft_extend_tab(tmp->param, tab, i);
 	}
-	ft_free_tab(tab);
-	return (new);
+	return (1);
 }
 
 static int	clean_param(t_cmdlist *tmp, char **env, int *j)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (tmp->param[i])
 	{
-		*j = parse_env(&(tmp->param[i]), env);
-		if (*j == 1)
+		if (!replace_var(tmp, env, j, &i))
 			return (-1);
-		while (tmp->param[i][*j])
+		if (tmp->param[i])
 		{
-			if (tmp->param[i][*j] == '"' || tmp->param[i][*j] == '\'')
-				*j = parse_quote(&(tmp->param[i]), *j + 1, tmp->param[i][*j]);
-			else
-				(*j)++;
-			if (*j == -1)
-				return (-2);
+			while (tmp->param[i][*j])
+			{
+				if (tmp->param[i][*j] == '"' || tmp->param[i][*j] == '\'')
+					*j = parse_quote(&(tmp->param[i]), *j + 1, \
+						tmp->param[i][*j]);
+				else
+					(*j)++;
+				if (*j == -1)
+					return (-2);
+			}
+			i++;
 		}
-		i++;
 	}
 	return (0);
 }

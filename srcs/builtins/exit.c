@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:35:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/25 16:16:00 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:28:53 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,5 @@ void	exit_function(t_cmdlist *cmdlst, t_ms *ms, int status)
 		g_exit = nbr % 256;
 	}
 	if (status != 2)
-	{
-		free(ms->pipe->cmd);
-		close(ms->pipe->stdin_dup);
-		close(ms->pipe->stdout_dup);
-		free(ms->pipe);
-		free_and_exit(ms);
-	}
+		free_and_close_exit_function(ms);
 }

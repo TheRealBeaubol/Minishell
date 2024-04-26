@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 15:35:16 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/25 16:14:49 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:29:50 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 	pipe(data->pipe_fd);
 	pid = fork();
 	if (pid == 0)
-		do_pipe_process(env, cmdlst, data, ms);
+		exec(env, cmdlst, data, ms);
 	close(data->pipe_fd[1]);
 	dup2(data->pipe_fd[0], STDIN_FILENO);
 	close(data->pipe_fd[0]);

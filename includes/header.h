@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/25 15:39:44 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:30:16 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	exec_builtin(t_cmdlist *cmdlist, char *cmd, t_ms *ms, int status);
 int		is_in_env(char *var, t_ms *ms);
 char	*get_name(char *var, int *is_add);
 void	exit_function(t_cmdlist *cmdlst, t_ms *ms, int status);
+void	free_and_close_exit_function(t_ms *ms);
 void	export(t_cmdlist *cmdlst, t_ms *ms);
 int		get_env_indice(t_ms *ms, char *var);
 char	*get_env(char **env, char *var_name);
@@ -90,7 +91,6 @@ void	check_pid(t_pipe *data, t_ms *ms, int i);
 int		check_redir(t_cmdlist *tmp, t_ms *ms);
 void	child_no_pipe_process(char **env, \
 		t_cmdlist *cmdlst, t_pipe *data, t_ms *ms);
-void	do_pipe_process(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms);
 void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms);
 void	format_exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms);
 void	format_builtin(t_cmdlist *cmdlst, t_pipe *data, t_ms *ms);
@@ -104,6 +104,7 @@ void	do_here_doc(t_cmdlist *tmp, t_redirlst *tmpr, t_ms *ms);
 void	do_append(t_cmdlist *tmp, t_redirlst *tmpr);
 void	init_fd(t_cmdlist *cmdlst);
 void	heredoc_handler(int sig);
+void	close_and_free_exec(t_ms *ms, t_pipe *data, int status, char *err_arg);
 void	sig_ignore(int sig);
 void	do_redir_in(t_cmdlist *tmp, t_redirlst *tmpr);
 int		check_outfile(char *file, int fd, int b);

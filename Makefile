@@ -6,7 +6,7 @@
 #    By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 13:00:22 by lboiteux          #+#    #+#              #
-#    Updated: 2024/04/21 06:30:42 by mhervoch         ###   ########.fr        #
+#    Updated: 2024/04/26 14:29:22 by lboiteux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,7 @@ SRCS	= 	srcs/main.c \
 			srcs/env_var/getenv_utils.c \
 			srcs/env_var/getenv.c \
 			srcs/builtins/cd.c \
+			srcs/builtins/builtins_utils.c \
 			srcs/builtins/echo.c \
 			srcs/builtins/env.c \
 			srcs/builtins/exec_builtins.c \

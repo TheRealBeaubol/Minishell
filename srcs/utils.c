@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 18:34:04 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 19:32:52 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:19:41 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,17 @@ char	**my_env(char **env)
 	char	**envp;
 
 	i = 0;
+	if (!env[i])
+	{
+		ft_dprintf(2, "minishell: error: empty env\n");
+		return (NULL);
+	}
 	while (env[i])
 		i++;
 	envp = ft_calloc(i + 1, sizeof(char *));
 	if (!envp)
 	{
-		ft_dprintf(2, "ENV EMPTY ERROR\n");
+		ft_dprintf(2, "minishell: error: empty env\n");
 		return (NULL);
 	}
 	i = -1;

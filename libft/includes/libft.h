@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:46:19 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/19 15:29:38 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:15:52 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ int			ft_str_is_numeric(char *str);
 int			ft_str_is_lowercase(char *str);
 char		*ft_strupcase(char *str);
 int			ft_str_is_printable(char *str);
+char		**ft_remove_tab(char **tab, char c);
+char		**ft_extend_tab(char **dest, char **src, int *i);
 int			ft_str_is_uppercase(char *str);
 char		*ft_strlowcase(char *str);
 void		ft_putstr_non_printable(char *str);

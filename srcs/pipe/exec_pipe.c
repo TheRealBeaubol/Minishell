@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 06:13:52 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/25 15:40:08 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/26 14:26:26 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,11 @@ void	child_no_pipe_process(char **env, \
 		t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
 	if (cmdlst->fd_out == -1 || cmdlst->fd_in == -1)
-	{
-		close(data->stdin_dup);
-		close(data->stdout_dup);
-		free_exec(ms, data, 1);
-	}
+		close_and_free_exec(ms, data, 4, NULL);
 	if (cmdlst->fd_out != -2)
 		dup2(cmdlst->fd_out, STDOUT_FILENO);
 	if (!data->cmd && !is_builtin(cmdlst->param[0]))
-	{
-		close(data->stdin_dup);
-		close(data->stdout_dup);
-		ft_dprintf(2, "minishell: %s: command not found\n", cmdlst->param[0]);
-		g_exit = 127;
-		free_exec(ms, data, 1);
-	}
+		close_and_free_exec(ms, data, 3, cmdlst->param[0]);
 	if (cmdlst->fd_in != -2)
 		dup2(cmdlst->fd_in, STDIN_FILENO);
 	close_fds(ms->cmdlist);
