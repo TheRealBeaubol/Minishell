@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:35:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/26 14:28:53 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/26 16:12:41 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ static char	*format_arg(char *arg)
 		i++;
 	if (!ft_isdigit(arg[i]) && arg[i] != '+' && arg[i] != '-')
 		return ("a");
-	new_arg = ft_strdup(arg + i);
+	new_arg = ft_strtrim(arg, "\t\n\v\f\r ");
 	if (arg[i] == '+' || arg[i] == '-')
 		i++;
 	if (arg[i] == '\0')
 		return ("a");
 	while (ft_isdigit(arg[i]))
+		i++;
+	while (ft_iswhitespace(arg[i]))
 		i++;
 	if (arg[i] == '\0')
 		return (new_arg);
@@ -66,7 +68,7 @@ static int	arg_len(char *arg)
 	return (j);
 }
 
-static void	print_msg_and_exit(\
+static int	print_msg_and_exit(\
 	int boolean, t_ms *ms, char *param, int exit_code)
 {
 	char	*arg;
@@ -76,16 +78,24 @@ static void	print_msg_and_exit(\
 	{
 		arg = format_arg(param);
 		if (exit_code == 1)
+		{
 			ft_dprintf(2, EXIT_MSG_2, arg);
-		else
-			ft_dprintf(2, EXIT_MSG_1, arg);
+			free(arg);
+			return (0);
+		}
+		ft_dprintf(2, EXIT_MSG_1, arg);
 		free(arg);
 	}
 	if (boolean == 1)
 		ft_dprintf(2, EXIT_MSG_1, param);
 	if (boolean == 2)
 		ft_dprintf(2, EXIT_MSG_2, param);
+	free(ms->pipe->cmd);
+	close(ms->pipe->stdin_dup);
+	close(ms->pipe->stdout_dup);
+	free(ms->pipe);
 	free_and_exit(ms);
+	return (1);
 }
 
 void	exit_function(t_cmdlist *cmdlst, t_ms *ms, int status)
@@ -103,16 +113,16 @@ void	exit_function(t_cmdlist *cmdlst, t_ms *ms, int status)
 		boolean = get_boolean(arg);
 		nbr = ft_atoll(arg);
 		i = arg_len(arg);
+		g_exit = nbr % 256;
 		if (ft_strncmp(arg, "a", 2) && ft_strncmp(arg, "b", 2))
 			free(arg);
-		if (boolean == 1 || boolean == 2)
-			print_msg_and_exit(boolean, ms, cmdlst->param[1], 2);
 		if (ft_longlonglen(nbr) != i)
-			print_msg_and_exit(boolean, ms, cmdlst->param[1], 2);
+			i = print_msg_and_exit(boolean, ms, cmdlst->param[1], 2);
+		if (boolean == 1 || boolean == 2)
+			i = print_msg_and_exit(boolean, ms, cmdlst->param[1], 2);
 		if (cmdlst->param[2])
-			print_msg_and_exit(boolean, ms, cmdlst->param[1], 1);
-		g_exit = nbr % 256;
+			i = print_msg_and_exit(boolean, ms, cmdlst->param[1], 1);
 	}
-	if (status != 2)
+	if (status != 2 && i)
 		free_and_close_exit_function(ms);
 }

@@ -6,29 +6,25 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/20 18:44:59 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:45:34 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-static void	edit_pwd(t_ms *ms, int condition)
+static void	edit_pwd(t_ms *ms, char *str1, char *str2)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
-	if (condition == 0)
+	i = get_env_indice(ms, str1);
+	tmp = ft_strjoin(str2, get_cwd(0), NULL, 0b010);
+	if (i != -1)
 	{
-		i = get_env_indice(ms, "PWD");
 		free(ms->env[i]);
-		ms->env[i] = ft_strjoin("PWD=", get_cwd(0), NULL, 0b010);
+		ms->env[i] = ft_strdup(tmp);
 	}
-	else
-	{
-		i = get_env_indice(ms, "OLDPWD");
-		free(ms->env[i]);
-		ms->env[i] = \
-			ft_strjoin("OLDPWD=", get_cwd(0), NULL, 0b010);
-	}
+	free(tmp);
 }
 
 static void	handle_flag(t_ms *ms)
@@ -52,7 +48,7 @@ static int	handle_no_args(t_cmdlist *cmdlst, t_ms *ms)
 
 	if (!cmdlst->param[1])
 	{
-		edit_pwd(ms, 1);
+		edit_pwd(ms, "OLDPWD", "OLDPWD=");
 		home = get_env(ms->env, "HOME");
 		if (!home || chdir(home + 1) == -1)
 		{
@@ -67,7 +63,7 @@ static int	handle_no_args(t_cmdlist *cmdlst, t_ms *ms)
 		free(home);
 		free(ms->prompt);
 		ms->prompt = get_prompt(ms);
-		edit_pwd(ms, 0);
+		edit_pwd(ms, "PWD", "PWD=");
 		return (0);
 	}
 	return (1);
@@ -99,7 +95,7 @@ int	change_directory(t_cmdlist *cmdlst, t_ms *ms)
 		handle_flag(ms);
 	else
 	{
-		edit_pwd(ms, 1);
+		edit_pwd(ms, "OLDPWD", "OLDPWD=");
 		if (chdir(cmdlst->param[1]) == -1)
 		{
 			g_exit = 1;
@@ -112,7 +108,7 @@ int	change_directory(t_cmdlist *cmdlst, t_ms *ms)
 	}
 	free(ms->prompt);
 	ms->prompt = get_prompt(ms);
-	edit_pwd(ms, 0);
+	edit_pwd(ms, "PWD", "PWD=");
 	g_exit = 0;
 	return (1);
 }
