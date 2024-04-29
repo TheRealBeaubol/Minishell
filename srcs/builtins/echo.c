@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 20:48:18 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/19 15:48:05 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:36:42 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	is_valid_flag(char *str)
 		str++;
 		if (*str == '\0')
 			return (1);
-		str++;
 		while (*str != '\0')
 		{
 			if (*str == 'n')

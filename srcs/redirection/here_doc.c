@@ -6,11 +6,11 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 17:18:12 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/25 14:39:53 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/26 16:47:20 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/header.h"
+#include "header.h"
 
 char	*ft_random(void)
 {
