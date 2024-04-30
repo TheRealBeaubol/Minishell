@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/26 16:46:05 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/05/01 01:26:53 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	free_and_close_exit_function(t_ms *ms);
 void	export(t_cmdlist *cmdlst, t_ms *ms);
 int		get_env_indice(t_ms *ms, char *var);
 char	*get_env(char **env, char *var_name);
-void	unset(t_cmdlist *cmdlst, char *var, t_ms *ms);
+void	unset(t_cmdlist *cmdlst, t_ms *ms);
 char	*get_cwd(int i);
 
 /* ********************* */

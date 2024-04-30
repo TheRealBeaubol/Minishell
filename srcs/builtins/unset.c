@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:18:20 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/23 11:09:19 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/05/01 01:39:41 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,28 +61,31 @@ char	*get_env(char **env, char *var_name)
 	return (cut_str);
 }
 
-void	unset(t_cmdlist *cmdlst, char *var, t_ms *ms)
+void	unset(t_cmdlist *cmdlst, t_ms *ms)
 {
 	int		indice;
 	char	**new_env;
+	int		i;
 
 	if (!cmdlst->param[1] || cmdlst->next)
 		return ;
-	if (var[0] == '-')
-		g_exit = 2;
-	indice = get_env_indice(ms, cmdlst->param[1]);
-	if (indice == -1)
-		return ;
-	new_env = feed_env(ms, indice);
-	if (new_env)
+	i = 1;
+	while (cmdlst->param[i])
 	{
+		if (cmdlst->param[i][0] == '-')
+			g_exit = 2;
+		indice = get_env_indice(ms, cmdlst->param[i]);
+		if (indice == -1)
+			return ;
+		new_env = feed_env(ms, indice);
+		if (!new_env)
+		{
+			ft_dprintf(2, "malloc error: nothing done\n");
+			return ;
+		}
 		ft_free_tab(ms->env);
-		ms->env = new_env;
+		ms->env = ft_dup_str_tab(new_env);
 		g_exit = 0;
-	}
-	else
-	{
-		ft_dprintf(2, "malloc error: nothing done\n");
-		return ;
+		i++;
 	}
 }

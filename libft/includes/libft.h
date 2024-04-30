@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:46:19 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/26 14:15:52 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/05/01 01:43:09 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void		ft_free_tab(char **tab);
 void		*ft_realloc(char *ptr, int size);
 char		*ft_gnl_strchr(char *s, int c);
 int			ft_min(int nb1, int nb2);
+char		**ft_dup_str_tab(char **tab);
 char		*ft_gnl_strjoin(char *s1, char *s2);
 char		*ft_get_next_line(int fd, int free_static);
 int			ft_position_in_base(char *base, char c);

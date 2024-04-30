@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 21:44:17 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/26 15:45:34 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/04/30 23:39:09 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,18 @@ static void	handle_flag(t_ms *ms)
 	int		i;
 
 	old_pwd = ft_strjoin("OLDPWD=", get_cwd(0), NULL, 0b010);
-	tmp = ft_strcut(ms->env[get_env_indice(ms, "OLDPWD")], "OLDPWD=");
-	chdir(tmp);
-	free(tmp);
 	i = get_env_indice(ms, "OLDPWD");
-	free(ms->env[i]);
-	ms->env[i] = old_pwd;
+	if (i != -1)
+	{
+		tmp = ft_strcut(ms->env[i], "OLDPWD=");
+		chdir(tmp);
+		free(tmp);
+		free(ms->env[i]);
+		ms->env[i] = old_pwd;
+		return ;
+	}
+	ft_dprintf(2, "minishell: cd: OLDPWD not set\n");
+	free(old_pwd);
 }
 
 static int	handle_no_args(t_cmdlist *cmdlst, t_ms *ms)

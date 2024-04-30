@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 20:50:25 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/25 15:39:04 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/05/01 01:38:49 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	exec_builtin(t_cmdlist *cmdlst, char *cmd, t_ms *ms, int status)
 		get_cwd(1);
 	}
 	else if (!ft_strncmp(cmd, "unset", 6))
-		unset(cmdlst, cmd, ms);
+		unset(cmdlst, ms);
 	else if (!ft_strncmp(cmd, "env", 4))
 		env(cmdlst, ms);
 	else if (!ft_strncmp(cmd, "echo", 5))
