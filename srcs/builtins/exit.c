@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:35:35 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/05/01 00:16:28 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:10:49 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	exit_function(t_cmdlist *cmdlst, t_ms *ms, int status)
 	int			boolean;
 	int			i;
 
+	i = 1;
 	if (!status)
 		ft_dprintf(2, "exit\n");
 	if ((!status || status == 1) && cmdlst->param[1])
@@ -116,9 +117,7 @@ void	exit_function(t_cmdlist *cmdlst, t_ms *ms, int status)
 		g_exit = nbr % 256;
 		if (ft_strncmp(arg, "a", 2) && ft_strncmp(arg, "b", 2))
 			free(arg);
-		if (ft_longlonglen(nbr) != i)
-			i = print_msg_and_exit(boolean, ms, cmdlst->param[1], 2);
-		if (boolean == 1 || boolean == 2)
+		if ((ft_longlonglen(nbr) != i) || (boolean == 1 || boolean == 2))
 			i = print_msg_and_exit(boolean, ms, cmdlst->param[1], 2);
 		if (cmdlst->param[2])
 			i = print_msg_and_exit(boolean, ms, cmdlst->param[1], 1);

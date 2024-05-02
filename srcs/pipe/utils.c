@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:39:17 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/30 23:58:17 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:09:25 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ int	get_exit_code(int err_code)
 {
 	if (!WIFEXITED(err_code) && WCOREDUMP(err_code))
 	{
-		ft_dprintf(2, "Quit (core dumped)\n");
+		ft_dprintf(2, "^\\Quit (core dumped)\n");
 		return (131);
 	}
 	if (WTERMSIG(err_code) == 2)
 	{
-		ft_dprintf(2, "\n");
+		ft_dprintf(2, "^C\n");
 		return (130);
 	}
 	return (WEXITSTATUS(err_code));

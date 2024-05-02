@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 17:24:28 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/04/25 14:41:33 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/05/02 18:09:46 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	heredoc_handler(int sig)
 {
 	if (sig == 2)
 	{
-		ft_dprintf (1, "> ^C\n");
+		ft_dprintf (1, "\033[%dC^C\n", rl_point + ft_strlen(rl_prompt));
 		rl_replace_line("", 0);
 		g_exit = 130;
 		close (0);
