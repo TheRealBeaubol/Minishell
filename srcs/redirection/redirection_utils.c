@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhervoch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 06:24:09 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/21 06:31:26 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:28:58 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	do_here_doc(t_cmdlist *tmp, t_redirlst *tmpr, t_ms *ms)
 	if (!check_outfile(tmpr->file, tmp->fd_in, 0))
 		tmp->fd_in = -1;
 	if ((is_last_redir(tmpr, REDIR_IN) || \
-				is_last_redir(tmpr, HERE_DOC)) && tmp->fd_in != -1)
+is_last_redir(tmpr, HERE_DOC)) && tmp->fd_in != -1 && tmp->fd_in != -3)
 		close(tmp->fd_in);
 }
 

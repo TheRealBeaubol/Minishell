@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 06:13:52 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/26 14:26:26 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:56:18 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,24 @@ int	check_redir(t_cmdlist *tmp, t_ms *ms)
 	return (1);
 }
 
+int	check_perms(char *cmd)
+{
+	struct stat	stats;
+
+	ft_memset(&stats, 0, sizeof(struct stat));
+	stat(cmd, &stats);
+	if (S_ISREG(stats.st_mode))
+	{
+		if (access(cmd, X_OK) == -1)
+		{
+			g_exit = 126;
+			ft_dprintf(2, "minishell: %s: Permission denied\n", cmd);
+			return (0);
+		}
+	}
+	return (1);
+}
+
 void	child_no_pipe_process(char **env, \
 		t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 {
@@ -90,6 +108,8 @@ void	child_no_pipe_process(char **env, \
 			free_exec(ms, data, 1);
 		execve(data->cmd, cmdlst->param, env);
 		g_exit = 127;
+		if (!check_perms(cmdlst->param[0]))
+			free_exec(ms, data, 1);
 		ft_dprintf(2, "Command not found : %s\n", cmdlst->param[0]);
 	}
 	free_exec(ms, data, 1);

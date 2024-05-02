@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 23:18:11 by lboiteux          #+#    #+#             */
-/*   Updated: 2024/05/01 01:26:53 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:52:24 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ char	*get_cmd_path(char **path, char *cmd);
 void	free_exec(t_ms *ms, t_pipe *data, int is_free_type);
 int		exec_pipe(t_ms *ms, t_cmdlist *tmp, t_pipe *data);
 void	check_pid(t_pipe *data, t_ms *ms, int i);
+int		check_perms(char *cmd);
 void	child_no_pipe_process(char **env, \
 		t_cmdlist *cmdlst, t_pipe *data, t_ms *ms);
 void	exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms);

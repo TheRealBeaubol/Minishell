@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 06:11:36 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/26 14:25:53 by lboiteux         ###   ########.fr       */
+/*   Updated: 2024/05/02 22:51:50 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	format_exec(char **env, t_cmdlist *cmdlst, t_pipe *data, t_ms *ms)
 		free_exec(ms, data, 1);
 	execve(data->cmd, cmdlst->param, env);
 	g_exit = 127;
+	if (!check_perms(cmdlst->param[0]))
+		free_exec(ms, data, 1);
 	ft_dprintf(2, "Command not found\n");
 }
 
