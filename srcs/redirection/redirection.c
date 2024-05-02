@@ -6,7 +6,7 @@
 /*   By: lboiteux <lboiteux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 23:14:00 by mhervoch          #+#    #+#             */
-/*   Updated: 2024/04/21 06:25:04 by mhervoch         ###   ########.fr       */
+/*   Updated: 2024/05/02 20:27:18 by lboiteux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	init_fd(t_cmdlist *cmdlst)
 	cmdlst->fd_out = -2;
 }
 
-void	redirection(t_cmdlist *cmdlst, t_ms *ms)
+static int	open_heredoc(t_cmdlist *cmdlst, t_ms *ms)
 {
 	t_cmdlist	*tmp;
 	t_redirlst	*tmpr;
@@ -69,13 +69,35 @@ void	redirection(t_cmdlist *cmdlst, t_ms *ms)
 	{
 		init_fd(tmp);
 		tmpr = tmp->redir;
+		while (tmpr && tmp->fd_in != -1 && tmp->fd_in != -3)
+		{
+			if (tmpr->type == HERE_DOC)
+				do_here_doc(tmp, tmpr, ms);
+			tmpr = tmpr->next;
+		}
+		if (tmp->fd_in == -3)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+void	redirection(t_cmdlist *cmdlst, t_ms *ms)
+{
+	t_cmdlist	*tmp;
+	t_redirlst	*tmpr;
+
+	tmp = cmdlst;
+	if (!open_heredoc(tmp, ms))
+		return ;
+	while (tmp)
+	{
+		tmpr = tmp->redir;
 		while (tmpr && tmp->fd_in != -1 && tmp->fd_out != -1 \
 				&& tmp->fd_in != -3)
 		{
 			if (tmpr->type == REDIR_IN)
 				do_redir_in(tmp, tmpr);
-			if (tmpr->type == HERE_DOC)
-				do_here_doc(tmp, tmpr, ms);
 			if (tmpr->type == REDIR_OUT)
 				do_redir_out(tmp, tmpr);
 			if (tmpr->type == APPEND)
